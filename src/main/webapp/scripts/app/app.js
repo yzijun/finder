@@ -86,7 +86,11 @@ angular.module('finderApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
                 'navbar@': {
                     templateUrl: 'scripts/components/navbar/navbar.html',
                     controller: 'NavbarController'
-                }
+                },
+                'footer@': {
+                    templateUrl: 'scripts/components/footer/footer.html',
+                    controller: 'FooterController'
+                  }
             },
             resolve: {
                 authorize: ['Auth',

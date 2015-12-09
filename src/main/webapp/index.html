@@ -24,14 +24,14 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
-        <div ui-view="navbar" ng-cloak=""></div>
-        <div class="container">
-            <div class="well" ui-view="content"></div>
+		<div id="wrapper">
+	        <div ui-view="navbar" ng-cloak=""></div>
+	        <div id="page-wrapper" class="container">
+	            <div class="well" ui-view="content"></div>
 
-            <div class="footer">
-                <p translate="footer">This is your footer</p>
-            </div>
-        </div>
+	            <div ui-view="footer"></div>
+	        </div>
+	    </div>
 
         <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
         <script>
@@ -85,6 +85,7 @@
     <script src="scripts/components/auth/services/password.service.js"></script>
     <script src="scripts/components/auth/services/register.service.js"></script>
     <script src="scripts/components/form/form.directive.js"></script>
+	<script src="scripts/components/form/icheck.directive.js"></script>
     <script src="scripts/components/form/maxbytes.directive.js"></script>
     <script src="scripts/components/form/minbytes.directive.js"></script>
     <script src="scripts/components/form/uib-pager.config.js"></script>
@@ -98,9 +99,11 @@
     <script src="scripts/components/interceptor/notification.interceptor.js"></script>
     <script src="scripts/components/navbar/navbar.directive.js"></script>
     <script src="scripts/components/navbar/navbar.controller.js"></script>
+	<script src="scripts/components/footer/footer.controller.js"></script>
     <script src="scripts/components/user/user.service.js"></script>
     <script src="scripts/components/util/truncate.filter.js"></script>
     <script src="scripts/components/util/base64.service.js"></script>
+	<script src="scripts/components/util/page-size.helper.js"></script>
     <script src="scripts/components/util/capitalize.filter.js"></script>
     <script src="scripts/components/alert/alert.service.js"></script>
     <script src="scripts/components/alert/alert.directive.js"></script>
