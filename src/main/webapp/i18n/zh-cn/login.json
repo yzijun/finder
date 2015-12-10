@@ -1,10 +1,10 @@
 {
     "login": {
-        "title": "验证",
+        "title": "用户登录",
         "form": {
             "password": "密码",
             "password.placeholder": "您的密码",
-            "rememberme": "自动登录",
+            "rememberme": "自动登录(一个月有效)",
             "button": "登录"
         },
         "messages": {
