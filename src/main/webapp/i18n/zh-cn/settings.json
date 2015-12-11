@@ -7,7 +7,9 @@
             "lastname": "姓氏",
             "lastname.placeholder": "您的姓氏",
             "language": "语言",
-            "button": "保存"
+            "button": "保存",
+            "picture": "头像",
+            "upload": "上传头像"
         },
         "messages": {
             "error": {

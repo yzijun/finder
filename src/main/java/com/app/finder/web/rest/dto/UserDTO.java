@@ -1,13 +1,17 @@
 package com.app.finder.web.rest.dto;
 
-import com.app.finder.domain.Authority;
-import com.app.finder.domain.User;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.Lob;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.validation.constraints.*;
-import java.util.Set;
-import java.util.stream.Collectors;
+import com.app.finder.domain.Authority;
+import com.app.finder.domain.User;
 /**
  * A DTO representing a user, with his authorities.
  */
@@ -41,6 +45,11 @@ public class UserDTO {
     private String langKey;
 
     private Set<String> authorities;
+    
+    @Lob
+    private byte[] picture;
+    
+    private String pictureContentType;
 
     public UserDTO() {
     }
@@ -48,12 +57,13 @@ public class UserDTO {
     public UserDTO(User user) {
         this(user.getLogin(), null, user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getLangKey(),
-            user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()));
+            user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()), 
+            user.getPictureContentType(), user.getPicture());
     }
 
     public UserDTO(String login, String password, String firstName, String lastName,
-        String email, boolean activated, String langKey, Set<String> authorities) {
+        String email, boolean activated, String langKey, Set<String> authorities,
+        String pictureContentType, byte[] picture) {
 
         this.login = login;
         this.password = password;
@@ -63,6 +73,8 @@ public class UserDTO {
         this.activated = activated;
         this.langKey = langKey;
         this.authorities = authorities;
+        this.pictureContentType = pictureContentType;
+        this.picture = picture;
     }
 
     public String getPassword() {
@@ -93,7 +105,23 @@ public class UserDTO {
         return langKey;
     }
 
-    public Set<String> getAuthorities() {
+    public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+
+	public String getPictureContentType() {
+		return pictureContentType;
+	}
+
+	public void setPictureContentType(String pictureContentType) {
+		this.pictureContentType = pictureContentType;
+	}
+
+	public Set<String> getAuthorities() {
         return authorities;
     }
 

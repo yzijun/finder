@@ -35,6 +35,8 @@
             <column name="activated" type="boolean" valueBoolean="false">
                 <constraints nullable="false" />
             </column>
+            <column name="picture" type="BINARY(1000)"/>
+      		<column name="picture_content_type" type="varchar(255)"/>
             <column name="lang_key" type="varchar(5)"/>
             <column name="activation_key" type="varchar(20)"/>
             <column name="reset_key" type="varchar(20)"/>

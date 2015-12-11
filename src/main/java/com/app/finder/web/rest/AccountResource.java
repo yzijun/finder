@@ -1,7 +1,6 @@
 package com.app.finder.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.app.finder.domain.Authority;
 import com.app.finder.domain.PersistentToken;
 import com.app.finder.domain.User;
 import com.app.finder.repository.PersistentTokenRepository;
@@ -132,7 +131,7 @@ public class AccountResource {
             .findOneByLogin(SecurityUtils.getCurrentUser().getUsername())
             .map(u -> {
                 userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-                    userDTO.getLangKey());
+                    userDTO.getLangKey(), userDTO.getPictureContentType(), userDTO.getPicture());
                 return new ResponseEntity<String>(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));

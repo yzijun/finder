@@ -78,10 +78,39 @@
                         </p>
                     </div>
                 </div>
+                <!--Language-->
                 <div class="form-group">
                     <label for="langKey" translate="settings.form.language">Language</label>
                     <select id="langKey" name="langKey" class="form-control" ng-model="settingsAccount.langKey" ng-controller="LanguageController" ng-options="code as (code | findLanguageFromKey) for code in languages"></select>
                 </div>
+                
+                <!--Profile picture-->
+	            <div class="form-group" ngf-drop ngf-change="setPicture($file, settingsAccount)" ngf-pattern="'image/*'">
+	              <label class="control-label" translate="settings.form.picture" for="field_picture">Picture</label>
+	
+	              <div>
+	                <div class="profile-image" style="padding-bottom: 5px">
+	                  <img
+	                    data-ng-src="{{'data:' + settingsAccount.pictureContentType + ';base64,' + settingsAccount.picture}}"
+	                    class="img-circle" style="width:100px; height: 100px;" alt="profile" ng-if="settingsAccount.picture"/>
+	                </div>
+	                <button class="btn btn-success btn-sm" type="file" ngf-select class="btn btn-default"
+	                        ngf-change="setPicture($file, settingsAccount)" accept="image/*">
+	                  <i class="fa fa-upload"></i>&nbsp;&nbsp;
+	                  <span class="bold" translate="settings.form.upload">Upload</span>
+	                </button>
+	                <button ng-click="settingsAccount.picture=null;settingsAccount.pictureContentType=null;"
+	                        ng-if="settingsAccount.picture"
+	                        class="btn btn-danger btn-sm">
+	                  <i class="glyphicon glyphicon-remove"></i>
+	                </button>
+	
+	                <input type="hidden" class="form-control" name="picture" id="field_picture"
+	                       ng-model="settingsAccount.picture"/>
+	                <input type="hidden" class="form-control" name="pictureContentType" id="field_pictureContentType"
+	                       ng-model="settingsAccount.pictureContentType"/>
+	              </div>
+	            </div>
 
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="settings.form.button">Save</button>
             </form>
