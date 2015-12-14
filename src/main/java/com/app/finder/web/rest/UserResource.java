@@ -10,7 +10,6 @@ import com.app.finder.security.AuthoritiesConstants;
 import com.app.finder.service.MailService;
 import com.app.finder.service.UserService;
 import com.app.finder.web.rest.dto.ManagedUserDTO;
-import com.app.finder.web.rest.dto.UserDTO;
 import com.app.finder.web.rest.util.HeaderUtil;
 import com.app.finder.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -139,7 +138,6 @@ public class UserResource {
             .map(user -> {
                 user.setLogin(managedUserDTO.getLogin());
                 user.setFirstName(managedUserDTO.getFirstName());
-                user.setLastName(managedUserDTO.getLastName());
                 user.setEmail(managedUserDTO.getEmail());
                 user.setActivated(managedUserDTO.isActivated());
                 user.setLangKey(managedUserDTO.getLangKey());

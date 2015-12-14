@@ -88,7 +88,7 @@ public class UserService {
             });
     }
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
+    public User createUserInformation(String login, String password, String firstName, String email,
         String langKey) {
 
         User newUser = new User();
@@ -99,7 +99,6 @@ public class UserService {
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
         newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
         newUser.setEmail(email);
         newUser.setLangKey(langKey);
         // new user is not active
@@ -118,7 +117,6 @@ public class UserService {
         User user = new User();
         user.setLogin(managedUserDTO.getLogin());
         user.setFirstName(managedUserDTO.getFirstName());
-        user.setLastName(managedUserDTO.getLastName());
         user.setEmail(managedUserDTO.getEmail());
         if (managedUserDTO.getLangKey() == null) {
             user.setLangKey("zh-cn"); // default language is English
@@ -141,10 +139,9 @@ public class UserService {
         return user;
     }
 
-    public void updateUserInformation(String firstName, String lastName, String email, String langKey, String pictureContentType, byte[] picture) {
+    public void updateUserInformation(String firstName, String email, String langKey, String pictureContentType, byte[] picture) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
             u.setFirstName(firstName);
-            u.setLastName(lastName);
             u.setEmail(email);
             u.setLangKey(langKey);
             u.setPictureContentType(pictureContentType);

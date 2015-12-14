@@ -32,9 +32,6 @@ public class UserDTO {
     @Size(max = 50)
     private String firstName;
 
-    @Size(max = 50)
-    private String lastName;
-
     @Email
     @Size(min = 5, max = 100)
     private String email;
@@ -55,20 +52,19 @@ public class UserDTO {
     }
 
     public UserDTO(User user) {
-        this(user.getLogin(), null, user.getFirstName(), user.getLastName(),
+        this(user.getLogin(), null, user.getFirstName(),
             user.getEmail(), user.getActivated(), user.getLangKey(),
             user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()), 
             user.getPictureContentType(), user.getPicture());
     }
 
-    public UserDTO(String login, String password, String firstName, String lastName,
+    public UserDTO(String login, String password, String firstName,
         String email, boolean activated, String langKey, Set<String> authorities,
         String pictureContentType, byte[] picture) {
 
         this.login = login;
         this.password = password;
         this.firstName = firstName;
-        this.lastName = lastName;
         this.email = email;
         this.activated = activated;
         this.langKey = langKey;
@@ -87,10 +83,6 @@ public class UserDTO {
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public String getEmail() {
@@ -131,7 +123,6 @@ public class UserDTO {
             "login='" + login + '\'' +
             ", password='" + password + '\'' +
             ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
             ", activated=" + activated +
             ", langKey='" + langKey + '\'' +
