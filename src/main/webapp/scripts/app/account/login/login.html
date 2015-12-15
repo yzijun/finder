@@ -9,14 +9,19 @@
         </div>
         <div class="col-md-4 col-md-offset-4">
             <form class="form" role="form" ng-submit="login($event)">
-                <div class="form-group">
-                    <label for="username" translate="global.form.username">Login</label>
-                    <input type="text" class="form-control" id="username" placeholder="{{'global.form.username.placeholder' | translate}}" ng-model="username">
+            	<div class="form-group">
+	                <div class="input-group">
+	                	<!-- 加入font-awesome样式 -->
+	                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+	                    <input type="text" class="form-control" id="username" placeholder="{{'global.form.username.placeholder' | translate}}" ng-model="username">
+	                </div>
                 </div>
                 <div class="form-group">
-                    <label for="password" translate="login.form.password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
-                           ng-model="password">
+	                <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+	                    <input type="password" class="form-control" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
+	                           ng-model="password">
+	                </div>
                 </div>
                 <div class="form-group">
                     <label for="rememberMe">
