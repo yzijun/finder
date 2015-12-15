@@ -2,10 +2,8 @@
     "settings": {
         "title": "[<b>{{username}}</b>] 的用户设置",
         "form": {
-            "firstname": "名字",
-            "firstname.placeholder": "您的名字",
-            "lastname": "姓氏",
-            "lastname.placeholder": "您的姓氏",
+            "nickname": "昵称",
+            "nickname.placeholder": "您的昵称",
             "language": "语言",
             "button": "保存",
             "picture": "头像",
@@ -18,15 +16,10 @@
             },
             "success": "<strong>设置保存成功!</strong>",
             "validate": {
-                "firstname": {
-                    "required": "您的名字是必填项.",
-                    "minlength": "您的名字长度至少要有1个字符",
-                    "maxlength": "您的名字长度不能超过50个字符"
-                },
-                "lastname": {
-                    "required": "您的姓氏是必填项.",
-                    "minlength": "您的姓氏长度至少要有1个字符",
-                    "maxlength": "您的姓氏长度不能超过50个字符"
+                "nickname": {
+                    "required": "您的昵称是必填项.",
+                    "minlength": "您的昵称长度至少要有1个字符",
+                    "maxlength": "您的昵称长度不能超过25个字符"
                 }
             }
         }

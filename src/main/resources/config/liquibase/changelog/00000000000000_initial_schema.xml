@@ -27,7 +27,7 @@
                 <constraints unique="true" nullable="false"/>
             </column>
             <column name="password_hash" type="varchar(60)"/>
-            <column name="first_name" type="varchar(50)"/>
+            <column name="nick_name" type="varchar(50)"/>
             <column name="email" type="varchar(100)">
                 <constraints unique="true"/>
             </column>
