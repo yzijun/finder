@@ -33,4 +33,21 @@ angular.module('finderApp')
                 });
             }
         };
+        // 密码和确认密码不一致时设定error样式和注册按钮不可用
+        // 不用了$scope.register有判断
+       /* $scope.checkConfirmPassword = function() {
+        	if ($scope.form.confirmPassword.$dirty 
+        			&& ($scope.registerAccount.password 
+        			!= $scope.confirmPassword)) {
+        		$scope.form.confirmPassword.$invalid = true;
+        		$scope.form.$invalid = true;
+        	}
+        	if ($scope.form.confirmPassword.$dirty 
+        			&& ($scope.registerAccount.password 
+        			== $scope.confirmPassword)) {
+        		$scope.form.confirmPassword.$invalid = false;
+        		$scope.form.$invalid = false;
+        	}
+        };*/
+        
     });

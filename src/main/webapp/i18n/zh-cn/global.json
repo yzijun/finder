@@ -34,13 +34,13 @@
         },
         "form": {
             "username": "账号",
-            "username.placeholder": "您的账号",
+            "username.placeholder": "英文字母、数字",
             "newpassword": "新密码",
-            "newpassword.placeholder": "您的新密码",
+            "newpassword.placeholder": "密码不少于6位",
             "confirmpassword": "新密码确认",
-            "confirmpassword.placeholder": "确认您的新密码",
+            "confirmpassword.placeholder": "确认密码不少于6位",
             "email": "电子邮件",
-            "email.placeholder": "您的电子邮件"
+            "email.placeholder": "hello@xxxx.com"
         },
         "messages": {
             "info": {
@@ -48,23 +48,23 @@
                 "register": "您还没有账号？<a class=\"alert-link\" href=\"#/register\">注册一个新账号</a>"
             },
             "error": {
-                "dontmatch" : "您输入的密码和确认确认密码不匹配!"
+                "dontmatch" : "您输入的密码和确认密码不一致!"
             },
             "validate": {
                 "newpassword": {
                     "required": "您的密码是必填项.",
-                    "minlength": "您的密码长度至少要有5个字符",
+                    "minlength": "您的密码长度至少要有6个字符",
                     "maxlength": "您的密码长度不能超过50个字符",
                     "strength": "密码强度:"
                 },
                 "confirmpassword": {
                     "required": "您的确认密码是必填项.",
-                    "minlength": "您的确认密码长度至少要有5个字符",
+                    "minlength": "您的确认密码长度至少要有6个字符",
                     "maxlength": "您的确认密码长度不能超过50个字符"
                 },
                 "email": {
                     "required": "您的电子邮件是必填项.",
-                    "invalid": "您的电子邮件格式格式不正确.",
+                    "invalid": "您的电子邮件格式不正确.",
                     "minlength": "您的电子邮件长度至少要有5个字符",
                     "maxlength": "您的电子邮件长度不能超过50个字符"
                 }
