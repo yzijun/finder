@@ -10,13 +10,30 @@
             <a class="navbar-brand" href="#/"><span translate="global.title">jhipster</span> <span class="navbar-version">v{{VERSION}}</span></a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-left">
                 <li ui-sref-active="active">
                     <a ui-sref="home" data-toggle="collapse" data-target=".navbar-collapse.in">
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="hidden-sm" translate="global.menu.home">Home</span>
                     </a>
                 </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="information" data-toggle="collapse" data-target=".navbar-collapse.in">
+                        <span class="hidden-sm" translate="global.menu.information">资讯</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="discovery" data-toggle="collapse" data-target=".navbar-collapse.in">
+                        <span class="hidden-sm" translate="global.menu.discovery">发现</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="originality" data-toggle="collapse" data-target=".navbar-collapse.in">
+                        <span class="hidden-sm" translate="global.menu.originality">创意</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                 <!-- 登录 -->
                 <li ui-sref-active="active" ng-switch-when="false">
                 		<a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in">
@@ -27,7 +44,10 @@
                 <!-- 注册 -->
                 <li ui-sref-active="active" ng-switch-when="false">
                 		<a ui-sref="register" data-toggle="collapse" data-target=".navbar-collapse.in">
-                		<span class="glyphicon glyphicon-plus-sign"></span>
+                		<!-- bootstrap 图标 -->
+                		<!-- <span class="glyphicon glyphicon-plus-sign"></span> -->
+                		<!-- font awesome图标 -->
+                		<i class="fa fa-user-plus fa-fw"></i>
                          &#xA0;<span translate="global.menu.account.register">Register</span>
                         </a>
                 </li>
