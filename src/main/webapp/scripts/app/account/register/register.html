@@ -1,7 +1,7 @@
 <div>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1 translate="register.title">Registration</h1>
+        <div class="col-md-4 col-md-offset-4">
+            <!-- <h1 translate="register.title">Registration</h1> -->
 
             <div class="alert alert-success" ng-show="success" translate="register.messages.success">
                 <strong>Registration saved!</strong> Please check your email for confirmation.
@@ -23,7 +23,13 @@
                 The password and its confirmation do not match!
             </div>
         </div>
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-4 col-md-offset-4">
+        	<!-- tabs标签 -->
+	        <ul class="nav nav-tabs nav-justified">
+			  <li role="presentation"><a href="#/login">登录</a></li>
+			  <li role="presentation" class="active"><a href="#/register">注册</a></li>
+			</ul>
+			<br>
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
 
                 <div class="form-group" ng-class="{'has-error':form.login.$dirty && form.login.$invalid}">
