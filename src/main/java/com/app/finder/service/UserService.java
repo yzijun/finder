@@ -1,5 +1,24 @@
 package com.app.finder.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.app.finder.domain.Authority;
 import com.app.finder.domain.User;
 import com.app.finder.repository.AuthorityRepository;
@@ -9,17 +28,8 @@ import com.app.finder.repository.search.UserSearchRepository;
 import com.app.finder.security.SecurityUtils;
 import com.app.finder.service.util.RandomUtil;
 import com.app.finder.web.rest.dto.ManagedUserDTO;
-import java.time.ZonedDateTime;
-import java.time.LocalDate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import java.util.*;
+import net.coobird.thumbnailator.Thumbnails;
 
 /**
  * Service class for managing users.
@@ -140,12 +150,19 @@ public class UserService {
     }
 
     public void updateUserInformation(String nickName, String email, String langKey, String pictureContentType, byte[] picture) {
+    	ByteArrayOutputStream newPicture = new ByteArrayOutputStream();
+    	// 缩小用户上传头像图片180x180
+    	try {
+			Thumbnails.of(new ByteArrayInputStream(picture))
+					  .size(180, 180)
+					  .toOutputStream(newPicture);
+		} catch (IOException e) {}
         userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
             u.setNickName(nickName);
             u.setEmail(email);
             u.setLangKey(langKey);
             u.setPictureContentType(pictureContentType);
-            u.setPicture(picture);
+            u.setPicture(newPicture.toByteArray());
             userRepository.save(u);
             userSearchRepository.save(u);
             log.debug("Changed Information for User: {}", u);
