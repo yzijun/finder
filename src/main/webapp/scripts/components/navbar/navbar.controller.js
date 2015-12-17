@@ -8,8 +8,8 @@ angular.module('finderApp')
 
         $scope.logout = function () {
             Auth.logout();
-            // 可以使用angular.element操作DOM,用户子菜单不显示
-            angular.element("#accountSubMenu").remove();
+            // 可以使用angular.element操作DOM,下面代码(示例用)
+//            angular.element("#accountSubMenu").remove();
             $state.go('home');
         };
     });
