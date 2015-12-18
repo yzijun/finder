@@ -69,7 +69,7 @@
 	                <div class="profile-image" style="padding-bottom: 5px">
 	                  <img
 	                    data-ng-src="{{'data:' + settingsAccount.pictureContentType + ';base64,' + settingsAccount.picture}}"
-	                    class="img-circle" style="width:100px; height: 100px;" alt="profile" ng-if="settingsAccount.picture"/>
+	                    class="img-circle profile-img-middle" alt="profile" ng-if="settingsAccount.picture"/>
 	                </div>
 	                <button class="btn btn-success btn-sm" type="file" ngf-select class="btn btn-default"
 	                        ngf-change="setPicture($file, settingsAccount)" accept="image/*">

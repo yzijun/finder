@@ -198,3 +198,16 @@ ul#strengthBar {
     background-color: #eee;
     opacity: 1;
 }
+
+/* ==========================================================================
+用户头像显示大小
+========================================================================== */
+
+.profile-img-small {
+	width:40px;
+	height: 40px;
+}
+.profile-img-middle {
+	width:100px;
+	height: 100px;
+}
