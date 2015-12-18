@@ -1,41 +1,164 @@
-<div ng-cloak>
-    <div class="row">
-        <div class="col-md-4">
-            <span class="hipster img-responsive img-rounded"></span>
-        </div>
-        <div class="col-md-8">
-            <h1 translate="main.title">Welcome, Java Hipster!</h1>
-            <p class="lead" translate="main.subtitle">This is your homepage</p>
+<div>
+	<div class="row">
+		<!-- 定义panel面板 -->
+		<div class="col-md-9 panel panel-default">
+			<div class="panel-body">
+				<!-- 幻灯片 -->
+				<div id="carousel-example-generic" class="carousel slide"
+					data-ride="carousel">
+					<!-- Indicators -->
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-example-generic" data-slide-to="0"
+							class="active"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+					</ol>
 
-            <div ng-switch="isAuthenticated()">
-                <div class="alert alert-success" ng-switch-when="true" translate="main.logged.message" translate-values="{username: '{{account.login}}'}">
-                    You are logged in as user "{{account.login}}".
-                </div>
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<img alt="" src="http://www.bootcss.com/p/layoutit/img/1.jpg" />
+							<div class="carousel-caption">
+								<h3>棒球</h3>
+								<p>棒球运动是一种以棒打球为主要特点，集体性、对抗性很强的球类运动项目，在美国、日本尤为盛行。</p>
+							</div>
+						</div>
+						<div class="item">
+							<img alt="" src="http://www.bootcss.com/p/layoutit/img/2.jpg" />
+							<div class="carousel-caption">
+								<h3>冲浪</h3>
+								<p>
+									冲浪是以海浪为动力，利用自身的高超技巧和平衡能力，搏击海浪的一项运动。运动员站立在冲浪板上，或利用腹板、跪板、充气的橡皮垫、划艇、皮艇等驾驭海浪的一项水上运动。
+								</p>
+							</div>
+						</div>
+						<div class="item">
+							<img alt="" src="http://www.bootcss.com/p/layoutit/img/3.jpg" />
+							<div class="carousel-caption">
+								<h3>自行车</h3>
+								<p>
+									以自行车为工具比赛骑行速度的体育运动。1896年第一届奥林匹克运动会上被列为正式比赛项目。环法赛为最著名的世界自行车锦标赛。</p>
+							</div>
+						</div>
+					</div>
 
-                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.authenticated">
-                    If you want to <a class="alert-link" href="#/login">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-                </div>
-
-                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.register">
-                    You don't have an account yet? <a class="alert-link" href="#/register">Register a new account</a>
-                </div>
-            </div>
-
-            <p translate="main.question">
-                If you have any question on JHipster:
-            </p>
-
-            <ul>
-                <li><a href="http://jhipster.github.io/" target="_blank" translate="main.link.homepage">JHipster homepage</a></li>
-                <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" translate="main.link.stackoverflow">JHipster on Stack Overflow</a></li>
-                <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" translate="main.link.bugtracker">JHipster bug tracker</a></li>
-                <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" translate="main.link.chat">JHipster public chat room</a></li>
-                <li><a href="https://twitter.com/java_hipster" target="_blank"  translate="main.link.contact">contact @java_hipster on Twitter</a></li>
-            </ul>
-
-            <p>
-             <span translate="main.like">If you like JHipster, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster" target="_blank" translate="main.github">Github</a>!
-            </p>
-        </div>
-    </div>
+					<!-- Controls -->
+					<a class="left carousel-control" href="#carousel-example-generic"
+						role="button" data-slide="prev"> <span
+						class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a> <a class="right carousel-control" href="#carousel-example-generic"
+						role="button" data-slide="next"> <span
+						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+				<!-- 发现内容 -->
+				<div class="col-md-4">
+					<div class="thumbnail voffset3">
+						<img alt="242x200"
+							src="http://www.bootcss.com/p/layoutit/img/people.jpg" />
+						<div class="caption">
+							<h3>冯诺尔曼结构</h3>
+							<p>也称普林斯顿结构，是一种将程序指令存储器和数据存储器合并在一起的存储器结构。程序指令存储地址和数据存储地址指向同一个存储器的不同物理位置。</p>
+							<p>
+								<a href="#" class="btn btn-primary" role="button">Button</a> <a
+									href="#" class="btn btn-default" role="button">Button</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="thumbnail voffset3">
+						<img alt="242x200"
+							src="http://www.bootcss.com/p/layoutit/img/people.jpg" />
+						<div class="caption">
+							<h3>冯诺尔曼结构</h3>
+							<p>也称普林斯顿结构，是一种将程序指令存储器和数据存储器合并在一起的存储器结构。程序指令存储地址和数据存储地址指向同一个存储器的不同物理位置。</p>
+							<p>
+								<a href="#" class="btn btn-primary" role="button">Button</a> <a
+									href="#" class="btn btn-default" role="button">Button</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="thumbnail voffset3">
+						<img alt="300x200"
+							src="http://www.bootcss.com/p/layoutit/img/people.jpg" />
+						<div class="caption">
+							<h3>冯诺尔曼结构</h3>
+							<p>也称普林斯顿结构，是一种将程序指令存储器和数据存储器合并在一起的存储器结构。程序指令存储地址和数据存储地址指向同一个存储器的不同物理位置。</p>
+							<p>
+								<a href="#" class="btn btn-primary" role="button">Button</a> <a
+									href="#" class="btn btn-default" role="button">Button</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				<!-- 资讯内容 -->
+				<div class="col-md-12">
+					<div class="media">
+						<div class="media-left media-middle">
+							<a href="#"> <img class="media-object"
+								src="http://www.bootcss.com/p/layoutit/img/people.jpg" style="height: 200px;width: 300px;" alt="...">
+							</a>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading">Middle aligned media</h4>
+							请尽量使用HTML5兼容的视频格式和视频代码实现视频播放, 以达到更好的体验效果.
+						</div>
+						<hr>
+					</div>
+					<div class="media">
+						<div class="media-left media-middle">
+							<a href="#"> <img class="media-object"
+								src="http://www.bootcss.com/p/layoutit/img/people.jpg" alt="...">
+							</a>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading">Middle aligned media</h4>
+							请尽量使用HTML5兼容的视频格式和视频代码实现视频播放, 以达到更好的体验效果.
+						</div>
+						<hr>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 右边栏 活跃作者 -->
+		<div class="col-md-3">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">活跃作者</h3>
+				</div>
+				<!-- <div class="panel-body">Panel content</div> -->
+				 <!-- List group 面板列表组-->
+				  <ul class="list-group">
+				  	<!-- pull-right css 向左或向右浮动 -->
+				    <li class="list-group-item"><a href="#">Cras justo odio<span class="badge pull-right">42</span></a></li>
+				    <li class="list-group-item">Dapibus ac facilisis in</li>
+				    <li class="list-group-item">Morbi leo risus</li>
+				    <li class="list-group-item">Porta ac consectetur ac</li>
+				    <li class="list-group-item">Vestibulum at eros</li>
+				  </ul>
+			</div>
+		</div>
+		<!-- 右边栏 热门文章 -->
+		<div class="col-md-3">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">热门文章</h3>
+				</div>
+				<!-- <div class="panel-body">Panel content</div> -->
+				 <!-- List group 面板列表组-->
+				  <ul class="list-group">
+				    <li class="list-group-item"><a href="#">Cras justo odio<span class="badge pull-right">112</span></a></li>
+				    <li class="list-group-item">Dapibus ac facilisis in</li>
+				    <li class="list-group-item">Morbi leo risus</li>
+				    <li class="list-group-item">Porta ac consectetur ac</li>
+				    <li class="list-group-item">Vestibulum at eros</li>
+				  </ul>
+			</div>
+		</div>
+	</div>
 </div>
