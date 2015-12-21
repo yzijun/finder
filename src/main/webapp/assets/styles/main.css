@@ -211,3 +211,13 @@ ul#strengthBar {
 	width:100px;
 	height: 100px;
 }
+
+.pad-left1 {
+	padding-left: 20px;
+}
+.pad-left2 {
+	padding-left: 50px;
+}
+.pad-left3 {
+	padding-left: 90px;
+}

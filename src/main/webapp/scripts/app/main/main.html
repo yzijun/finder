@@ -1,5 +1,5 @@
 <div>
-	<div class="row">
+	<div class="row" ng-switch="isAuthenticated()">
 		<!-- 定义panel面板 -->
 		<div class="col-md-9 panel panel-default">
 			<div class="panel-body">
@@ -128,6 +128,36 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<!-- 右边栏 未登录时显示  网站说明 -->
+		<div class="col-md-3" ng-switch-when="false">
+			<ul class="list-group">
+			  <li class="list-group-item active">
+			    <h4 class="list-group-item-heading">科技爱好者</h4>
+			    <p class="list-group-item-text">科技产品爱好者发现、分享、交流的地方</p>
+			  </li>
+			</ul>
+		</div>
+		<!-- 右边栏 已登录时显示  用户头像 -->
+		<div class="col-md-3" ng-switch-when="true">
+			<ul class="list-group">
+			  <li class="list-group-item">
+			    <div class="profile-image">
+			    <!-- center-block 让内容块居中 -->
+                  <img
+                    data-ng-src="{{'data:' + account.pictureContentType + ';base64,' + account.picture}}"
+                    class="img-circle profile-img-middle center-block" alt="profile" ng-if="account.picture"/>
+                </div>
+                <!-- text-center 让文字居中 -->
+			    <p class="list-group-item-text text-center text-info">{{account.nickName}}</p>
+			    <div>
+				    <ul class="nav nav-pills pad-left1" role="tablist">
+					  <li role="presentation" class="active"><a href="#">发布文章</a></li>
+					  <li role="presentation" class="active"><a href="#">文章数 <span class="badge">42</span></a></li>
+					</ul>
+			    </div>
+			  </li>
+			</ul>
 		</div>
 		<!-- 右边栏 活跃作者 -->
 		<div class="col-md-3">
