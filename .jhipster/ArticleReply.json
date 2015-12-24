@@ -1,0 +1,49 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "article",
+            "otherEntityName": "article",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "replyer",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "ownerSide": false
+        },
+        {
+            "relationshipId": 3,
+            "relationshipName": "parentReplyer",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "ownerSide": false
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "content",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "published",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "createdDate",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20151224015307",
+    "dto": "no",
+    "service": "no",
+    "pagination": "pagination"
+}

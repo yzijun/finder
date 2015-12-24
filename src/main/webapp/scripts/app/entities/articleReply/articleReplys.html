@@ -1,0 +1,68 @@
+<div>
+    <h2 translate="finderApp.articleReply.home.title">ArticleReplys</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="articleReply.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="finderApp.articleReply.home.createLabel">Create a new ArticleReply</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a ArticleReply</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="content"><span translate="finderApp.articleReply.content">Content</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="published"><span translate="finderApp.articleReply.published">Published</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createdDate"><span translate="finderApp.articleReply.createdDate">CreatedDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="article.id"><span translate="finderApp.articleReply.article">article</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="articleReply in articleReplys track by articleReply.id">
+                    <td><a ui-sref="articleReply.detail({id:articleReply.id})">{{articleReply.id}}</a></td>
+                    <td>{{articleReply.content}}</td>
+                    <td>{{articleReply.published}}</td>
+                    <td>{{articleReply.createdDate | date:'medium'}}</td>
+                    <td>
+                        <a ui-sref="article.detail({id:articleReply.article.id})">{{articleReply.article.id}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="articleReply.detail({id:articleReply.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="articleReply.edit({id:articleReply.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="articleReply.delete({id:articleReply.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

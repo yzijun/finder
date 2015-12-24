@@ -1,0 +1,26 @@
+{
+    "finderApp": {
+        "articleReply" : {
+            "home": {
+                "title": "ArticleReplys",
+                "createLabel": "Create a new ArticleReply",
+                "createOrEditLabel": "Create or edit a ArticleReply"
+            },
+            "created": "A new ArticleReply is created with identifier {{ param }}",
+            "updated": "A ArticleReply is updated with identifier {{ param }}",
+            "deleted": "A ArticleReply is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete ArticleReply {{ id }}?"
+            },
+            "detail": {
+                "title": "ArticleReply"
+            },
+            "content": "Content",
+            "published": "Published",
+            "createdDate": "CreatedDate",
+            "article": "Article",
+            "replyer": "Replyer",
+            "parentReplyer": "ParentReplyer"
+        }
+    }
+}
