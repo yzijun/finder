@@ -17,6 +17,7 @@
             overflowToDisk="false"
             />
 
+	<!-- 设定对象允许存在于缓存中的最长时间，以秒为单位。 -->
     <cache name="com.app.finder.domain.User"
            timeToLiveSeconds="3600">
     </cache>
@@ -36,4 +37,35 @@
     <cache name="com.app.finder.domain.User.persistentTokens"
            timeToLiveSeconds="3600">
     </cache>
+    
+    <!-- 如果该属性值为0，则表示对象可以无限期地存在于缓存中 -->
+    <cache name="com.app.finder.domain.ArticleCategory"
+           timeToLiveSeconds="0">
+    </cache>
+    
+    <!-- 如果该属性值为0，则表示对象可以无限期地存在于缓存中 -->
+    <cache name="com.app.finder.domain.ForbiddenWord"
+           timeToLiveSeconds="0">
+    </cache>
+    
+    <cache name="com.app.finder.domain.Article"
+           timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache name="com.app.finder.domain.Tag"
+           timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache name="com.app.finder.domain.ArticleCategory.articles"
+           timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache name="com.app.finder.domain.Article.tags"
+           timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache name="com.app.finder.domain.Tag.articles"
+           timeToLiveSeconds="3600">
+    </cache>
+    
     </ehcache>

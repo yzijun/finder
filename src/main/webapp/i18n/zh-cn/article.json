@@ -1,0 +1,24 @@
+{
+    "finderApp": {
+        "article" : {
+            "home": {
+                "title": "Articles",
+                "createLabel": "Create a new Article",
+                "createOrEditLabel": "Create or edit a Article"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Article {{ id }}?"
+            },
+            "detail": {
+                "title": "Article"
+            },
+            "title": "Title",
+            "firstImg": "FirstImg",
+            "content": "Content",
+            "createdDate": "CreatedDate",
+            "user": "User",
+            "articleCategory": "ArticleCategory",
+            "tag": "Tag"
+        }
+    }
+}

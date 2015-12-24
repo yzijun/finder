@@ -1,0 +1,18 @@
+{
+    "finderApp": {
+        "forbiddenWord" : {
+            "home": {
+                "title": "ForbiddenWords",
+                "createLabel": "Create a new ForbiddenWord",
+                "createOrEditLabel": "Create or edit a ForbiddenWord"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete ForbiddenWord {{ id }}?"
+            },
+            "detail": {
+                "title": "ForbiddenWord"
+            },
+            "word": "Word"
+        }
+    }
+}

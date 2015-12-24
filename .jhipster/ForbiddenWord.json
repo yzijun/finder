@@ -1,0 +1,14 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "word",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20151222063805",
+    "dto": "no",
+    "service": "no",
+    "pagination": "infinite-scroll"
+}

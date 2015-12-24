@@ -7,6 +7,10 @@
             "jhipster-needle-003": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "articleCategory": "ArticleCategory",
+                "article": "Article",
+                "tag": "Tag",
+                "forbiddenWord": "ForbiddenWord",
                 "jhipster-needle-004": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

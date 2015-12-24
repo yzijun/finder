@@ -1,0 +1,19 @@
+{
+    "finderApp": {
+        "articleCategory" : {
+            "home": {
+                "title": "ArticleCategorys",
+                "createLabel": "Create a new ArticleCategory",
+                "createOrEditLabel": "Create or edit a ArticleCategory"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete ArticleCategory {{ id }}?"
+            },
+            "detail": {
+                "title": "ArticleCategory"
+            },
+            "name": "Name",
+            "article": "Article"
+        }
+    }
+}

@@ -52,7 +52,8 @@
                         </a>
                 </li>
                 <!-- jhipster-needle-001 - JHipster will add new menu items here -->
-                <li ui-sref-active="active" ng-switch-when="true" class="dropdown pointer">
+                <!-- 设定文章管理者可以查看的权限  has-authority="ROLE_ARTICLE_ADMIN" -->
+                <li ui-sref-active="active" ng-switch-when="true" has-authority="ROLE_ARTICLE_ADMIN" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
                             <span class="glyphicon glyphicon-th-list"></span>
@@ -63,9 +64,18 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu">
+                        <li ui-sref-active="active" ><a ui-sref="articleCategory" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.entities.articleCategory">articleCategory</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="article" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.entities.article">article</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="tag" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.entities.tag">tag</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="forbiddenWord" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.entities.forbiddenWord">forbiddenWord</span></a></li>
                         <!-- jhipster-needle-002 - JHipster will add entities to the menu here -->
                     </ul>
                 </li>
+                <!-- 用户 -->
                 <li ng-class="{active: $state.includes('account')}" ng-switch-when="true" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="" id="account-menu">
                         <span>
@@ -88,6 +98,7 @@
                             &#xA0;<span translate="global.menu.account.logout">Sign out</span></a></li>
                     </ul>
                 </li>
+                <!-- admin 超级管理员权限 -->
                 <li ng-class="{active: $state.includes('admin')}"  ng-switch-when="true" has-authority="ROLE_ADMIN" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="" id="admin-menu">
                         <span>
