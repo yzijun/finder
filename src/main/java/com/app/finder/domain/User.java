@@ -224,16 +224,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return login.hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-            "login='" + login + '\'' +
-            ", nickName='" + nickName + '\'' +
-            ", email='" + email + '\'' +
-            ", activated='" + activated + '\'' +
-            ", langKey='" + langKey + '\'' +
-            ", activationKey='" + activationKey + '\'' +
-            ", pictureContentType='" + pictureContentType + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", nickName="
+				+ nickName + ", email=" + email + ", activated=" + activated + ", langKey="
+				+ langKey + ", activationKey=" + activationKey + ", resetKey=" + resetKey
+				+ ", resetDate=" + resetDate + ", picture=" + picture
+				+ ", pictureContentType=" + pictureContentType + ", authorities=" + authorities
+				+ ", persistentTokens=" + persistentTokens + "]";
+	}
+	
 }

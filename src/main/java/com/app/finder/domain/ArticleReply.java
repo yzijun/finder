@@ -124,13 +124,11 @@ public class ArticleReply implements Serializable {
         return Objects.hashCode(id);
     }
 
-    @Override
-    public String toString() {
-        return "ArticleReply{" +
-            "id=" + id +
-            ", content='" + content + "'" +
-            ", published='" + published + "'" +
-            ", createdDate='" + createdDate + "'" +
-            '}';
-    }
+	@Override
+	public String toString() {
+		return "ArticleReply [id=" + id + ", content=" + content + ", published=" + published
+				+ ", createdDate=" + createdDate + ", article=" + article + ", replyer=" + replyer
+				+ ", parentReplyer=" + parentReplyer + "]";
+	}
+   
 }

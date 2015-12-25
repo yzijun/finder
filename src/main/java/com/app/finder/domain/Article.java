@@ -177,17 +177,13 @@ public class Article implements Serializable {
         return Objects.hashCode(id);
     }
 
-    @Override
-    public String toString() {
-        return "Article{" +
-            "id=" + id +
-            ", title='" + title + "'" +
-            ", firstImg='" + firstImg + "'" +
-            ", firstImgContentType='" + firstImgContentType + "'" +
-            ", content='" + content + "'" +
-            ", published='" + published + "'" +
-            ", pageView='" + pageView + "'" +
-            ", createdDate='" + createdDate + "'" +
-            '}';
-    }
+	@Override
+	public String toString() {
+		return "Article [id=" + id + ", title=" + title + ", firstImg=" + firstImg
+				+ ", firstImgContentType=" + firstImgContentType + ", content=" + content
+				+ ", published=" + published + ", pageView=" + pageView + ", createdDate="
+				+ createdDate + ", user=" + user + ", articleCategory=" + articleCategory
+				+ ", tags=" + tags + "]";
+	}
+
 }

@@ -77,11 +77,9 @@ public class Tag implements Serializable {
         return Objects.hashCode(id);
     }
 
-    @Override
-    public String toString() {
-        return "Tag{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            '}';
-    }
+	@Override
+	public String toString() {
+		return "Tag [id=" + id + ", name=" + name + ", articles=" + articles + "]";
+	}
+    
 }
