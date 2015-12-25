@@ -9,11 +9,6 @@
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
         <div class="form-group">
-            <label for="id" translate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                    ng-model="article.id" readonly />
-        </div>
-        <div class="form-group">
             <label class="control-label" translate="finderApp.article.title" for="field_title">Title</label>
             <input type="text" class="form-control" name="title" id="field_title"
                     ng-model="article.title"
@@ -94,25 +89,19 @@
 			        });
 			    </script>
         </div>
-        <div class="form-group">
-            <label class="control-label" translate="finderApp.article.createdDate" for="field_createdDate">CreatedDate</label>
-            <input type="datetime-local" class="form-control" name="createdDate" id="field_createdDate"
-                    ng-model="article.createdDate"
-                     />
-        </div>
-
-        <div class="form-group">
-            <label translate="finderApp.article.user" for="field_user">user</label>
-            <select class="form-control" id="field_user" name="user" ng-model="article.user" ng-options="user as user.nickName for user in users track by user.id">
-                <option value=""></option>
-            </select>
-        </div>
+        
         <div class="form-group">
             <label translate="finderApp.article.articleCategory" for="field_articleCategory">articleCategory</label>
             <select class="form-control" id="field_articleCategory" name="articleCategory" ng-model="article.articleCategory" ng-options="articleCategory as articleCategory.name for articleCategory in articlecategorys track by articleCategory.id">
                 <option value=""></option>
             </select>
         </div>
+        <!-- <div class="form-group">
+            <label translate="finderApp.article.user" for="field_user">user</label>
+            <select class="form-control" id="field_user" name="user" ng-model="article.user" ng-options="user as user.nickName for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div> -->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">

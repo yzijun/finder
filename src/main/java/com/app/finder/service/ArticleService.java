@@ -1,8 +1,12 @@
 package com.app.finder.service;
 
 import com.app.finder.domain.Article;
+import com.app.finder.domain.User;
 import com.app.finder.repository.ArticleRepository;
+import com.app.finder.repository.UserRepository;
 import com.app.finder.repository.search.ArticleSearchRepository;
+import com.app.finder.security.SecurityUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,8 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
+import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -33,12 +38,24 @@ public class ArticleService {
     @Inject
     private ArticleSearchRepository articleSearchRepository;
     
+    @Inject
+    private UserRepository userRepository;
+    
     /**
      * Save a article.
      * @return the persisted entity
      */
     public Article save(Article article) {
         log.debug("Request to save Article : {}", article);
+        
+        //设定默认值
+        article.setPageView(0);
+        article.setCreatedDate(ZonedDateTime.now());
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+        User u = new User();
+        u.setId(user.getId());
+        article.setUser(user);
+        
         Article result = articleRepository.save(article);
         articleSearchRepository.save(result);
         return result;

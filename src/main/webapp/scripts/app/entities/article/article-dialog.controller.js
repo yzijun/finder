@@ -5,9 +5,10 @@ angular.module('finderApp').controller('ArticleDialogController',
         function($scope, $stateParams, $uibModalInstance, DataUtils, entity, Article, User, ArticleCategory, Tag) {
 
         $scope.article = entity;
-        $scope.users = User.query();
+        //注释不用,会查询全部的用户
+//        $scope.users = User.query();
         $scope.articlecategorys = ArticleCategory.query();
-        $scope.tags = Tag.query();
+//        $scope.tags = Tag.query();
         $scope.load = function(id) {
             Article.get({id : id}, function(result) {
                 $scope.article = result;
