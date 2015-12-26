@@ -56,10 +56,12 @@
                      </p>
                 </div>
                 <!--Language-->
-                <div class="form-group">
+               <!--  <div class="form-group">
                     <label for="langKey" translate="settings.form.language">Language</label>
                     <select id="langKey" name="langKey" class="form-control" ng-model="settingsAccount.langKey" ng-controller="LanguageController" ng-options="code as (code | findLanguageFromKey) for code in languages"></select>
-                </div>
+                </div> -->
+                <!-- 语言默认不显示 -->
+                <input type="hidden" value="string:zh-cn" ng-model="settingsAccount.langKey">
                 
                 <!--Profile picture-->
 	            <div class="form-group" ngf-drop ngf-change="setPicture($file, settingsAccount)" ngf-pattern="'image/*'">
