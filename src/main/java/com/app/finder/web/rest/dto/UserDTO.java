@@ -47,6 +47,10 @@ public class UserDTO {
     private byte[] picture;
     
     private String pictureContentType;
+    
+    private String gender;
+    
+    private String signature;
 
     public UserDTO() {
     }
@@ -55,12 +59,12 @@ public class UserDTO {
         this(user.getLogin(), null, user.getNickName(),
             user.getEmail(), user.getActivated(), user.getLangKey(),
             user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()), 
-            user.getPictureContentType(), user.getPicture());
+            user.getPictureContentType(), user.getPicture(), user.getGender(), user.getSignature());
     }
 
     public UserDTO(String login, String password, String nickName,
         String email, boolean activated, String langKey, Set<String> authorities,
-        String pictureContentType, byte[] picture) {
+        String pictureContentType, byte[] picture, String gender, String signature) {
 
         this.login = login;
         this.password = password;
@@ -71,6 +75,8 @@ public class UserDTO {
         this.authorities = authorities;
         this.pictureContentType = pictureContentType;
         this.picture = picture;
+        this.gender = gender;
+        this.signature = signature;
     }
 
     public String getPassword() {
@@ -112,6 +118,14 @@ public class UserDTO {
 	public void setPictureContentType(String pictureContentType) {
 		this.pictureContentType = pictureContentType;
 	}
+	
+	public String getGender() {
+		return gender;
+	}
+	
+	public String getSignature() {
+		return signature;
+	}
 
 	public Set<String> getAuthorities() {
         return authorities;
@@ -126,6 +140,8 @@ public class UserDTO {
             ", email='" + email + '\'' +
             ", activated=" + activated +
             ", langKey='" + langKey + '\'' +
+            ", gender='" + gender + '\'' +
+            ", signature='" + signature + '\'' +
             ", authorities=" + authorities +
             "}";
     }

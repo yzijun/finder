@@ -74,6 +74,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     
     @Column(name = "picture_content_type")
     private String pictureContentType;
+    
+    //性别
+    @Column(name = "gender", length = 1)
+    private String gender;
+    
+    //个性签名
+    @Column(name = "signature", length = 50)
+    private String signature;
 
     @JsonIgnore
     @ManyToMany
@@ -200,6 +208,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
 	public void setPictureContentType(String pictureContentType) {
 		this.pictureContentType = pictureContentType;
 	}
+	
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
 
 	@Override
     public boolean equals(Object o) {
@@ -234,6 +258,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
             ", pictureContentType='" + pictureContentType + "'" +
+            ", gender='" + gender + "'" +
+            ", signature='" + signature + "'" +
             "}";
     }
 }

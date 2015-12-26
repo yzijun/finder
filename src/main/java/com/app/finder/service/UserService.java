@@ -149,7 +149,8 @@ public class UserService {
         return user;
     }
 
-    public void updateUserInformation(String nickName, String email, String langKey, String pictureContentType, byte[] picture) {
+    public void updateUserInformation(String nickName, String email, String langKey, 
+    						String pictureContentType, byte[] picture, String gender, String signature) {
     	ByteArrayOutputStream newPicture = new ByteArrayOutputStream();
     	// 缩小用户上传头像图片180x180
     	try {
@@ -163,6 +164,8 @@ public class UserService {
             u.setLangKey(langKey);
             u.setPictureContentType(pictureContentType);
             u.setPicture(newPicture.toByteArray());
+            u.setGender(gender);
+            u.setSignature(signature);
             userRepository.save(u);
             userSearchRepository.save(u);
             log.debug("Changed Information for User: {}", u);

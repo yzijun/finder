@@ -131,7 +131,8 @@ public class AccountResource {
             .findOneByLogin(SecurityUtils.getCurrentUser().getUsername())
             .map(u -> {
                 userService.updateUserInformation(userDTO.getNickName(), userDTO.getEmail(),
-                    userDTO.getLangKey(), userDTO.getPictureContentType(), userDTO.getPicture());
+                    userDTO.getLangKey(), userDTO.getPictureContentType(), userDTO.getPicture(),
+                    userDTO.getGender(), userDTO.getSignature());
                 return new ResponseEntity<String>(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));

@@ -62,6 +62,20 @@
                 </div> -->
                 <!-- 语言默认不显示 -->
                 <input type="hidden" value="string:zh-cn" ng-model="settingsAccount.langKey">
+                <!-- 性别 -->
+                <div class="form-group">
+                    <label for="gender" translate="settings.form.gender">gender</label>
+                    <select id="gender" name="gender" class="form-control" ng-model="settingsAccount.gender" >
+                    	<option value=""></option>
+                    	<option value="男">男</option>
+                    	<option value="女">女</option>
+                    </select>
+                </div>
+                <!-- 个性签名 -->
+                 <div class="form-group">
+                    <label for="signature" translate="settings.form.signature">signature</label>
+                    <textarea id="signature" class="form-control" maxlength="50" rows="" cols="" ng-model="settingsAccount.signature"></textarea>
+                </div>
                 
                 <!--Profile picture-->
 	            <div class="form-group" ngf-drop ngf-change="setPicture($file, settingsAccount)" ngf-pattern="'image/*'">
@@ -85,10 +99,14 @@
 	                </button>
 	
 	                <input type="hidden" class="form-control" name="picture" id="field_picture"
-	                       ng-model="settingsAccount.picture"/>
+	                       ng-model="settingsAccount.picture" required/>
 	                <input type="hidden" class="form-control" name="pictureContentType" id="field_pictureContentType"
 	                       ng-model="settingsAccount.pictureContentType"/>
 	              </div>
+	              <p class="help-block"
+                            ng-show="form.picture.$error.required" style="color: #a94442;">
+                         	请上传头像
+                  </p>
 	            </div>
 
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="settings.form.button">Save</button>
