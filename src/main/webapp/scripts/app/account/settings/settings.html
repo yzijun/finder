@@ -78,7 +78,7 @@
                 </div>
                 
                 <!--Profile picture-->
-	            <div class="form-group" ngf-drop ngf-change="setPicture($file, settingsAccount)" ngf-pattern="'image/*'">
+	            <div class="form-group" ngf-drop ngf-change="setPicture($file, settingsAccount)" ngf-pattern="'image/*'" ng-class="{'has-error':form.picture.$invalid}">
 	              <label class="control-label" translate="settings.form.picture" for="field_picture">Picture</label>
 	
 	              <div>
