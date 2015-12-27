@@ -12,12 +12,12 @@
             "detail": {
                 "title": "Article"
             },
-            "title": "Title",
-            "firstImg": "FirstImg",
+            "title": "标题",
+            "firstImg": "图片",
             "content": "Content",
             "createdDate": "CreatedDate",
             "user": "User",
-            "articleCategory": "ArticleCategory",
+            "articleCategory": "文章类别",
             "tag": "Tag"
         }
     }

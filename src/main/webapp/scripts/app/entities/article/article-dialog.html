@@ -1,21 +1,18 @@
-
+<div>
+<div class="row">
+<div class="col-md-8 col-md-offset-2 panel panel-default">
 <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
 
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myArticleLabel" translate="finderApp.article.home.createOrEditLabel">Create or edit a Article</h4>
-    </div>
-    <div class="modal-body">
         <jh-alert-error></jh-alert-error>
-        <div class="form-group">
+        <!-- 显示验证的红色字用ng-class -->
+        <div class="form-group" ng-class="{'has-error':editForm.title.$dirty && editForm.title.$invalid}">
             <label class="control-label" translate="finderApp.article.title" for="field_title">Title</label>
             <input type="text" class="form-control" name="title" id="field_title"
                     ng-model="article.title"
                     required ng-maxlength="40" />
             <div ng-show="editForm.title.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.title.$error.required" translate="entity.validation.required">
+                    ng-show="editForm.title.$dirty && editForm.title.$error.required" translate="entity.validation.required">
                     This field is required.
                 </p>
                 <p class="help-block"
@@ -24,11 +21,13 @@
                 </p>
             </div>
         </div>
-        <div class="form-group" ngf-drop ngf-change="setFirstImg($file, article)" ngf-pattern="'image/*'">
+        <div class="form-group" ngf-drop ngf-change="setFirstImg($file, article)" ngf-pattern="'image/*'" ng-class="{'has-error':editForm.firstImg.$invalid}">
             <label class="control-label" translate="finderApp.article.firstImg" for="field_firstImg">FirstImg</label>
             <div>
-                <img data-ng-src="{{'data:' + article.firstImgContentType + ';base64,' + article.firstImg}}" style="max-height: 100px;" ng-if="article.firstImg"/>
-                <div class="help-block clearfix">
+            	<div class="profile-image" style="padding-bottom: 5px">
+                	<img data-ng-src="{{'data:' + article.firstImgContentType + ';base64,' + article.firstImg}}" style="max-height: 100px;" ng-if="article.firstImg"/>
+                </div>
+                <!-- <div class="help-block clearfix">
                     <span class="pull-left">{{article.firstImgContentType}} {{byteSize(article.firstImg)}}</span>
                     <button ng-click="article.firstImg=null;article.firstImgContentType=null;"
                             ng-if="article.firstImg"
@@ -39,6 +38,16 @@
                 <button type="file" ngf-select class="btn btn-default btn-block"
                         ngf-change="setFirstImg($file, article)" accept="image/*" translate="entity.action.addimage">
                     Add image
+                </button> -->
+                <button class="btn btn-success btn-sm" type="file" ngf-select class="btn btn-default"
+	                        ngf-change="setFirstImg($file, article)" accept="image/*">
+	                  <i class="fa fa-upload"></i>&nbsp;&nbsp;
+	                  <span class="bold" translate="entity.action.addimage">Upload</span>
+                </button>
+                <button ng-click="article.firstImg=null;article.firstImgContentType=null;"
+                        ng-if="article.firstImg"
+                        class="btn btn-danger btn-sm">
+                  <i class="glyphicon glyphicon-remove"></i>
                 </button>
             </div>
             <input type="hidden" class="form-control" name="firstImg" id="field_firstImg"
@@ -53,19 +62,14 @@
                 </p>
             </div>
         </div>
-        <!-- <div class="form-group">
-            <label class="control-label" translate="finderApp.article.content" for="field_content">Content</label>
-            <input type="text" class="form-control" name="content" id="field_content"
-                    ng-model="article.content"
-                     />
-        </div> -->
+        
         <div class="form-group">
             <!-- <label class="control-label" translate="finderApp.article.content" for="field_content">Content</label>
             <input type="text" class="form-control" name="content" id="field_content"
                     ng-model="article.content"
                      /> -->
                 <!-- umeditor百度文本编辑器 -->
-                <script type="text/plain" id="myEditor" style="width:800px;height:240px;">
+                <script type="text/plain" id="myEditor" class="center-block">
     				<p>这里写文章的内容</p>
 				</script>
 			    <script type="text/javascript">
@@ -89,12 +93,18 @@
 			        });
 			    </script>
         </div>
-        
-        <div class="form-group">
+        <!-- 文章类别 -->
+        <div class="form-group" ng-class="{'has-error':editForm.articleCategory.$dirty && editForm.articleCategory.$invalid}">
             <label translate="finderApp.article.articleCategory" for="field_articleCategory">articleCategory</label>
-            <select class="form-control" id="field_articleCategory" name="articleCategory" ng-model="article.articleCategory" ng-options="articleCategory as articleCategory.name for articleCategory in articlecategorys track by articleCategory.id">
+            <select class="form-control" id="field_articleCategory" name="articleCategory" ng-model="article.articleCategory" ng-options="articleCategory as articleCategory.name for articleCategory in articlecategorys track by articleCategory.id" required>
                 <option value=""></option>
             </select>
+            <div ng-show="editForm.articleCategory.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.articleCategory.$dirty && editForm.articleCategory.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
         </div>
         <!-- <div class="form-group">
             <label translate="finderApp.article.user" for="field_user">user</label>
@@ -102,13 +112,14 @@
                 <option value=""></option>
             </select>
         </div> -->
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
-            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
-        </button>
+
         <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
         </button>
-    </div>
+<!--         <button type="button" class="btn btn-default" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button> -->
 </form>
+</div>
+</div>
+</div>

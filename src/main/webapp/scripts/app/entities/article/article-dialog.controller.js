@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('finderApp').controller('ArticleDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'Article', 'User', 'ArticleCategory', 'Tag',
-        function($scope, $stateParams, $uibModalInstance, DataUtils, entity, Article, User, ArticleCategory, Tag) {
+    ['$scope', '$state','DataUtils', 'entity', 'Article', 'User', 'ArticleCategory', 'Tag',
+        function($scope, $state, DataUtils, entity, Article, User, ArticleCategory, Tag) {
 
         $scope.article = entity;
         //注释不用,会查询全部的用户
@@ -17,8 +17,8 @@ angular.module('finderApp').controller('ArticleDialogController',
 
         var onSaveSuccess = function (result) {
             $scope.$emit('finderApp:articleUpdate', result);
-            $uibModalInstance.close(result);
             $scope.isSaving = false;
+            $state.go('article', null, { reload: true });
         };
 
         var onSaveError = function (result) {
@@ -34,10 +34,6 @@ angular.module('finderApp').controller('ArticleDialogController',
             } else {
                 Article.save($scope.article, onSaveSuccess, onSaveError);
             }
-        };
-
-        $scope.clear = function() {
-            $uibModalInstance.dismiss('cancel');
         };
 
         $scope.abbreviate = DataUtils.abbreviate;

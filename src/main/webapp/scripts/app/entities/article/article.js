@@ -53,7 +53,7 @@ angular.module('finderApp')
                 data: {
                     authorities: ['ROLE_USER'],
                 },
-                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+               /* onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
                         templateUrl: 'scripts/app/entities/article/article-dialog.html',
                         controller: 'ArticleDialogController',
@@ -75,7 +75,26 @@ angular.module('finderApp')
                     }, function() {
                         $state.go('article');
                     })
-                }]
+                }]*/
+                //不是用modal方式打开
+                views: {
+                    'content@': {
+                    	templateUrl: 'scripts/app/entities/article/article-dialog.html',
+                        controller: 'ArticleDialogController',
+                    }
+                },
+                resolve: {
+                	entity: function () {
+                        return {
+                            title: null,
+                            firstImg: null,
+                            firstImgContentType: null,
+                            content: null,
+                            createdDate: null,
+                            id: null
+                        };
+                    }
+                }
             })
             .state('article.edit', {
                 parent: 'article',
@@ -83,7 +102,7 @@ angular.module('finderApp')
                 data: {
                     authorities: ['ROLE_USER'],
                 },
-                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+               /* onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
                         templateUrl: 'scripts/app/entities/article/article-dialog.html',
                         controller: 'ArticleDialogController',
@@ -98,7 +117,18 @@ angular.module('finderApp')
                     }, function() {
                         $state.go('^');
                     })
-                }]
+                }]*/
+                views: {
+                    'content@': {
+                    	templateUrl: 'scripts/app/entities/article/article-dialog.html',
+                        controller: 'ArticleDialogController',
+                    }
+                },
+                resolve: {
+                	 entity: ['$stateParams', 'Article', function($stateParams, Article) {
+                         return Article.get({id : $stateParams.id});
+                     }]
+                }
             })
             .state('article.delete', {
                 parent: 'article',

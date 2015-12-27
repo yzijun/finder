@@ -85,7 +85,7 @@
     "entity": {
         "action": {
             "addblob": "Add blob",
-            "addimage": "Add image",
+            "addimage": "上传图片",
             "back": "返回",
             "cancel": "取消",
             "delete": "删除",
