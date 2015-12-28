@@ -32,7 +32,9 @@
                     <span translate="finderApp.article.content">Content</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{article.content}}</span>
+                    <span class="form-control-static" data-ng-bind-html="article.content">
+                    <!-- angular对html转义 data-ng-bind-html -->
+                   	</span>
                 </td>
             </tr>
             <tr>

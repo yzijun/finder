@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleController', function ($scope, $state, DataUtils, Article, ArticleSearch, ParseLinks) {
+    .controller('ArticleController', function ($scope, $state, $sce, DataUtils, Article, ArticleSearch, ParseLinks) {
 
         $scope.articles = [];
         $scope.predicate = 'id';
@@ -12,6 +12,10 @@ angular.module('finderApp')
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');
                 $scope.articles = result;
+                //angular对html转义,增加信任$sce.trustAsHtml
+                angular.forEach($scope.articles, function (article) {
+                	article.content = $sce.trustAsHtml(article.content);
+                });
             });
         };
         $scope.loadPage = function(page) {
