@@ -1,5 +1,6 @@
 package com.app.finder.service;
 
+import com.app.finder.common.util.ThumbnailsUtils;
 import com.app.finder.domain.Article;
 import com.app.finder.domain.User;
 import com.app.finder.repository.ArticleRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
+import java.io.ByteArrayOutputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,6 +57,10 @@ public class ArticleService {
         User u = new User();
         u.setId(user.getId());
         article.setUser(user);
+        //重新缩放上传图片的大小 800 * 440
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ThumbnailsUtils.resetPicture(800, 440, article.getFirstImg(), out);
+        article.setFirstImg(out.toByteArray());
         
         Article result = articleRepository.save(article);
         articleSearchRepository.save(result);
