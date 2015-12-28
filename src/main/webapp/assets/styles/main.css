@@ -221,3 +221,7 @@ ul#strengthBar {
 .pad-left3 {
 	padding-left: 90px;
 }
+/* 提示性文字颜色 */
+.error-font-color {
+	color: #a94442
+}

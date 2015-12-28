@@ -56,4 +56,9 @@ angular.module('finderApp').controller('ArticleDialogController',
                 };
             }
         };
+        //删除选择的上传图片时显示错误提示
+        $scope.isupload = false;
+        $scope.setIsupload = function() {
+        	$scope.isupload = true;
+        }
 }]);

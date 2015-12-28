@@ -13,7 +13,7 @@
                 "title": "Article"
             },
             "title": "标题",
-            "firstImg": "图片",
+            "firstImg": "文章内容前面显示的图片",
             "content": "Content",
             "createdDate": "CreatedDate",
             "user": "User",
