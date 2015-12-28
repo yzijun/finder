@@ -60,7 +60,7 @@ public class PrettyTimeUtils {
 		return p.format(new Date(0));
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		long millis = System.currentTimeMillis();//1407723738109 1407723893765
 		System.out.println(millis);
 		long l1 = 1407724044890L;
@@ -68,5 +68,5 @@ public class PrettyTimeUtils {
 		long l = l1 - l2;
 		System.out.println(timeAgo(new Date(l)));
 		
-	}
+	}*/
 }
