@@ -27,7 +27,9 @@ angular.module('finderApp').controller('ArticleDialogController',
 
         $scope.save = function () {
         	//设置百度编辑器的内容
-        	$scope.article.content = UM.getEditor('myEditor').getContent();
+        	//$scope.article.content = UM.getEditor('myEditor').getContent();
+        	//设置bootstrap-wysiwyg文本编辑器的内容
+        	$scope.article.content = $('#editor').html();
             $scope.isSaving = true;
             if ($scope.article.id != null) {
                 Article.update($scope.article, onSaveSuccess, onSaveError);
