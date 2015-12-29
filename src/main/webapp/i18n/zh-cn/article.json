@@ -14,9 +14,11 @@
             },
             "title": "标题",
             "firstImg": "文章内容前面显示的图片",
-            "content": "Content",
-            "createdDate": "CreatedDate",
-            "user": "User",
+            "content": "文章内容",
+            "createdDate": "创建时间",
+            "published": "发布状态",
+            "pageView": "浏览次数",
+            "user": "发布者",
             "articleCategory": "文章类别",
             "tag": "Tag"
         }

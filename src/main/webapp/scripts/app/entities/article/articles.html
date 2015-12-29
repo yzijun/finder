@@ -26,9 +26,10 @@
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="title"><span translate="finderApp.article.title">Title</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="firstImg"><span translate="finderApp.article.firstImg">FirstImg</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="content"><span translate="finderApp.article.content">Content</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="createdDate"><span translate="finderApp.article.createdDate">CreatedDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="published"><span translate="finderApp.article.published">published</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="pageView"><span translate="finderApp.article.pageView">pageView</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="user.nickName"><span translate="finderApp.article.user">user</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="articleCategory.name"><span translate="finderApp.article.articleCategory">articleCategory</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
@@ -39,15 +40,19 @@
                     <td><a ui-sref="article.detail({id:article.id})">{{article.id}}</a></td>
                     <td>{{article.title}}</td>
                     <td>
-                        <img data-ng-src="{{'data:' + article.firstImgContentType + ';base64,' + article.firstImg}}" style="max-height: 30px;" ng-if="article.firstImg"/><!--  {{article.firstImgContentType}} {{byteSize(article.firstImg)}} -->
-                    </td>
-                    <td>
+                    	<img data-ng-src="{{'data:' + article.firstImgContentType + ';base64,' + article.firstImg}}" style="max-height: 30px;" ng-if="article.firstImg"/><!--  {{article.firstImgContentType}} {{byteSize(article.firstImg)}} -->
                     	<!-- {{article.content}} -->
                     	<!-- angular对html转义 data-ng-bind-html -->
                     	<div data-ng-bind-html="article.content"></div>
                     </td>
                     <!-- 格式化日期时间 y-MM-d H:mm:ss -->
                     <td>{{article.createdDate | date:'y-MM-d H:mm:ss'}}</td>
+                    <td>
+                        {{article.published == true ? '已发布':'未发布'}}
+                    </td>
+                    <td>
+                        {{article.pageView}}
+                    </td>
                     <td>
                         {{article.user.nickName}}
                     </td>
