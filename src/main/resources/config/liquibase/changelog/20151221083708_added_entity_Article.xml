@@ -24,7 +24,7 @@
             <column name="title" type="varchar(40)">
                 <constraints nullable="false" />
             </column>
-            <column name="first_img" type="blob"/>
+            <column name="first_img" type="mediumblob"/>
             <column name="first_img_content_type" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
