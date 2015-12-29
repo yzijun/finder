@@ -39,7 +39,7 @@
                     <td><a ui-sref="article.detail({id:article.id})">{{article.id}}</a></td>
                     <td>{{article.title}}</td>
                     <td>
-                        <img data-ng-src="{{'data:' + article.firstImgContentType + ';base64,' + article.firstImg}}" style="max-height: 30px;" ng-if="article.firstImg"/> {{article.firstImgContentType}} {{byteSize(article.firstImg)}}
+                        <img data-ng-src="{{'data:' + article.firstImgContentType + ';base64,' + article.firstImg}}" style="max-height: 30px;" ng-if="article.firstImg"/><!--  {{article.firstImgContentType}} {{byteSize(article.firstImg)}} -->
                     </td>
                     <td>
                     	<!-- {{article.content}} -->
