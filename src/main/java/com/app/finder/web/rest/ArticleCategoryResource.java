@@ -85,7 +85,7 @@ public class ArticleCategoryResource {
     @Timed
     public List<ArticleCategory> getAllArticleCategorys() {
         log.debug("REST request to get all ArticleCategorys");
-        return articleCategoryRepository.findAll();
+        return articleCategoryRepository.findAllCached();
     }
 
     /**
