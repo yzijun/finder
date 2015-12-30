@@ -4,6 +4,7 @@ import com.app.finder.common.util.ThumbnailsUtils;
 import com.app.finder.domain.Article;
 import com.app.finder.domain.User;
 import com.app.finder.repository.ArticleRepository;
+import com.app.finder.repository.ForbiddenWordRepository;
 import com.app.finder.repository.UserRepository;
 import com.app.finder.repository.search.ArticleSearchRepository;
 import com.app.finder.security.SecurityUtils;
@@ -46,6 +47,9 @@ public class ArticleService {
     @Inject
     private UserRepository userRepository;
     
+    @Inject
+    private ForbiddenWordRepository forbiddenWordRepository;
+    
     /**
      * Save a article.
      * @return the persisted entity
@@ -87,6 +91,13 @@ public class ArticleService {
          * 1.若图片横比800小，高比500小
          * 2.若图片横比800小，高比500大
          */
+        
+        //过滤敏感词汇
+        forbiddenWordRepository.findAll().forEach(f -> {
+        	String repContent = article.getContent().replaceAll(f.getWord(), "**");
+        	article.setContent(repContent);
+        });
+        
         
         Article result = articleRepository.save(article);
         articleSearchRepository.save(result);
