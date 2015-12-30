@@ -93,7 +93,7 @@ public class ArticleService {
          */
         
         //过滤敏感词汇
-        forbiddenWordRepository.findAll().forEach(f -> {
+        forbiddenWordRepository.findAllCached().forEach(f -> {
         	String repContent = article.getContent().replaceAll(f.getWord(), "**");
         	article.setContent(repContent);
         });
