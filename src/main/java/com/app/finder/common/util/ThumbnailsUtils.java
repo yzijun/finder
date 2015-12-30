@@ -1,8 +1,12 @@
 package com.app.finder.common.util;
 
+import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -30,5 +34,17 @@ public class ThumbnailsUtils {
 					.toOutputStream(out);
 		} catch (IOException e) {
 		}
+	}
+	
+	/**
+	 * 返回一个数组，第一个值是宽，第二个值是高
+	 * @param is
+	 * @return 返回一个数组，第一个值是宽，第二个值是高
+	 * @throws IOException
+	 */
+	public static int[] getWidthAndHeight(InputStream is) throws IOException {
+		Image img = null;
+		img = ImageIO.read(is);
+		return new int[]{img.getWidth(null),img.getHeight(null)};
 	}
 }

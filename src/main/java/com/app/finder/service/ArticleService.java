@@ -17,7 +17,10 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,21 +49,44 @@ public class ArticleService {
     /**
      * Save a article.
      * @return the persisted entity
+     * @throws IOException 
      */
-    public Article save(Article article) {
+    public Article save(Article article) throws IOException {
         log.debug("Request to save Article : {}", article);
         
         //设定默认值
         article.setPageView(0);
         article.setCreatedDate(ZonedDateTime.now());
+        //页面参数传不过来,重新查找User
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         User u = new User();
         u.setId(user.getId());
         article.setUser(user);
-        //重新缩放上传图片的大小 800 * 440
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ThumbnailsUtils.resetPicture(800, 440, article.getFirstImg(), out);
-        article.setFirstImg(out.toByteArray());
+        //取得上传图片的宽和高
+        InputStream is = new ByteArrayInputStream(article.getFirstImg());
+        int[] widthAndHeight = ThumbnailsUtils.getWidthAndHeight(is);
+        int picWidth = widthAndHeight[0];
+        int picHeight = widthAndHeight[1];
+        //根据上传图片的宽高决定是否要缩放图片
+        int width = 800;
+        int height = 500;
+        /*
+         * 重新缩放上传图片的情况
+         * 1.若图片宽比800大，高比500大，图片按比例缩小，宽为800或高为500
+         * 2.若图片宽比800大，高比500小，宽缩小到800，图片比例不变 
+         */
+        if ((picWidth > width && picHeight > height)
+        		|| (picWidth > width && picHeight < height)) {
+        	//重新缩放上传图片的大小 800 * 500
+        	ByteArrayOutputStream out = new ByteArrayOutputStream();
+        	ThumbnailsUtils.resetPicture(width, height, article.getFirstImg(), out);
+        	article.setFirstImg(out.toByteArray());
+        } 
+        /*
+         * 这两种方式不做处理保持图片原来大小
+         * 1.若图片横比800小，高比500小
+         * 2.若图片横比800小，高比500大
+         */
         
         Article result = articleRepository.save(article);
         articleSearchRepository.save(result);

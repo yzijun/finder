@@ -17,14 +17,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Article.
@@ -40,12 +38,13 @@ public class ArticleResource {
     
     /**
      * POST  /articles -> Create a new article.
+     * @throws IOException 
      */
     @RequestMapping(value = "/articles",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Article> createArticle(@Valid @RequestBody Article article) throws URISyntaxException {
+    public ResponseEntity<Article> createArticle(@Valid @RequestBody Article article) throws URISyntaxException, IOException {
         log.debug("REST request to save Article : {}", article);
         if (article.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("article", "idexists", "A new article cannot already have an ID")).body(null);
@@ -58,12 +57,13 @@ public class ArticleResource {
 
     /**
      * PUT  /articles -> Updates an existing article.
+     * @throws IOException 
      */
     @RequestMapping(value = "/articles",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Article> updateArticle(@Valid @RequestBody Article article) throws URISyntaxException {
+    public ResponseEntity<Article> updateArticle(@Valid @RequestBody Article article) throws URISyntaxException, IOException {
         log.debug("REST request to update Article : {}", article);
         if (article.getId() == null) {
             return createArticle(article);
