@@ -87,7 +87,7 @@
 	                    data-ng-src="{{'data:' + settingsAccount.pictureContentType + ';base64,' + settingsAccount.picture}}"
 	                    class="img-circle profile-img-middle" alt="profile" ng-if="settingsAccount.picture"/>
 	                </div>
-	                <button class="btn btn-success btn-sm" type="file" ngf-select class="btn btn-default"
+	                <button class="btn btn-success btn-sm" type="file" ngf-select 
 	                        ngf-change="setPicture($file, settingsAccount)" accept="image/*">
 	                  <i class="fa fa-upload"></i>&nbsp;&nbsp;
 	                  <span class="bold" translate="settings.form.upload">Upload</span>
