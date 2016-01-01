@@ -34,8 +34,8 @@
             <column name="activated" type="boolean" valueBoolean="false">
                 <constraints nullable="false" />
             </column>
-            <column name="picture" type="BINARY(1000)"/>
-      		<column name="picture_content_type" type="varchar(255)"/>
+            <column name="picture" type="blob"/>
+      		<column name="picture_content_type" type="varchar(50)"/>
       		<column name="gender" type="char(1)" defaultValue=""/>
       		<column name="signature" type="varchar(50)" defaultValue=""/>
             <column name="lang_key" type="varchar(5)"/>
