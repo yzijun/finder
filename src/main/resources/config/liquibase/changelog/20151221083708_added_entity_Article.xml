@@ -28,7 +28,7 @@
             <column name="first_img_content_type" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
-            <column name="content" type="varchar(1000)"/>
+            <column name="content" type="mediumtext"/>
             <column name="published" type="boolean" valueBoolean="true">
                 <constraints nullable="false" />
             </column>
