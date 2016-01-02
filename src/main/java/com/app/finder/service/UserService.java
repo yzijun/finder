@@ -14,6 +14,8 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -151,19 +153,12 @@ public class UserService {
 
     public void updateUserInformation(String nickName, String email, String langKey, 
     						String pictureContentType, byte[] picture, String gender, String signature) {
-    	ByteArrayOutputStream newPicture = new ByteArrayOutputStream();
-    	// 缩小用户上传头像图片180x180
-    	try {
-			Thumbnails.of(new ByteArrayInputStream(picture))
-					  .size(180, 180)
-					  .toOutputStream(newPicture);
-		} catch (IOException e) {}
         userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
             u.setNickName(nickName);
             u.setEmail(email);
             u.setLangKey(langKey);
             u.setPictureContentType(pictureContentType);
-            u.setPicture(newPicture.toByteArray());
+            u.setPicture(picture);
             u.setGender(gender);
             u.setSignature(signature);
             userRepository.save(u);

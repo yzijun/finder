@@ -1,6 +1,10 @@
 package com.app.finder.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
+import net.coobird.thumbnailator.Thumbnails;
+
+import com.app.finder.common.util.ThumbnailsUtils;
 import com.app.finder.domain.PersistentToken;
 import com.app.finder.domain.User;
 import com.app.finder.repository.PersistentTokenRepository;
@@ -23,6 +27,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
@@ -127,11 +135,20 @@ public class AccountResource {
         if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userDTO.getLogin()))) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("user-management", "emailexists", "Email already in use")).body(null);
         }
+        
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	// 缩小用户上传头像图片180x180
+        ThumbnailsUtils.resetPicture(180, 180, userDTO.getPicture(), out);
+    	//判断上传头像是否超过表的字段Blob最大65K
+    	if (out.size() >= 60000) {
+    		return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("user-management", "uploadpicturelarge", "上传头像的图片过大,请重新选择图片")).body(null);
+    	}
+        
         return userRepository
             .findOneByLogin(SecurityUtils.getCurrentUser().getUsername())
             .map(u -> {
                 userService.updateUserInformation(userDTO.getNickName(), userDTO.getEmail(),
-                    userDTO.getLangKey(), userDTO.getPictureContentType(), userDTO.getPicture(),
+                    userDTO.getLangKey(), userDTO.getPictureContentType(), out.toByteArray(),
                     userDTO.getGender(), userDTO.getSignature());
                 return new ResponseEntity<String>(HttpStatus.OK);
             })

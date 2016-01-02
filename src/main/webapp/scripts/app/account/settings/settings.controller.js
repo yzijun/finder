@@ -8,6 +8,9 @@ angular.module('finderApp')
     	
         $scope.success = null;
         $scope.error = null;
+        //验证出错后的显示信息
+        $scope.errorEmailExists = null;
+        $scope.uploadPictureLarge = null;
         Principal.identity(true).then(function(account) {
             $scope.settingsAccount = account;
         });
@@ -15,6 +18,8 @@ angular.module('finderApp')
         $scope.save = function () {
             Auth.updateAccount($scope.settingsAccount).then(function() {
                 $scope.error = null;
+                $scope.errorEmailExists = null;
+                $scope.uploadPictureLarge = null;
                 $scope.success = 'OK';
                 Principal.identity().then(function(account) {
                     $scope.settingsAccount = account;
@@ -24,9 +29,17 @@ angular.module('finderApp')
                         $translate.use($scope.settingsAccount.langKey);
                     }
                 });
-            }).catch(function() {
+            }).catch(function(httpResponse) {
                 $scope.success = null;
-                $scope.error = 'ERROR';
+                //根据后台传回来的值判断出错类型
+                var errorHeader = httpResponse.headers('X-finderApp-error');
+                if (errorHeader === 'error.emailexists') {
+                    $scope.errorEmailExists = 'ERROR';
+                } else if (errorHeader === 'error.uploadpicturelarge') {
+                    $scope.uploadPictureLarge = 'ERROR';
+                } else {
+                    $scope.error = 'ERROR';
+                }
             });
         };
         
