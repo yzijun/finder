@@ -18,8 +18,10 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
@@ -94,38 +96,48 @@ public class ArticleService {
          * 1.若图片横比800小，高比400小
          * 2.若图片横比800小，高比400大
          */
+       
+        //文章内容中有上传图片时，需要缩放图片的大小
+        //正则查找base64编码后的字符串.+贪婪模式.+?是非贪婪模式
+        Pattern p = Pattern.compile("<img src=\"data:image/(.+);base64,(.+?)\"");
+        Matcher m = p.matcher(article.getContent());
+        while (m.find()) {
+        	//取得图片类型(后缀名)
+        	String picType = m.group(1);
+        	//取得图片base64编码后的字符串正则匹配(.+?)的字符串
+        	String picEncode = m.group(2);
+        	//Base64解码为字节数组
+        	byte[] decode = Base64.getDecoder().decode(picEncode);
+	    	is = new ByteArrayInputStream(decode);
+	        widthAndHeight = ThumbnailsUtils.getWidthAndHeight(is);
+	        picWidth = widthAndHeight[0];
+	        picHeight = widthAndHeight[1];
+	        
+	        String savePicPath = "D:/temppic/";
+			
+			if ((picWidth > width && picHeight > height)
+            		|| (picWidth > width && picHeight < height)) {
+            	//保存缩小后的图片
+            	ByteArrayOutputStream out = new ByteArrayOutputStream();
+            	ThumbnailsUtils.resetPicture(width, height, decode, out);
+            	try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(
+    					savePicPath + System.currentTimeMillis() + "." + picType))) {
+    				bos.write(out.toByteArray());
+    			}
+            } else {
+            	//保存原大小图片
+            	try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(
+    					savePicPath + System.currentTimeMillis() + "." + picType))) {
+    				bos.write(decode);
+    			}
+            }
+        }
         
         //过滤敏感词汇
         forbiddenWordRepository.findAllCached().forEach(f -> {
         	String repContent = article.getContent().replaceAll(f.getWord(), "**");
         	article.setContent(repContent);
         });
-        //文章内容中有上传图片时，需要缩放图片的大小
-        //正则查找base64编码后的字符串.+贪婪模式.+?是非贪婪模式
-        Pattern p = Pattern.compile(";base64,(.+?)\"");
-        Matcher m = p.matcher(article.getContent());
-        while (m.find()) {
-        	//取得正则匹配(.+?)的字符串
-        	String s = m.group(1);
-        	//Base64解码为字节数组
-        	byte[] decode = Base64.getDecoder().decode(s);
-	    	is = new ByteArrayInputStream(decode);
-	        widthAndHeight = ThumbnailsUtils.getWidthAndHeight(is);
-	        picWidth = widthAndHeight[0];
-	        picHeight = widthAndHeight[1];
-        	if ((picWidth > width && picHeight > height)
-            		|| (picWidth > width && picHeight < height)) {
-            	//重新缩放上传图片的大小 800 * 400
-            	ByteArrayOutputStream out = new ByteArrayOutputStream();
-            	ThumbnailsUtils.resetPicture(width, height, decode, out);
-            	//图片缩放后用Base64编码
-            	String encodeStr = Base64.getEncoder().encodeToString(out.toByteArray());
-            	//替换原来的字符串
-            	m.replaceAll(encodeStr);
-            } 
-        	
-        }
-        
         
         Article result = articleRepository.save(article);
         articleSearchRepository.save(result);
