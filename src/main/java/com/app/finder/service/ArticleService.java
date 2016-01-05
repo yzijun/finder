@@ -8,6 +8,7 @@ import com.app.finder.repository.ForbiddenWordRepository;
 import com.app.finder.repository.UserRepository;
 import com.app.finder.repository.search.ArticleSearchRepository;
 import com.app.finder.security.SecurityUtils;
+import com.google.common.io.Files;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +22,13 @@ import javax.inject.Inject;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -96,15 +100,16 @@ public class ArticleService {
          * 1.若图片横比800小，高比400小
          * 2.若图片横比800小，高比400大
          */
-       
+        //保存图片的路径
+        List<String> urlPics = new ArrayList<>();
         //文章内容中有上传图片时，需要缩放图片的大小
-        //正则查找base64编码后的字符串.+贪婪模式.+?是非贪婪模式
-        Pattern p = Pattern.compile("<img src=\"data:image/(.+);base64,(.+?)\"");
+        //正则查找base64编码后的字符串(.+)贪婪模式(.+?)非贪婪模式
+        Pattern p = Pattern.compile("<img src=\"data:image/(.+?);base64,(.+?)\"");
         Matcher m = p.matcher(article.getContent());
         while (m.find()) {
         	//取得图片类型(后缀名)
         	String picType = m.group(1);
-        	//取得图片base64编码后的字符串正则匹配(.+?)的字符串
+        	//取得图片base64编码后的字符串
         	String picEncode = m.group(2);
         	//Base64解码为字节数组
         	byte[] decode = Base64.getDecoder().decode(picEncode);
@@ -114,24 +119,43 @@ public class ArticleService {
 	        picHeight = widthAndHeight[1];
 	        
 	        String savePicPath = "D:/temppic/";
+	        //取得当前日期作为文件夹
+	        String day = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 			
+	        String fileName = day + "/" + System.currentTimeMillis() + "." + picType;
+	        //保存图片的完整路径和文件名
+	        savePicPath += fileName;
+	        
+	        File f = new File(savePicPath);
+	        //google IO 不存在时创建父文件夹
+	        Files.createParentDirs(f);
+	        
+	        //图片显示URL中的路径
+	        urlPics.add(fileName);
+	        
 			if ((picWidth > width && picHeight > height)
             		|| (picWidth > width && picHeight < height)) {
             	//保存缩小后的图片
             	ByteArrayOutputStream out = new ByteArrayOutputStream();
             	ThumbnailsUtils.resetPicture(width, height, decode, out);
-            	try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(
-    					savePicPath + System.currentTimeMillis() + "." + picType))) {
+            	try (BufferedOutputStream bos = new BufferedOutputStream(
+            			new FileOutputStream(savePicPath))) {
     				bos.write(out.toByteArray());
     			}
             } else {
             	//保存原大小图片
-            	try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(
-    					savePicPath + System.currentTimeMillis() + "." + picType))) {
+            	try (BufferedOutputStream bos = new BufferedOutputStream(
+            			new FileOutputStream(savePicPath))) {
     				bos.write(decode);
     			}
             }
         }
+        //替换图片为保存指定路径后的url
+        urlPics.forEach(s->{
+        	String replace = "<img src=\"" + s + "\">";
+        	String con = article.getContent().replaceFirst("<img src=\"data:image.+?\">", replace);
+        	article.setContent(con);
+        });
         
         //过滤敏感词汇
         forbiddenWordRepository.findAllCached().forEach(f -> {
