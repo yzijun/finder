@@ -117,8 +117,8 @@ public class ArticleService {
 	        widthAndHeight = ThumbnailsUtils.getWidthAndHeight(is);
 	        picWidth = widthAndHeight[0];
 	        picHeight = widthAndHeight[1];
-	        
-	        String savePicPath = "D:/temppic/";
+	        //TODO 正式系统需要改路径
+	        String savePicPath = "D:/apachePic/";
 	        //取得当前日期作为文件夹
 	        String day = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 			
@@ -131,7 +131,8 @@ public class ArticleService {
 	        Files.createParentDirs(f);
 	        
 	        //图片显示URL中的路径
-	        urlPics.add(fileName);
+	        //TODO 正式系统需要改URL地址
+	        urlPics.add("http://localhost:8089/" + fileName);
 	        
 			if ((picWidth > width && picHeight > height)
             		|| (picWidth > width && picHeight < height)) {
