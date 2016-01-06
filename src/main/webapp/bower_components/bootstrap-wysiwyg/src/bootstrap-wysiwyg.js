@@ -205,12 +205,24 @@
 				editor.focus();
 				$.each(files, function (idx, fileInfo) {
 					if (/^image\//.test(fileInfo.type)) {
-						$.when(readFileIntoDataUrl(fileInfo)).done(function (dataUrl) {
+						/*$.when(readFileIntoDataUrl(fileInfo)).done(function (dataUrl) {
 							underscoreThrottle(execCommand('insertimage', dataUrl), options.keypressTimeout);
 							editor.trigger('image-inserted');
 						}).fail(function (e) {
 							options.fileUploadError("file-reader", e);
-						});
+						});*/
+						//自定义修改localResizeIMG客户端浏览器缩小图片 宽度：800   高度自适应
+						lrz(fileInfo, {width: 800})
+		                .then(function (rst) {
+		                	underscoreThrottle(execCommand('insertimage', rst.base64), options.keypressTimeout);
+							editor.trigger('image-inserted');
+		                    return rst;
+		                }).catch(function (err) {
+		                    // 万一出错了，这里可以捕捉到错误信息
+		                    // 而且以上的then都不会执行
+		                	options.fileUploadError("file-reader", err);
+		                });
+						
 					} else {
 						options.fileUploadError("unsupported-file-type", fileInfo.type);
 					}
