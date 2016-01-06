@@ -27,9 +27,7 @@
             <label class="control-label error-font-color" for="field_firstImg">*</label>
             <div>
             	<div style="padding-bottom: 5px">
-                	<!-- <img data-ng-src="{{'data:' + article.firstImgContentType + ';base64,' + article.firstImg}}" style="max-height: 300px;" ng-if="article.firstImg"/> -->
-                	<!-- 用js组件localResizeIMG 不需要拼接字符串了,全部包括上面字符串 -->
-                	<img data-ng-src="{{article.firstImg}}" style="max-height: 300px;" ng-if="article.firstImg"/>
+                	<img data-ng-src="{{'data:' + article.firstImgContentType + ';base64,' + article.firstImg}}" style="max-height: 300px;" ng-if="article.firstImg"/>
                 </div>
                 <!-- <div class="help-block clearfix">
                     <span class="pull-left">{{article.firstImgContentType}} {{byteSize(article.firstImg)}}</span>

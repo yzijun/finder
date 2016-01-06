@@ -61,9 +61,9 @@ angular.module('finderApp').controller('ArticleDialogController',
             	lrz($file, {width: 800})
                 .then(function (rst) {
                     // 把处理的好的图片给用户看看呗
-//                	var base64Data = rst.base64.substr(rst.base64.indexOf('base64,') + 'base64,'.length);
+                	var base64Data = rst.base64.substr(rst.base64.indexOf('base64,') + 'base64,'.length);
                     $scope.$apply(function() {
-                        article.firstImg = rst.base64;
+                        article.firstImg = base64Data;
                         article.firstImgContentType = $file.type;
                     });
 
@@ -71,7 +71,6 @@ angular.module('finderApp').controller('ArticleDialogController',
                 }).catch(function (err) {
                     // 万一出错了，这里可以捕捉到错误信息
                     // 而且以上的then都不会执行
-
                     alert(err);
                 });
             }
