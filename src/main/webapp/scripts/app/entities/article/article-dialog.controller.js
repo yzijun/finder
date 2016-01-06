@@ -48,7 +48,7 @@ angular.module('finderApp').controller('ArticleDialogController',
                 return;
             }
             if ($file) {
-                var fileReader = new FileReader();
+               /* var fileReader = new FileReader();
                 fileReader.readAsDataURL($file);
                 fileReader.onload = function (e) {
                     var base64Data = e.target.result.substr(e.target.result.indexOf('base64,') + 'base64,'.length);
@@ -56,7 +56,24 @@ angular.module('finderApp').controller('ArticleDialogController',
                         article.firstImg = base64Data;
                         article.firstImgContentType = $file.type;
                     });
-                };
+                };*/
+            	//localResizeIMG客户端浏览器缩放图片 宽度：800   高度自适应
+            	lrz($file, {width: 800})
+                .then(function (rst) {
+                    // 把处理的好的图片给用户看看呗
+//                	var base64Data = rst.base64.substr(rst.base64.indexOf('base64,') + 'base64,'.length);
+                    $scope.$apply(function() {
+                        article.firstImg = rst.base64;
+                        article.firstImgContentType = $file.type;
+                    });
+
+                    return rst;
+                }).catch(function (err) {
+                    // 万一出错了，这里可以捕捉到错误信息
+                    // 而且以上的then都不会执行
+
+                    alert(err);
+                });
             }
         };
         //删除选择的上传图片时显示错误提示
