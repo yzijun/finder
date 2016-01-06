@@ -43,7 +43,9 @@ angular.module('finderApp')
                         return $translate.refresh();
                     }],
                     entity: ['$stateParams', 'Article', function($stateParams, Article) {
-                        return Article.get({id : $stateParams.id});
+//                        return Article.get({id : $stateParams.id});
+                    	//不使用这里查询Article数据,原因是数据异步加载文章内容取不到
+                    	return null;
                     }]
                 }
             })
