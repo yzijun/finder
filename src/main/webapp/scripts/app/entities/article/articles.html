@@ -45,8 +45,8 @@
                     	<!-- angular对html转义 data-ng-bind-html -->
                     	<div data-ng-bind-html="article.content"></div>
                     </td>
-                    <!-- 格式化日期时间 y-MM-d H:mm:ss -->
-                    <td>{{article.createdDate | date:'y-MM-d H:mm:ss'}}</td>
+                    <!-- 格式化日期时间 yyyy-MM-dd HH:mm -->
+                    <td>{{article.createdDate | date:'yyyy-MM-dd HH:mm'}}</td>
                     <td>
                         {{article.published == true ? '已发布':'未发布'}}
                     </td>
