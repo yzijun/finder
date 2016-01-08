@@ -225,3 +225,62 @@ ul#strengthBar {
 .error-font-color {
 	color: #a94442
 }
+/* ==========================================================================
+文章详细页
+========================================================================== */
+/*文章标题 */
+.t-h1 {
+    color: #333;
+    font-size: 28px;
+    line-height: 1.5;
+    margin: 0;
+    position: inherit;
+    word-break: normal;
+    word-wrap: break-word;
+}
+
+.article-author {
+    color: #bbb;
+    font-size: 16px;
+    margin: 20px 0 27px;
+}
+
+.author-name, .box-author-info .author-article-pl a:hover {
+    color: #333;
+}
+
+.article-time {
+    margin: 0 15px 0 10px;
+}
+
+.article-share {
+    margin: 0 15px 0 0;
+}
+
+.article-content-wrap {
+    line-height: 30px;
+    margin-top: 25px;
+    font-size: 16px;
+}
+
+.box-author-name {
+    font-size: 16px;
+    margin: 15px 0;
+}
+.box-author-one{
+    color: #bbb;
+    font-size: 14px;
+    margin: 12px 0;
+}
+
+.i-icon, .icon {
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 20px;
+    vertical-align: text-bottom;
+    width: 20px;
+}
+
+.icon-line {
+    background-position: -145px -1px;
+}

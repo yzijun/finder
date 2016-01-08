@@ -8,6 +8,8 @@ angular.module('finderApp')
             $scope.article = result;
             //angular对html转义,增加信任$sce.trustAsHtml
             $scope.article.content = $sce.trustAsHtml($scope.article.content);
+            //文章作者
+            $scope.account = $scope.article.user;
         });
         $scope.load = function (id) {
             Article.get({id: id}, function(result) {
@@ -20,5 +22,7 @@ angular.module('finderApp')
         $scope.$on('$destroy', unsubscribe);
 
         $scope.byteSize = DataUtils.byteSize;
+        
+        $scope.abbreviate = DataUtils.abbreviate;
 
     });
