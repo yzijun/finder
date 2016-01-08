@@ -28,7 +28,9 @@ angular.module('finderApp')
                 parent: 'entity',
                 url: '/article/{id}',
                 data: {
-                    authorities: ['ROLE_USER'],
+//                    authorities: ['ROLE_USER'],
+                	//不需要登录不设定角色就可以显示文章详细页面
+                	authorities: [],
                     pageTitle: 'finderApp.article.detail.title'
                 },
                 views: {
