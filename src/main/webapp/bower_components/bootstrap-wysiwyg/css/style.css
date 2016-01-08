@@ -80,7 +80,9 @@ div[data-role="editor-toolbar"] {
 }
 
 .fs-Three {
-	font-size: medium;
+	/* font-size: medium; */
+	/* 自定义修改，为了和文章详细页的默认字体大小一致article-content-wrap */
+	font-size: 16px;
 }
 
 .fs-Five {
