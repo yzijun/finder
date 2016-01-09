@@ -5,6 +5,7 @@ import com.app.finder.web.filter.CsrfCookieGeneratorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,6 +20,7 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 
 @Configuration
@@ -104,8 +106,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .disable()
         .and()
             .authorizeRequests()
-            //自定义修改  文章详细页不需要登录验证
-            .antMatchers("/api/article/**").permitAll()
+            /*
+             * 自定义修改  文章详细页不需要登录验证
+             * 这样文章下面的所有api都暴露不需要登录，这样是不安全的
+             * 需要在每个rest（ArticleResource）方法上加入角色验证
+             * 可用注解
+             * @Secured(AuthoritiesConstants.ADMIN) 基于spring
+             * @RolesAllowed(AuthoritiesConstants.ADMIN) 基于JSR
+             */
+            .antMatchers("/api/articles/**").permitAll()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()
