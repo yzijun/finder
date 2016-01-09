@@ -2,6 +2,7 @@ package com.app.finder.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.app.finder.domain.Article;
+import com.app.finder.security.AuthoritiesConstants;
 import com.app.finder.service.ArticleService;
 import com.app.finder.web.rest.util.HeaderUtil;
 import com.app.finder.web.rest.util.PaginationUtil;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -44,6 +46,7 @@ public class ArticleResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.USER) //用户角色可以访问
     public ResponseEntity<Article> createArticle(@Valid @RequestBody Article article) throws URISyntaxException, IOException {
         log.debug("REST request to save Article : {}", article);
         if (article.getId() != null) {
@@ -63,6 +66,7 @@ public class ArticleResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<Article> updateArticle(@Valid @RequestBody Article article) throws URISyntaxException, IOException {
         log.debug("REST request to update Article : {}", article);
         if (article.getId() == null) {
@@ -113,6 +117,7 @@ public class ArticleResource {
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
         log.debug("REST request to delete Article : {}", id);
         articleService.delete(id);
