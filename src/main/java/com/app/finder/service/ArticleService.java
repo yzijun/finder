@@ -218,10 +218,11 @@ public class ArticleService {
      *  get one article by id.
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
     public Article findOne(Long id) {
         log.debug("Request to get Article : {}", id);
         Article article = articleRepository.findOne(id);
+        //文章的浏览数量加1
+        articleRepository.updatePageView(article.getId());
         return article;
     }
 

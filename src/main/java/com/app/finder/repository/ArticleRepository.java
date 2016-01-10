@@ -13,5 +13,13 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
 
     @Query("select article from Article article where article.user.login = ?#{principal.username}")
     List<Article> findByUserIsCurrentUser();
+    
+    /*
+     * 访问文章详细页面时更新页面浏览次数,
+     * 不用默认更新原因是会更新所有字段没有必要
+     */
+    @Modifying
+    @Query("update Article a set a.pageView = a.pageView + 1 where a.id = ?1")
+    int updatePageView(Long id);
 
 }
