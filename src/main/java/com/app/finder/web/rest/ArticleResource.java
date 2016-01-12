@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.app.finder.domain.Article;
 import com.app.finder.security.AuthoritiesConstants;
 import com.app.finder.service.ArticleService;
+import com.app.finder.web.rest.dto.ArticleDTO;
 import com.app.finder.web.rest.util.HeaderUtil;
 import com.app.finder.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -100,9 +101,9 @@ public class ArticleResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Article> getArticle(@PathVariable Long id) {
+    public ResponseEntity<ArticleDTO> getArticle(@PathVariable Long id) {
         log.debug("REST request to get Article : {}", id);
-        Article article = articleService.findOne(id);
+        ArticleDTO article = articleService.findOne(id);
         return Optional.ofNullable(article)
             .map(result -> new ResponseEntity<>(
                 result,

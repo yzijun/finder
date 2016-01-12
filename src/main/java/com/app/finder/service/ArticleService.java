@@ -32,6 +32,7 @@ import com.app.finder.repository.ForbiddenWordRepository;
 import com.app.finder.repository.UserRepository;
 import com.app.finder.repository.search.ArticleSearchRepository;
 import com.app.finder.security.SecurityUtils;
+import com.app.finder.web.rest.dto.ArticleDTO;
 import com.google.common.io.Files;
 
 /**
@@ -218,12 +219,24 @@ public class ArticleService {
      *  get one article by id.
      *  @return the entity
      */
-    public Article findOne(Long id) {
+    public ArticleDTO findOne(Long id) {
         log.debug("Request to get Article : {}", id);
         Article article = articleRepository.findOne(id);
+        //可能有id不存在的情况
+        if (article == null) {
+        	return null;
+        }
+        
+        //取得该用户全部文章数
+        int countArticleUid = articleRepository.findByCountArticleIsUid(article.getUser().getId());
         //文章的浏览数量加1
         articleRepository.updatePageView(article.getId());
-        return article;
+        
+        Integer countArticleReplyUid = 0;
+		Integer countArticleSaveAid = 0;
+		Integer countArticleReplyAid = 0;
+		return new ArticleDTO(article, countArticleUid, 
+				countArticleReplyUid, countArticleSaveAid, countArticleReplyAid);
     }
 
     /**
