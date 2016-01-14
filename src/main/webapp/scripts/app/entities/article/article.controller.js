@@ -7,8 +7,10 @@ angular.module('finderApp')
         $scope.predicate = 'id';
         $scope.reverse = true;
         $scope.page = 1;
+        // 自定义每页显示的数量  github Fix #2625
+        $scope.pageSize = 20;
         $scope.loadAll = function() {
-            Article.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
+            Article.query({page: $scope.page - 1, size: $scope.pageSize, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');
                 $scope.articles = result;
