@@ -17,7 +17,7 @@
                     This field is required.
                 </p>
                 <p class="help-block"
-                    ng-show="editForm.title.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="40">
+                    ng-show="editForm.title.$dirty && editForm.title.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="40">
                     This field cannot be longer than 40 characters.
                 </p>
             </div>
