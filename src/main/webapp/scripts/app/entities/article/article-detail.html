@@ -48,41 +48,37 @@
 			  </li>
 			</ul>
 		</div>
-		<!-- 右边栏 活跃作者 -->
-		<div class="col-md-3">
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h3 class="panel-title">活跃作者</h3>
-				</div>
-				<!-- <div class="panel-body">Panel content</div> -->
-				<!-- List group 面板列表组-->
-				<ul class="list-group">
-					<!-- pull-right css 向左或向右浮动 -->
-					<li class="list-group-item"><a href="#">Cras justo odio<span
-							class="badge pull-right">42</span></a></li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-				</ul>
-			</div>
-		</div>
 		<!-- 右边栏 热门文章 -->
-		<div class="col-md-3">
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					<h3 class="panel-title">热门文章</h3>
+		<div class="col-md-3 box-moder">
+			<!-- <h4>
+				<span class="span-mark"></span>
+				<b>热门文章</b>
+			</h4> -->
+			<blockquote>
+			  <p>
+				<b>热门文章</b>
+			  </p>
+			</blockquote>
+			<div class="thumbnail voffset3">
+				<div>
+					<a target="_blank" ui-sref="article.detail({id:article.id})">
+						<img alt="242x200"
+							src="http://www.bootcss.com/p/layoutit/img/people.jpg" />
+					</a>	
+					<div class="caption">
+						<a ui-sref="article.detail({id:article.id})">不管庄辰超去哪儿，去哪儿依旧是去哪儿</a>
+					</div>
 				</div>
-				<!-- <div class="panel-body">Panel content</div> -->
-				<!-- List group 面板列表组-->
-				<ul class="list-group">
-					<li class="list-group-item"><a href="#">Cras justo odio<span
-							class="badge pull-right">112</span></a></li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-				</ul>
+				
+				<div>
+					<a target="_blank" ui-sref="article.detail({id:article.id})">
+						<img alt="242x200"
+							src="http://www.bootcss.com/p/layoutit/img/people.jpg" />
+					</a>	
+					<div class="caption">
+						<a ui-sref="article.detail({id:article.id})">不管庄辰超去哪儿，去哪儿依旧是去哪儿</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

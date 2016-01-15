@@ -284,3 +284,40 @@ ul#strengthBar {
 .icon-line {
     background-position: -145px -1px;
 }
+
+/*右边栏 热门文章 */
+
+.box-moder blockquote {
+    border-left: 6px solid #3da9f7;
+    padding-left: 8px;
+    margin: 0 0 10px;
+}
+
+.box-moder blockquote b {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.thumbnail div {
+    overflow: hidden;
+    padding: 10px 10px 0px;
+}
+
+.thumbnail div a {
+    font-size: 16px;
+}
+
+.thumbnail div a:hover {
+    color: #3da9f7;
+}
+
+a {
+    cursor: pointer;
+    color: #333;
+}
+
+a:hover, a:link {
+    text-decoration: none;
+}
