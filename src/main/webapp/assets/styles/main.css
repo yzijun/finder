@@ -291,6 +291,7 @@ ul#strengthBar {
     border-left: 6px solid #3da9f7;
     padding-left: 8px;
     margin: 0 0 10px;
+    line-height: 0.3em;
 }
 
 .box-moder blockquote b {
