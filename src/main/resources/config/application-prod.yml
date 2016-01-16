@@ -37,6 +37,14 @@ spring:
         elasticsearch:
             cluster-name:
             cluster-nodes: localhost:9300
+# =============================参考用的配置=============================
+#            cluster-nodes: localhost:9300 如果配置下面的属性，需要把上面的这一行删除     
+#            cluster-nodes:
+#            properties:
+#                path:
+#                  logs: /tmp/elasticsearch/log
+#                  data: /tmp/elasticsearch/data
+# ==================================================================                          
     mail:
         host: localhost
         port: 25
