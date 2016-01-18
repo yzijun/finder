@@ -21,13 +21,10 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import com.app.finder.domain.Article;
 import com.app.finder.domain.User;
@@ -59,6 +56,9 @@ public class ArticleService {
     
     @Inject
     private ForbiddenWordRepository forbiddenWordRepository;
+    
+    @Inject
+    private SpringTemplateEngine templateEngine;
     
     /**
      * Save a article.
@@ -241,14 +241,14 @@ public class ArticleService {
          * TODO 共通处理   需要通过模板生成静态的html
          * 用page的方式取出TOP N 的数据,原因是jpql不支持limit
          */
-        int pageSize = 5;
+        /*int pageSize = 5;
         Order order = new Order(Direction.DESC, "pageView");
         Sort sort = new Sort(order);
         PageRequest pageable = new PageRequest(0, pageSize, sort);
         Page<Article> page = articleRepository.findAll(pageable);
         
     	System.out.println("当前页面的 List: " + page.getContent());
-    	System.out.println("当前页面的记录数: " + page.getNumberOfElements());
+    	System.out.println("当前页面的记录数: " + page.getNumberOfElements());*/
         
         Integer countArticleReplyUid = 0;
 		Integer countArticleSaveAid = 0;
@@ -278,4 +278,34 @@ public class ArticleService {
             .stream(articleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
+    
+    /**
+     * 文章详细页面  右边栏 热门文章
+     * 通过模板生成静态的html(局部静态化)
+     * 执行时间是在每天的凌晨1点15分 at 01:15 (am)
+     * 暂时不使用，原因是文章的首图是数据库存储的生成静态html时不能用angular
+     */
+   /* @Scheduled(cron = "0 15 1 * * ?")
+    public void makeFileHotArticle() {
+		String time = ZonedDateTime.now()
+				.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		log.debug("执行文章详细右边栏 热门文章生成静态html文件，时间是：{}", time);
+		
+		// 用page的方式取出TOP N 的数据,原因是jpql不支持limit
+        int pageSize = 2;
+        Order order = new Order(Direction.DESC, "pageView");
+        Sort sort = new Sort(order);
+        PageRequest pageable = new PageRequest(0, pageSize, sort);
+        Page<Article> page = articleRepository.findAll(pageable);
+        // 当前页面的 List
+        List<Article> articles = page.getContent();
+
+        Context context = new Context();
+        context.setVariable("articles", articles);
+        // TODO baseURL 正式环境时需要替换,作为模板使用
+        String baseURL = "http://127.0.0.1:8080";
+        context.setVariable("baseUrl", baseURL);
+        String content = templateEngine.process("article/hotArticleDetail", context);
+		System.out.println("----->"+content);
+    }*/
 }

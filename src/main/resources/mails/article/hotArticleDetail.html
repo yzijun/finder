@@ -1,0 +1,21 @@
+<!-- 文章详细页面  右边栏 热门文章 -->
+<div class="col-md-3 box-moder">
+	<blockquote>
+		<p>
+			<b>热门文章</b>
+		</p>
+	</blockquote>
+	<div class="thumbnail voffset3">
+		<div th:each="article:${articles}">
+			<a target="_blank" th:href="@{|${baseUrl}/#/article/${article.id}|}"> 
+				<!-- <img data-ng-src="{{'data:' + article.firstImgContentType + ';base64,' + article.firstImg}}" style="max-width: 100%;" ng-if="article.firstImg"/> -->
+				<!-- th:remove="tag" 生成内容后移除当前的tag -->
+				<p th:remove="tag" th:text="|${'&lt;img data-ng-src=data:'+ article.firstImgContentType + ';base64,' + article.firstImg + '/&gt;'}|"></p>
+			</a>
+			<div class="caption">
+				<a th:href="@{|${baseUrl}/#/article/${article.id}|}"
+	               th:text="|${article.title}|"> </a>
+			</div>
+		</div>
+	</div>
+</div>
