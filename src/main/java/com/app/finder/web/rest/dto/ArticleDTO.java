@@ -2,6 +2,7 @@ package com.app.finder.web.rest.dto;
 
 import java.time.ZonedDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.app.finder.domain.Article;
@@ -53,21 +54,23 @@ public class ArticleDTO {
 
 	// 该文章的评论数
 	private Integer countArticleReplyAid;
+	// 右边栏 热门文章
+	List<Article> hotArticles;
 
 	public ArticleDTO(Article article, Integer countArticleUid, Integer countArticleReplyUid,
-			Integer countArticleSaveAid, Integer countArticleReplyAid) {
+			Integer countArticleSaveAid, Integer countArticleReplyAid,List<Article> hotArticles) {
 		this(article.getId(), article.getTitle(), article.getFirstImg(),
 				article.getFirstImgContentType(), article.getContent(), article.isPublished(),
 				article.getPageView(), article.getCreatedDate(), article.getUser(),
 				article.getArticleCategory(), article.getTags(), countArticleUid,
-				countArticleReplyUid, countArticleSaveAid, countArticleReplyAid);
+				countArticleReplyUid, countArticleSaveAid, countArticleReplyAid, hotArticles);
 	}
 
 	public ArticleDTO(Long id, String title, byte[] firstImg, String firstImgContentType,
 			String content, boolean published, Integer pageView, ZonedDateTime createdDate,
 			User user, ArticleCategory articleCategory, Set<Tag> tags, Integer countArticleUid,
 			Integer countArticleReplyUid, Integer countArticleSaveAid,
-			Integer countArticleReplyAid) {
+			Integer countArticleReplyAid, List<Article> hotArticles) {
 		this.id = id;
 		this.title = title;
 		this.firstImg = firstImg;
@@ -83,6 +86,7 @@ public class ArticleDTO {
 		this.countArticleReplyUid = countArticleReplyUid;
 		this.countArticleSaveAid = countArticleSaveAid;
 		this.countArticleReplyAid = countArticleReplyAid;
+		this.hotArticles = hotArticles;
 	}
 
 	public Long getId() {
@@ -203,6 +207,14 @@ public class ArticleDTO {
 
 	public void setCountArticleReplyAid(Integer countArticleReplyAid) {
 		this.countArticleReplyAid = countArticleReplyAid;
+	}
+
+	public List<Article> getHotArticles() {
+		return hotArticles;
+	}
+
+	public void setHotArticles(List<Article> hotArticles) {
+		this.hotArticles = hotArticles;
 	}
 
 	@Override

@@ -10,6 +10,8 @@ angular.module('finderApp')
             $scope.article.content = $sce.trustAsHtml($scope.article.content);
             //文章作者
             $scope.account = $scope.article.user;
+            // 右边栏 热门文章
+            $scope.hotArticles = $scope.article.hotArticles;
         });
         $scope.load = function (id) {
             Article.get({id: id}, function(result) {

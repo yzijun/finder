@@ -21,7 +21,11 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -238,23 +242,24 @@ public class ArticleService {
         
         /*
          * 右边栏 热门文章
-         * TODO 共通处理   需要通过模板生成静态的html
+         * 共通处理   需要通过模板生成静态的html(暂不使用,会有显示图片的限制)
          * 用page的方式取出TOP N 的数据,原因是jpql不支持limit
          */
-        /*int pageSize = 5;
+        int pageSize = 2;
         Order order = new Order(Direction.DESC, "pageView");
         Sort sort = new Sort(order);
         PageRequest pageable = new PageRequest(0, pageSize, sort);
         Page<Article> page = articleRepository.findAll(pageable);
-        
-    	System.out.println("当前页面的 List: " + page.getContent());
-    	System.out.println("当前页面的记录数: " + page.getNumberOfElements());*/
+        // 当前页面的 List
+    	List<Article> hotArticles = page.getContent();
+    	 
         
         Integer countArticleReplyUid = 0;
 		Integer countArticleSaveAid = 0;
 		Integer countArticleReplyAid = 0;
 		return new ArticleDTO(article, countArticleUid, 
-				countArticleReplyUid, countArticleSaveAid, countArticleReplyAid);
+				countArticleReplyUid, countArticleSaveAid, 
+				countArticleReplyAid, hotArticles);
     }
 
     /**
