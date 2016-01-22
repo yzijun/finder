@@ -20,6 +20,8 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -239,19 +241,8 @@ public class ArticleService {
         int countArticleUid = articleRepository.findByCountArticleIsUid(article.getUser().getId());
         //文章的浏览数量加1
         articleRepository.updatePageView(article.getId());
-        
-        /*
-         * 右边栏 热门文章
-         * 共通处理   需要通过模板生成静态的html(暂不使用,会有显示图片的限制)
-         * 用page的方式取出TOP N 的数据,原因是jpql不支持limit
-         */
-        int pageSize = 2;
-        Order order = new Order(Direction.DESC, "pageView");
-        Sort sort = new Sort(order);
-        PageRequest pageable = new PageRequest(0, pageSize, sort);
-        Page<Article> page = articleRepository.findAll(pageable);
-        // 当前页面的 List
-    	List<Article> hotArticles = page.getContent();
+        // 右边栏 热门文章
+        List<Article> hotArticles = getHotArticleDetail();
     	 
         
         Integer countArticleReplyUid = 0;
@@ -262,6 +253,55 @@ public class ArticleService {
 				countArticleReplyAid, hotArticles);
     }
 
+    /*
+     * 右边栏 热门文章
+     * 共通处理   需要通过模板生成静态的html(暂不使用,会有显示图片的限制)
+     * 用page的方式取出TOP N 的数据,原因是jpql不支持limit
+     * 这里使用spring的缓存注解@Cacheable来替代模板生成静态的html
+     */
+    public List<Article> hotArticleDetail(String opr) {
+    	log.debug("右边栏 热门文章 缓存的状态是 : {}", opr);
+		// 默认显示的数量
+        int pageSize = 5;
+        Order order = new Order(Direction.DESC, "pageView");
+        Sort sort = new Sort(order);
+        PageRequest pageable = new PageRequest(0, pageSize, sort);
+        Page<Article> page = articleRepository.findAll(pageable);
+        // 当前页面的 List
+    	List<Article> hotArticles = page.getContent();
+		return hotArticles;
+	}
+    
+    /*
+     * spring缓存 右边栏 热门文章
+     * 使用spring缓存名叫 hotArticle  
+     * 
+     */
+    @Cacheable("hotArticle")
+	public List<Article> getHotArticleDetail() {
+    	return hotArticleDetail("缓存数据");
+	}
+
+    /* 
+     * 更新 右边栏 热门文章 缓存数据
+     * @CachePut 注释，这个注释可以确保方法被执行，
+     * 同时方法的返回值也被记录到缓存中，实现缓存与数据库的同步更新。
+     */
+    @CachePut("hotArticle")
+    public List<Article> updateHotArticleDetail() {
+    	return hotArticleDetail("更新  缓存数据");
+    }
+    
+    /**
+     * 定时 更新 右边栏 热门文章 缓存数据
+     * 执行时间是在每天的凌晨1点15分 at 01:15 (am)
+     */
+//    @Scheduled(cron = "0 15 1 * * ?")
+//    @Scheduled(cron = "0/20 * * * * ?")
+    public void updateHotArticleTimer() {
+//    	updateHotArticleDetail();
+    }
+    
     /**
      *  delete the  article by id.
      */
