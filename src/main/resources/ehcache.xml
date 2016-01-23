@@ -68,4 +68,9 @@
            timeToLiveSeconds="3600">
     </cache>
     
+    <!-- 文章详细页面的缓存对象 -->
+    <cache name="articleDetail"
+           timeToLiveSeconds="3600">
+    </cache>
+    
     </ehcache>

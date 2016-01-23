@@ -228,8 +228,22 @@ public class ArticleService {
     /**
      *  get one article by id.
      *  @return the entity
+     *  
+     *  这里使用spring的缓存注解@Cacheable来替代模板生成静态的html
+     *  
+     *  注意：需要注意的是当一个支持缓存的方法在对象内部被调用时是不会触发缓存功能的。
+     *  键的生成策略
+     *  		键的生成策略有两种，一种是默认策略，一种是自定义策略。
+     *  		默认策略
+     *  			默认的key生成策略是通过KeyGenerator生成的，其默认策略如下：
+     *  			1. 如果方法没有参数，则使用0作为key。
+     *  			2. 如果只有一个参数的话则使用该参数作为key。
+     *  			3. 如果参数多余一个的话则使用所有参数的hashCode作为key。
+     *  
      */
+    @Cacheable("articleDetail")
     public ArticleDTO findOne(Long id) {
+    	log.debug("查看缓存是否执行");
         log.debug("Request to get Article : {}", id);
         Article article = articleRepository.findOne(id);
         //可能有id不存在的情况
@@ -242,7 +256,7 @@ public class ArticleService {
         //文章的浏览数量加1
         articleRepository.updatePageView(article.getId());
         // 右边栏 热门文章
-        List<Article> hotArticles = getHotArticleDetail();
+        List<Article> hotArticles = hotArticleDetail();
     	 
         
         Integer countArticleReplyUid = 0;
@@ -259,8 +273,7 @@ public class ArticleService {
      * 用page的方式取出TOP N 的数据,原因是jpql不支持limit
      * 这里使用spring的缓存注解@Cacheable来替代模板生成静态的html
      */
-    public List<Article> hotArticleDetail(String opr) {
-    	log.debug("右边栏 热门文章 缓存的状态是 : {}", opr);
+    public List<Article> hotArticleDetail() {
 		// 默认显示的数量
         int pageSize = 5;
         Order order = new Order(Direction.DESC, "pageView");
@@ -276,21 +289,24 @@ public class ArticleService {
      * spring缓存 右边栏 热门文章
      * 使用spring缓存名叫 hotArticle  
      * 
+     * 注意：需要注意的是当一个支持缓存的方法在对象内部被调用时是不会触发缓存功能的。
      */
-    @Cacheable("hotArticle")
+   /* @Cacheable("hotArticle")
 	public List<Article> getHotArticleDetail() {
     	return hotArticleDetail("缓存数据");
-	}
+	}*/
 
     /* 
      * 更新 右边栏 热门文章 缓存数据
      * @CachePut 注释，这个注释可以确保方法被执行，
      * 同时方法的返回值也被记录到缓存中，实现缓存与数据库的同步更新。
+     * 
+     * 注意：需要注意的是当一个支持缓存的方法在对象内部被调用时是不会触发缓存功能的。
      */
-    @CachePut("hotArticle")
+   /* @CachePut("hotArticle")
     public List<Article> updateHotArticleDetail() {
     	return hotArticleDetail("更新  缓存数据");
-    }
+    }*/
     
     /**
      * 定时 更新 右边栏 热门文章 缓存数据
@@ -298,9 +314,9 @@ public class ArticleService {
      */
 //    @Scheduled(cron = "0 15 1 * * ?")
 //    @Scheduled(cron = "0/20 * * * * ?")
-    public void updateHotArticleTimer() {
-//    	updateHotArticleDetail();
-    }
+   /* public void updateHotArticleTimer() {
+    	updateHotArticleDetail();
+    }*/
     
     /**
      *  delete the  article by id.
