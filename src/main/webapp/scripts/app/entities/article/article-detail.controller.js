@@ -26,5 +26,16 @@ angular.module('finderApp')
         $scope.byteSize = DataUtils.byteSize;
         
         $scope.abbreviate = DataUtils.abbreviate;
+        
+        // 是否显示回到顶部按钮
+        $(window).scroll(
+		function() {
+			$(this).scrollTop() > 400 ? $("#go-top-btn").css(
+					"display", "block") : $("#go-top-btn").hide()
+		});
+        // 点击回到顶部按钮
+        $("#go-top-btn").click(function(){
+        	document.body.scrollTop=0;document.documentElement.scrollTop=0;
+        });
 
     });
