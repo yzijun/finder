@@ -22,6 +22,10 @@
 					<span class="form-control-static" data-ng-bind-html="article.content">
                     <!-- angular对html转义 data-ng-bind-html -->
                    	</span>
+                   	
+                   	<span class="c2">
+						*文章为作者独立观点，不代表本站立场
+					</span>
 				</div>
         	</div>
 		</div>
@@ -61,7 +65,7 @@
 						<img data-ng-src="{{'data:' + hotArticle.firstImgContentType + ';base64,' + hotArticle.firstImg}}"/>
 					</a>	
 					<div class="caption">
-						<a ui-sref="article.detail({id:hotArticle.id})">{{hotArticle.title}}</a>
+						<a target="_blank" ui-sref="article.detail({id:hotArticle.id})">{{hotArticle.title}}</a>
 					</div>
 				</div>
 			</div>

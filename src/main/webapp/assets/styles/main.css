@@ -322,7 +322,7 @@ a {
 a:hover, a:link {
     text-decoration: none;
 }
-
+/*回到顶部 */
 .go-top {
     background: #f3f3f3 none repeat scroll 0 0;
     bottom: 140px;
@@ -345,7 +345,7 @@ a:hover, a:link {
     width: 20px;
     margin: 23px;
 }
-
+/*意见反馈 */
 .go-feedback {
     background-color: #f63756;
     bottom: 210px;
@@ -355,4 +355,9 @@ a:hover, a:link {
     padding: 8px;
     text-align: center;
     z-index: 10;
+}
+/*回到顶部 */
+.c2{
+    color: #bbb;
+    font-size: 14px;
 }
