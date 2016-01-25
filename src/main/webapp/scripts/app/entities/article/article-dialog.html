@@ -10,14 +10,14 @@
             <label class="control-label error-font-color" for="field_title">*</label>
             <input type="text" class="form-control" name="title" id="field_title"
                     ng-model="article.title"
-                    required ng-maxlength="40" />
+                    required ng-maxlength="60" />
             <div ng-show="editForm.title.$invalid">
                 <p class="help-block"
                     ng-show="editForm.title.$dirty && editForm.title.$error.required" translate="entity.validation.required">
                     This field is required.
                 </p>
                 <p class="help-block"
-                    ng-show="editForm.title.$dirty && editForm.title.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="40">
+                    ng-show="editForm.title.$dirty && editForm.title.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="60">
                     This field cannot be longer than 40 characters.
                 </p>
             </div>

@@ -27,8 +27,8 @@ public class Article implements Serializable {
 
     //文章标题
     @NotNull
-    @Size(max = 40)
-    @Column(name = "title", length = 40, nullable = false)
+    @Size(max = 60)
+    @Column(name = "title", length = 60, nullable = false)
     private String title;
 
     //显示在文章前的第一张图
