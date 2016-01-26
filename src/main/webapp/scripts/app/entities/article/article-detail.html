@@ -26,6 +26,18 @@
                    	<span class="c2">
 						*文章为作者独立观点，不代表本站立场
 					</span>
+					<!-- 标签部分 -->
+					<div class="tag-box ">
+						<a target="_blank" href="/tags/10691.html">
+							<span class="label label-default">应用号</span>
+						</a>
+						<a target="_blank" href="/tags/10691.html">
+							<span class="label label-default">微信</span>
+						</a>
+						<a target="_blank" href="/tags/10691.html">
+							<span class="label label-default">头条</span>
+						</a>
+					</div>
 				</div>
         	</div>
 		</div>
@@ -63,9 +75,10 @@
 				<div ng-repeat="hotArticle in hotArticles track by hotArticle.id">
 					<a target="_blank" ui-sref="article.detail({id:hotArticle.id})">
 						<img data-ng-src="{{'data:' + hotArticle.firstImgContentType + ';base64,' + hotArticle.firstImg}}"/>
-					</a>	
+					</a>
+					<!-- 文章标题 -->
 					<div class="caption">
-						<a target="_blank" ui-sref="article.detail({id:hotArticle.id})">{{hotArticle.title}}</a>
+						<a target="_blank" ui-sref="article.detail({id:hotArticle.id})" title="{{hotArticle.title}}">{{hotArticle.title | characters:30}}</a>
 					</div>
 				</div>
 			</div>

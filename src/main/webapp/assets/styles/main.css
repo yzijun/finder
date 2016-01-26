@@ -361,3 +361,27 @@ a:hover, a:link {
     color: #bbb;
     font-size: 14px;
 }
+/*文章底部的标签 */
+.tag-box {
+    display: inline-block;
+    margin-top: 30px;
+    padding-top: 20px;
+    width: 100%;
+    border-top: 1px solid #f0f0f0;
+}
+
+.tag-box a span {
+    background-color: #f0f0f0;
+    color: #bbb;
+    float: left;
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding: 0 15px;
+}
+
+.tag-box a span:hover {
+    background-color: #ececec;
+    color: #999;
+}
