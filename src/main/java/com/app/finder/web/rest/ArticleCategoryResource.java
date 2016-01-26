@@ -1,27 +1,28 @@
 package com.app.finder.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.app.finder.domain.ArticleCategory;
-import com.app.finder.repository.ArticleCategoryRepository;
-import com.app.finder.repository.search.ArticleCategorySearchRepository;
-import com.app.finder.web.rest.util.HeaderUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.inject.Inject;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import com.app.finder.domain.ArticleCategory;
+import com.app.finder.repository.ArticleCategoryRepository;
+import com.app.finder.web.rest.util.HeaderUtil;
+import com.codahale.metrics.annotation.Timed;
 
 /**
  * REST controller for managing ArticleCategory.
@@ -35,8 +36,6 @@ public class ArticleCategoryResource {
     @Inject
     private ArticleCategoryRepository articleCategoryRepository;
     
-    @Inject
-    private ArticleCategorySearchRepository articleCategorySearchRepository;
     
     /**
      * POST  /articleCategorys -> Create a new articleCategory.
@@ -51,7 +50,6 @@ public class ArticleCategoryResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("articleCategory", "idexists", "A new articleCategory cannot already have an ID")).body(null);
         }
         ArticleCategory result = articleCategoryRepository.save(articleCategory);
-        articleCategorySearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/articleCategorys/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("articleCategory", result.getId().toString()))
             .body(result);
@@ -70,7 +68,6 @@ public class ArticleCategoryResource {
             return createArticleCategory(articleCategory);
         }
         ArticleCategory result = articleCategoryRepository.save(articleCategory);
-        articleCategorySearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("articleCategory", articleCategory.getId().toString()))
             .body(result);
@@ -115,22 +112,7 @@ public class ArticleCategoryResource {
     public ResponseEntity<Void> deleteArticleCategory(@PathVariable Long id) {
         log.debug("REST request to delete ArticleCategory : {}", id);
         articleCategoryRepository.delete(id);
-        articleCategorySearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("articleCategory", id.toString())).build();
     }
 
-    /**
-     * SEARCH  /_search/articleCategorys/:query -> search for the articleCategory corresponding
-     * to the query.
-     */
-    @RequestMapping(value = "/_search/articleCategorys/{query}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<ArticleCategory> searchArticleCategorys(@PathVariable String query) {
-        log.debug("REST request to search ArticleCategorys for query {}", query);
-        return StreamSupport
-            .stream(articleCategorySearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }

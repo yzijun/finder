@@ -1,28 +1,28 @@
 package com.app.finder.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.app.finder.domain.Tag;
-import com.app.finder.repository.TagRepository;
-import com.app.finder.repository.search.TagSearchRepository;
-import com.app.finder.web.rest.util.HeaderUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.inject.Inject;
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import javax.inject.Inject;
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.finder.domain.Tag;
+import com.app.finder.repository.TagRepository;
+import com.app.finder.web.rest.util.HeaderUtil;
+import com.codahale.metrics.annotation.Timed;
 
 /**
  * REST controller for managing Tag.
@@ -35,9 +35,6 @@ public class TagResource {
         
     @Inject
     private TagRepository tagRepository;
-    
-    @Inject
-    private TagSearchRepository tagSearchRepository;
     
     /**
      * POST  /tags -> Create a new tag.
@@ -52,7 +49,6 @@ public class TagResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("tag", "idexists", "A new tag cannot already have an ID")).body(null);
         }
         Tag result = tagRepository.save(tag);
-        tagSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/tags/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("tag", result.getId().toString()))
             .body(result);
@@ -71,7 +67,6 @@ public class TagResource {
             return createTag(tag);
         }
         Tag result = tagRepository.save(tag);
-        tagSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("tag", tag.getId().toString()))
             .body(result);
@@ -116,22 +111,7 @@ public class TagResource {
     public ResponseEntity<Void> deleteTag(@PathVariable Long id) {
         log.debug("REST request to delete Tag : {}", id);
         tagRepository.delete(id);
-        tagSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("tag", id.toString())).build();
     }
 
-    /**
-     * SEARCH  /_search/tags/:query -> search for the tag corresponding
-     * to the query.
-     */
-    @RequestMapping(value = "/_search/tags/{query}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<Tag> searchTags(@PathVariable String query) {
-        log.debug("REST request to search Tags for query {}", query);
-        return StreamSupport
-            .stream(tagSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }

@@ -1,11 +1,12 @@
 package com.app.finder.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.app.finder.domain.ForbiddenWord;
-import com.app.finder.repository.ForbiddenWordRepository;
-import com.app.finder.repository.search.ForbiddenWordSearchRepository;
-import com.app.finder.web.rest.util.HeaderUtil;
-import com.app.finder.web.rest.util.PaginationUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -14,17 +15,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import com.app.finder.domain.ForbiddenWord;
+import com.app.finder.repository.ForbiddenWordRepository;
+import com.app.finder.web.rest.util.HeaderUtil;
+import com.app.finder.web.rest.util.PaginationUtil;
+import com.codahale.metrics.annotation.Timed;
 
 /**
  * REST controller for managing ForbiddenWord.
@@ -37,9 +38,7 @@ public class ForbiddenWordResource {
         
     @Inject
     private ForbiddenWordRepository forbiddenWordRepository;
-    
-    @Inject
-    private ForbiddenWordSearchRepository forbiddenWordSearchRepository;
+
     
     /**
      * POST  /forbiddenWords -> Create a new forbiddenWord.
@@ -54,7 +53,6 @@ public class ForbiddenWordResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("forbiddenWord", "idexists", "A new forbiddenWord cannot already have an ID")).body(null);
         }
         ForbiddenWord result = forbiddenWordRepository.save(forbiddenWord);
-        forbiddenWordSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/forbiddenWords/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("forbiddenWord", result.getId().toString()))
             .body(result);
@@ -73,7 +71,6 @@ public class ForbiddenWordResource {
             return createForbiddenWord(forbiddenWord);
         }
         ForbiddenWord result = forbiddenWordRepository.save(forbiddenWord);
-        forbiddenWordSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("forbiddenWord", forbiddenWord.getId().toString()))
             .body(result);
@@ -121,22 +118,7 @@ public class ForbiddenWordResource {
     public ResponseEntity<Void> deleteForbiddenWord(@PathVariable Long id) {
         log.debug("REST request to delete ForbiddenWord : {}", id);
         forbiddenWordRepository.delete(id);
-        forbiddenWordSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("forbiddenWord", id.toString())).build();
     }
 
-    /**
-     * SEARCH  /_search/forbiddenWords/:query -> search for the forbiddenWord corresponding
-     * to the query.
-     */
-    @RequestMapping(value = "/_search/forbiddenWords/{query}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<ForbiddenWord> searchForbiddenWords(@PathVariable String query) {
-        log.debug("REST request to search ForbiddenWords for query {}", query);
-        return StreamSupport
-            .stream(forbiddenWordSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }

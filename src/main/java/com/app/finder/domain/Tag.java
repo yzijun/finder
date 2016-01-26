@@ -3,7 +3,6 @@ package com.app.finder.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -18,7 +17,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "fin_tag")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "tag")
 public class Tag implements Serializable {
 
     @Id
