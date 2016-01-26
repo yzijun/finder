@@ -26,5 +26,11 @@
             </column>
         </createTable>
         
+        <!-- 由于liquibase插入数据一次最多可以插入50条数据，需要分多次插入 -->
+        <loadData encoding="UTF-8"
+          file="config/liquibase/fin_tag1.csv"
+          separator=";"
+          tableName="fin_tag"/>
+        
     </changeSet>
 </databaseChangeLog>
