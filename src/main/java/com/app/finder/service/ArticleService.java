@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -20,7 +21,6 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,9 +33,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import com.app.finder.domain.Article;
+import com.app.finder.domain.Tag;
 import com.app.finder.domain.User;
 import com.app.finder.repository.ArticleRepository;
 import com.app.finder.repository.ForbiddenWordRepository;
+import com.app.finder.repository.TagRepository;
 import com.app.finder.repository.UserRepository;
 import com.app.finder.repository.search.ArticleSearchRepository;
 import com.app.finder.security.SecurityUtils;
@@ -62,6 +64,9 @@ public class ArticleService {
     
     @Inject
     private ForbiddenWordRepository forbiddenWordRepository;
+    
+    @Inject
+    private TagRepository tagRepository; 
     
     @Inject
     private SpringTemplateEngine templateEngine;
@@ -209,6 +214,18 @@ public class ArticleService {
         	article.setContent(repContent);
         });
         
+        // 文章添加标签
+        List<Tag> tags = tagRepository.findAllCached();
+        // 文章内容过滤后包含的标签
+        Set<Tag> filtertags = tags.stream()
+				        	  // 过滤文章内容是否包含标签
+				        	  .filter(t -> article.getContent().contains(t.getName()))
+				        	  .collect(Collectors.toSet());
+
+        article.setTags(filtertags);
+        
+        log.debug("文章内容过滤后包含的标签 : {}", filtertags);
+         
         Article result = articleRepository.save(article);
         articleSearchRepository.save(result);
         return result;
