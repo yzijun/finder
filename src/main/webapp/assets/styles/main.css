@@ -364,7 +364,7 @@ a:hover, a:link {
 /*文章底部的标签 */
 .tag-box {
     display: inline-block;
-    margin-top: 30px;
+    margin-top: 10px;
     padding-top: 20px;
     width: 100%;
     border-top: 1px solid #f0f0f0;

@@ -26,17 +26,13 @@
                    	<span class="c2">
 						*文章为作者独立观点，不代表本站立场
 					</span>
-					<!-- 标签部分 -->
-					<div class="tag-box ">
-						<a target="_blank" href="/tags/10691.html">
-							<span class="label label-default">应用号</span>
-						</a>
-						<a target="_blank" href="/tags/10691.html">
-							<span class="label label-default">微信</span>
-						</a>
-						<a target="_blank" href="/tags/10691.html">
-							<span class="label label-default">头条</span>
-						</a>
+					<!-- 文章底部标签 -->
+					<div class="tag-box">
+						<div ng-repeat="tag in article.tags">
+							<a target="_blank">
+								<span class="label label-default">{{tag.name}}</span>
+							</a>
+						</div>
 					</div>
 				</div>
         	</div>
