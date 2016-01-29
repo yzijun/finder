@@ -153,13 +153,22 @@
 			    <p class="list-group-item-text text-center box-author-name">{{account.nickName}}</p>
 			    <!-- 个性签名 过滤器  characters:3 显示3个字符-->
 			    <p class="list-group-item-text text-center box-author-one">{{account.signature | characters:28 }}</p>
-			    <div>
+			    <p class="text-center">
+                 	<a class="btn btn-primary" ui-sref="article.new">
+						<!-- <i class="fa fa-file-o fa-lg"></i> -->  发布文章
+					</a>
+                 	<a class="btn btn-primary" ui-sref="article.new">
+                 		<!-- 用的是 Font Awesome的图标-->
+						<!-- <i class="fa fa-comments fa-lg"></i> --> 42篇文章
+					</a>
+				</p>
+			    <!-- <div>
 				    <ul class="nav nav-pills pad-left1" role="tablist">
 					  <li role="presentation" class="active"><a ui-sref="article.new">发布文章</a></li>
-					  <!-- <li role="presentation" class="active"><a href="#">文章数 <span class="badge">42</span></a></li> -->
+					  <li role="presentation" class="active"><a href="#">文章数 <span class="badge">42</span></a></li>
 					  <li role="presentation" class="active"><a href="#">42篇文章</a></li>
 					</ul>
-			    </div>
+			    </div> -->
 			  </li>
 			</ul>
 		</div>
