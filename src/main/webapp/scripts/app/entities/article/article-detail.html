@@ -19,6 +19,7 @@
 					<img data-ng-src="{{'data:' + article.firstImgContentType + ';base64,' + article.firstImg}}" style="max-width: 100%;" ng-if="article.firstImg"/>
 				</div>
 				<div id="article_content" class="article-content-wrap">
+					<!-- 文章内容 -->
 					<span class="form-control-static" data-ng-bind-html="article.content">
                     <!-- angular对html转义 data-ng-bind-html -->
                    	</span>
@@ -26,6 +27,7 @@
                    		<!-- 可以用  p class="text-center" 让内容居中-->
                    		<p class="text-center">
 	                   		<a class="btn btn-primary" href="#">
+	                   			<!-- 用的是 Font Awesome的图标-->
 	 							<i class="fa fa-bookmark-o fa-lg"></i> 收藏
 	 						</a>
  						</p>
@@ -40,6 +42,21 @@
 								<span class="label label-default">{{tag.name}}</span>
 							</a>
 						</div>
+					</div>
+					<!-- 发表评论 -->
+					<div class="pl-wrap">
+						<span class="span-mark-author active">发表评论</span>
+					</div>
+					<div class="pl-form-wrap">
+						<div class="no-login-box ">
+							<p class="text-center">
+								<a>登录</a>
+								后参与评论
+							</p>
+						</div>
+						<!-- 评论输入框 -->
+						<textarea class="form-control hide" placeholder="写下的你评论" tabindex="-1"></textarea>
+						<button type="button" class="btn btn-primary btn-lg btn-article">发表</button>
 					</div>
 				</div>
         	</div>
@@ -58,12 +75,22 @@
 			    <p class="list-group-item-text text-center box-author-name">{{account.nickName}}</p>
 			    <!-- 个性签名 过滤器  characters:3 显示3个字符-->
 			    <p class="list-group-item-text text-center box-author-one">{{account.signature | characters:28 }}</p>
-			    <div>
+			    <p class="text-center">
+                 	<a class="btn btn-primary" target="_blank" ui-sref="article.new">
+						<!-- <i class="fa fa-file-o fa-lg"></i> -->{{article.countArticleUid}}篇文章
+					</a>
+                 	<a class="btn btn-primary" target="_blank" ui-sref="article.new">
+                 		<!-- 用的是 Font Awesome的图标-->
+						<!-- <i class="fa fa-comments fa-lg"></i> --> 10个评论
+					</a>
+				</p>
+				<!-- 用p标签替代 下面的tablist -->
+			    <!-- <div>
 				    <ul class="nav nav-pills pad-left1" role="tablist">
 					  <li role="presentation" class="active"><a target="_blank" ui-sref="article.new">{{article.countArticleUid}}篇文章</a></li>
 					  <li role="presentation" class="active"><a target="_blank" href="#">10个评论</a></li>
 					</ul>
-			    </div>
+			    </div> -->
 			  </li>
 			</ul>
 		</div>

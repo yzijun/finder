@@ -385,3 +385,32 @@ a:hover, a:link {
     background-color: #ececec;
     color: #999;
 }
+/*文章底部的发表评论  */
+.pl-wrap {
+    margin-top: 50px;
+}
+
+.span-mark-author.active {
+    border-bottom: 4px solid #3da9f7;
+    color: #333;
+    font-size: 18px;
+}
+
+.pl-form-wrap {
+    border-top: 1px solid #f0f0f0;
+}
+
+.no-login-box {
+    background-color: #fafafa;
+    border: 1px solid #f0f0f0;
+    color: #bbb;
+    height: 220px;
+    line-height: 220px;
+    margin-top: 40px;
+    font-size: 18px;
+}
+
+.btn-article{
+    margin-top: 20px;
+    width: 130px;
+}
