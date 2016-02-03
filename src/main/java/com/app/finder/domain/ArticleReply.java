@@ -3,7 +3,6 @@ package com.app.finder.domain;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import java.time.ZonedDateTime;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -11,19 +10,18 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * 文章回复类.
+ * 文章评论类.
  */
 @Entity
 @Table(name = "fin_article_reply")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "articlereply")
 public class ArticleReply implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //回复内容
+    //评论内容
     @NotNull
     @Column(name = "content", nullable = false)
     private String content;
@@ -40,12 +38,12 @@ public class ArticleReply implements Serializable {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    //回复人
+    //评论人
     @OneToOne()
     @JoinColumn(name = "replyer_id")
     private User replyer;
 
-    //父回复人
+    //父评论人
     @OneToOne()
     @JoinColumn(name = "parent_replyer_id")
     private User parentReplyer;

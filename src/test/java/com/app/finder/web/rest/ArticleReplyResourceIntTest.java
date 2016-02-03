@@ -3,7 +3,6 @@ package com.app.finder.web.rest;
 import com.app.finder.Application;
 import com.app.finder.domain.ArticleReply;
 import com.app.finder.repository.ArticleReplyRepository;
-import com.app.finder.repository.search.ArticleReplySearchRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -61,8 +60,6 @@ public class ArticleReplyResourceIntTest {
     @Inject
     private ArticleReplyRepository articleReplyRepository;
 
-    @Inject
-    private ArticleReplySearchRepository articleReplySearchRepository;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -78,7 +75,6 @@ public class ArticleReplyResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         ArticleReplyResource articleReplyResource = new ArticleReplyResource();
-        ReflectionTestUtils.setField(articleReplyResource, "articleReplySearchRepository", articleReplySearchRepository);
         ReflectionTestUtils.setField(articleReplyResource, "articleReplyRepository", articleReplyRepository);
         this.restArticleReplyMockMvc = MockMvcBuilders.standaloneSetup(articleReplyResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)

@@ -3,7 +3,6 @@ package com.app.finder.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.app.finder.domain.ArticleReply;
 import com.app.finder.repository.ArticleReplyRepository;
-import com.app.finder.repository.search.ArticleReplySearchRepository;
 import com.app.finder.web.rest.util.HeaderUtil;
 import com.app.finder.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -38,9 +37,7 @@ public class ArticleReplyResource {
         
     @Inject
     private ArticleReplyRepository articleReplyRepository;
-    
-    @Inject
-    private ArticleReplySearchRepository articleReplySearchRepository;
+
     
     /**
      * POST  /articleReplys -> Create a new articleReply.
@@ -55,7 +52,6 @@ public class ArticleReplyResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("articleReply", "idexists", "A new articleReply cannot already have an ID")).body(null);
         }
         ArticleReply result = articleReplyRepository.save(articleReply);
-        articleReplySearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/articleReplys/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("articleReply", result.getId().toString()))
             .body(result);
@@ -74,7 +70,6 @@ public class ArticleReplyResource {
             return createArticleReply(articleReply);
         }
         ArticleReply result = articleReplyRepository.save(articleReply);
-        articleReplySearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("articleReply", articleReply.getId().toString()))
             .body(result);
@@ -136,22 +131,7 @@ public class ArticleReplyResource {
     public ResponseEntity<Void> deleteArticleReply(@PathVariable Long id) {
         log.debug("REST request to delete ArticleReply : {}", id);
         articleReplyRepository.delete(id);
-        articleReplySearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("articleReply", id.toString())).build();
     }
 
-    /**
-     * SEARCH  /_search/articleReplys/:query -> search for the articleReply corresponding
-     * to the query.
-     */
-    @RequestMapping(value = "/_search/articleReplys/{query}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<ArticleReply> searchArticleReplys(@PathVariable String query) {
-        log.debug("REST request to search ArticleReplys for query {}", query);
-        return StreamSupport
-            .stream(articleReplySearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }
