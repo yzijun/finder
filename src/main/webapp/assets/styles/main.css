@@ -414,3 +414,7 @@ a:hover, a:link {
     margin-top: 20px;
     width: 130px;
 }
+
+.login-box-editor {
+	margin-top: 40px;
+}

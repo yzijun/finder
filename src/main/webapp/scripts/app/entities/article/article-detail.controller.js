@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, DataUtils, entity, Article, User, ArticleCategory, Tag) {
+    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal, ArticleReply) {
+    	 Principal.identity().then(function(account) {
+             $scope.isAuthenticated = Principal.isAuthenticated;
+         });
     	//异步请求时需要在回调函数中对文章内容html转义
 //        $scope.article = entity;
     	Article.get({id : $stateParams.id}, function(result) {
@@ -37,5 +40,19 @@ angular.module('finderApp')
         $("#go-top-btn").click(function(){
         	document.body.scrollTop=0;document.documentElement.scrollTop=0;
         });
+        // 保存评论
+        $scope.replySave = function () {
+        	$scope.isSaving = true;
+            ArticleReply.save($scope.articleReply, onSaveSuccess, onSaveError);
+        };
+        
+        var onSaveSuccess = function (result) {
+            $scope.$emit('finderApp:articleReplyUpdate', result);
+            $uibModalInstance.close(result);
+            $scope.isSaving = false;
+        };
 
+        var onSaveError = function (result) {
+            $scope.isSaving = false;
+        };
     });
