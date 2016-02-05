@@ -42,6 +42,8 @@ angular.module('finderApp')
         });
         // 文章评论
         $scope.articleReply = {content:null};
+        // 文章评论列表
+        $scope.replies = [];
         // 保存评论
         $scope.replySave = function () {
         	$scope.isSaving = true;
@@ -51,7 +53,7 @@ angular.module('finderApp')
 //            JSON.stringify(data)
             // 用$http.post发请求
             $http.post('api/articleDetailsReplys', JSON.stringify($scope.articleReply)).success(function (response) {
-                console.log(response);
+                $scope.replies = response;
             });
         };
         

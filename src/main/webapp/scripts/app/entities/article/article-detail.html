@@ -75,6 +75,15 @@
 							<button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-lg btn-article">发表</button>
 						</form>
 					</div>
+					
+					<!-- 评论列表 -->
+					<div>
+						<div ng-repeat="reply in replies track by reply.id">
+							{{reply.replyer.nickName}} 
+							{{reply.createdDate | date:'yyyy-MM-dd HH:mm'}}
+							{{reply.content}}
+						</div>
+					</div>
 				</div>
         	</div>
 		</div>
