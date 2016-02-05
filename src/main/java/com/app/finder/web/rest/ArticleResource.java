@@ -2,6 +2,7 @@ package com.app.finder.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.app.finder.domain.Article;
+import com.app.finder.domain.ArticleReply;
 import com.app.finder.security.AuthoritiesConstants;
 import com.app.finder.service.ArticleService;
 import com.app.finder.web.rest.dto.ArticleDTO;
@@ -136,5 +137,23 @@ public class ArticleResource {
     public List<Article> searchArticles(@PathVariable String query) {
         log.debug("Request to search Articles for query {}", query);
         return articleService.search(query);
+    }
+    
+    
+    /**
+     * POST  /articleReplys -> Create a new articleReply.
+     * 通过文章详细页面新建评论
+     */
+    @RequestMapping(value = "/articleDetailsReplys",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<ArticleReply>> createArticleDetailsReply(@Valid @RequestBody ArticleReply articleReply) throws URISyntaxException {
+        log.debug("REST request to save ArticleReply : {}", articleReply);
+        if (articleReply.getId() != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("articleReply", "idexists", "A new articleReply cannot already have an ID")).body(null);
+        }
+        List<ArticleReply> replies = articleService.createArticleReply(articleReply);;
+        return new ResponseEntity<>(replies, HttpStatus.OK);
     }
 }

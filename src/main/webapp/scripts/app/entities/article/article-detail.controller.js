@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal, ArticleReply) {
+    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, $http, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal) {
     	 Principal.identity().then(function(account) {
              $scope.isAuthenticated = Principal.isAuthenticated;
          });
@@ -40,15 +40,23 @@ angular.module('finderApp')
         $("#go-top-btn").click(function(){
         	document.body.scrollTop=0;document.documentElement.scrollTop=0;
         });
+        // 文章评论
+        $scope.articleReply = {content:null};
         // 保存评论
         $scope.replySave = function () {
         	$scope.isSaving = true;
-            ArticleReply.save($scope.articleReply, onSaveSuccess, onSaveError);
+        	// 设置文章评论对应的文章ID(文章和评论的关联关系)
+            $scope.articleReply.article = {id:$scope.article.id};
+            // 目的是把json对象转换成字符串
+//            JSON.stringify(data)
+            // 用$http.post发请求
+            $http.post('api/articleDetailsReplys', JSON.stringify($scope.articleReply)).success(function (response) {
+                console.log(response);
+            });
         };
         
         var onSaveSuccess = function (result) {
-            $scope.$emit('finderApp:articleReplyUpdate', result);
-            $uibModalInstance.close(result);
+            $scope.$emit('评论保存成功！', result);
             $scope.isSaving = false;
         };
 

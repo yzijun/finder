@@ -33,8 +33,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import com.app.finder.domain.Article;
+import com.app.finder.domain.ArticleReply;
 import com.app.finder.domain.Tag;
 import com.app.finder.domain.User;
+import com.app.finder.repository.ArticleReplyRepository;
 import com.app.finder.repository.ArticleRepository;
 import com.app.finder.repository.ForbiddenWordRepository;
 import com.app.finder.repository.TagRepository;
@@ -70,6 +72,9 @@ public class ArticleService {
     
     @Inject
     private SpringTemplateEngine templateEngine;
+    
+    @Inject
+    private ArticleReplyRepository articleReplyRepository;
     
     /**
      * Save a article.
@@ -260,7 +265,7 @@ public class ArticleService {
      */
     @Cacheable("articleDetail")
     public ArticleDTO findOne(Long id) {
-    	log.debug("查看缓存是否执行");
+    	log.debug("查看缓存是否执行文章ID:" + id);
         log.debug("Request to get Article : {}", id);
         Article article = articleRepository.findOne(id);
         //可能有id不存在的情况
@@ -301,6 +306,26 @@ public class ArticleService {
     	List<Article> hotArticles = page.getContent();
 		return hotArticles;
 	}
+    
+    /**
+     * 文章详细页面，新建文章评论
+     * @return
+     */
+    public List<ArticleReply> createArticleReply(ArticleReply articleReply) {
+    	log.debug("文章详细页面，新建文章评论 : {}", articleReply);
+    	// 父评论人
+    	articleReply.setParentReplyer(null);
+    	//页面参数传不过来,重新查找User
+    	User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+    	User u = new User();
+    	u.setId(user.getId());
+    	articleReply.setReplyer(u);
+    	articleReply.setCreatedDate(ZonedDateTime.now());
+    	// 保存评论
+    	articleReplyRepository.saveAndFlush(articleReply);
+    	// 查询文章对应的全部评论
+		return articleReplyRepository.findReplyByArticleID(articleReply.getArticle().getId(), true);
+    }
     
     /*
      * spring缓存 右边栏 热门文章
