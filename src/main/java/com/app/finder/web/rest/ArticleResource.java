@@ -153,7 +153,8 @@ public class ArticleResource {
         if (articleReply.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("articleReply", "idexists", "A new articleReply cannot already have an ID")).body(null);
         }
-        List<ArticleReply> replies = articleService.createArticleReply(articleReply);;
-        return new ResponseEntity<>(replies, HttpStatus.OK);
+        List<ArticleReply> replies = articleService.createArticleReply(articleReply);
+        HttpHeaders headers = HeaderUtil.createAlert("评论保存成功！", "");
+        return new ResponseEntity<>(replies, headers, HttpStatus.OK);
     }
 }

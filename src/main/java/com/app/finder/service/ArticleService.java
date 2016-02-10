@@ -317,14 +317,14 @@ public class ArticleService {
     	articleReply.setParentReplyer(null);
     	//页面参数传不过来,重新查找User
     	User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
-    	User u = new User();
-    	u.setId(user.getId());
-    	articleReply.setReplyer(u);
+    	articleReply.setReplyer(user);
+    	
     	articleReply.setCreatedDate(ZonedDateTime.now());
     	// 保存评论
     	articleReplyRepository.saveAndFlush(articleReply);
+    	
     	// 查询文章对应的全部评论
-		return articleReplyRepository.findReplyByArticleID(articleReply.getArticle().getId(), true);
+    	return articleReplyRepository.findReplyByArticleID(articleReply.getArticle().getId(), true);
     }
     
     /*

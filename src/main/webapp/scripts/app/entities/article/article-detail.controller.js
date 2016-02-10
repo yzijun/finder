@@ -54,15 +54,17 @@ angular.module('finderApp')
             // 用$http.post发请求
             $http.post('api/articleDetailsReplys', JSON.stringify($scope.articleReply)).success(function (response) {
                 $scope.replies = response;
+                $scope.isSaving = false;
             });
         };
         
-        var onSaveSuccess = function (result) {
+        /*var onSaveSuccess = function (result) {
+        	// $emit — 将事件向上传播到所有子作用域，包括自己。
             $scope.$emit('评论保存成功！', result);
             $scope.isSaving = false;
         };
 
         var onSaveError = function (result) {
             $scope.isSaving = false;
-        };
+        };*/
     });
