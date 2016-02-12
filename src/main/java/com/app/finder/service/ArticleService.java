@@ -8,8 +8,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -32,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
+import com.app.finder.common.util.PrettyTimeUtils;
 import com.app.finder.domain.Article;
 import com.app.finder.domain.ArticleReply;
 import com.app.finder.domain.Tag;
@@ -44,6 +47,7 @@ import com.app.finder.repository.UserRepository;
 import com.app.finder.repository.search.ArticleSearchRepository;
 import com.app.finder.security.SecurityUtils;
 import com.app.finder.web.rest.dto.ArticleDTO;
+import com.app.finder.web.rest.dto.ArticleReplyDTO;
 import com.google.common.io.Files;
 
 /**
@@ -279,14 +283,23 @@ public class ArticleService {
         articleRepository.updatePageView(article.getId());
         // 右边栏 热门文章
         List<Article> hotArticles = hotArticleDetail();
-    	 
+    	
+        // 查询文章对应的全部评论
+        List<ArticleReply> articleReplies = articleReplyRepository.findReplyByArticleID(id, true);
+        // 转换DTO
+        List<ArticleReplyDTO> articleDTOReplies = articleReplies.stream()
+        			  .map(result -> new ArticleReplyDTO(result, 
+        					  // result.getCreatedDate().toInstant().toEpochMilli() 取得毫秒
+        					  PrettyTimeUtils.timeAgo(System.currentTimeMillis() - result.getCreatedDate().toInstant().toEpochMilli())))
+        			  .collect(Collectors.toList());
         
         Integer countArticleReplyUid = 0;
 		Integer countArticleSaveAid = 0;
 		Integer countArticleReplyAid = 0;
 		return new ArticleDTO(article, countArticleUid, 
 				countArticleReplyUid, countArticleSaveAid, 
-				countArticleReplyAid, hotArticles);
+				countArticleReplyAid, hotArticles,
+				articleDTOReplies);
     }
 
     /*

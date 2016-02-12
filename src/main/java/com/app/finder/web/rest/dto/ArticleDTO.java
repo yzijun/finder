@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.app.finder.domain.Article;
 import com.app.finder.domain.ArticleCategory;
+import com.app.finder.domain.ArticleReply;
 import com.app.finder.domain.Tag;
 import com.app.finder.domain.User;
 
@@ -54,23 +55,29 @@ public class ArticleDTO {
 
 	// 该文章的评论数
 	private Integer countArticleReplyAid;
+	
 	// 右边栏 热门文章
 	List<Article> hotArticles;
+	
+	//文章对应的全部评论
+	List<ArticleReplyDTO> articleReplies;
 
 	public ArticleDTO(Article article, Integer countArticleUid, Integer countArticleReplyUid,
-			Integer countArticleSaveAid, Integer countArticleReplyAid,List<Article> hotArticles) {
+			Integer countArticleSaveAid, Integer countArticleReplyAid,List<Article> hotArticles,
+			List<ArticleReplyDTO> articleReplies) {
 		this(article.getId(), article.getTitle(), article.getFirstImg(),
 				article.getFirstImgContentType(), article.getContent(), article.isPublished(),
 				article.getPageView(), article.getCreatedDate(), article.getUser(),
 				article.getArticleCategory(), article.getTags(), countArticleUid,
-				countArticleReplyUid, countArticleSaveAid, countArticleReplyAid, hotArticles);
+				countArticleReplyUid, countArticleSaveAid, countArticleReplyAid, hotArticles,
+				articleReplies);
 	}
 
 	public ArticleDTO(Long id, String title, byte[] firstImg, String firstImgContentType,
 			String content, boolean published, Integer pageView, ZonedDateTime createdDate,
 			User user, ArticleCategory articleCategory, Set<Tag> tags, Integer countArticleUid,
 			Integer countArticleReplyUid, Integer countArticleSaveAid,
-			Integer countArticleReplyAid, List<Article> hotArticles) {
+			Integer countArticleReplyAid, List<Article> hotArticles, List<ArticleReplyDTO> articleReplies) {
 		this.id = id;
 		this.title = title;
 		this.firstImg = firstImg;
@@ -87,6 +94,7 @@ public class ArticleDTO {
 		this.countArticleSaveAid = countArticleSaveAid;
 		this.countArticleReplyAid = countArticleReplyAid;
 		this.hotArticles = hotArticles;
+		this.articleReplies = articleReplies;
 	}
 
 	public Long getId() {
@@ -215,6 +223,15 @@ public class ArticleDTO {
 
 	public void setHotArticles(List<Article> hotArticles) {
 		this.hotArticles = hotArticles;
+	}
+
+	
+	public List<ArticleReplyDTO> getArticleReplies() {
+		return articleReplies;
+	}
+
+	public void setArticleReplies(List<ArticleReplyDTO> articleReplies) {
+		this.articleReplies = articleReplies;
 	}
 
 	@Override

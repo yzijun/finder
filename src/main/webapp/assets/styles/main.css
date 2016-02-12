@@ -418,3 +418,43 @@ a:hover, a:link {
 .login-box-editor {
 	margin-top: 40px;
 }
+
+.author-info {
+    display: inline-block;
+    margin: 0 0 15px;
+}
+
+.author-info .author-face {
+    float: left;
+    height: 50px;
+    overflow: hidden;
+    width: 50px;
+    margin-top: 13px;
+}
+
+.author-info .author-name, .author-info .time {
+    margin-left: 20px;
+    position: relative;
+    top: 17px;
+    font-size: 14px;
+}
+
+.pl-box-wrap {
+    border-top: 1px solid #f0f0f0;
+    padding: 10px 0;
+}
+
+.pl-box-wrap .pl-content {
+    line-height: 24px;
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+.author-info a:hover {
+    color: #3da9f7;
+}
+
+.author-info .time {
+    color: #bbb;
+}

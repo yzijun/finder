@@ -15,6 +15,8 @@ angular.module('finderApp')
             $scope.account = $scope.article.user;
             // 右边栏 热门文章
             $scope.hotArticles = $scope.article.hotArticles;
+            // 文章评论列表
+            $scope.replies = $scope.article.articleReplies;
         });
         $scope.load = function (id) {
             Article.get({id: id}, function(result) {
@@ -38,12 +40,12 @@ angular.module('finderApp')
 		});
         // 点击回到顶部按钮
         $("#go-top-btn").click(function(){
-        	document.body.scrollTop=0;document.documentElement.scrollTop=0;
+//        	document.body.scrollTop=0;document.documentElement.scrollTop=0;
+        	scrollTo();
         });
         // 文章评论
         $scope.articleReply = {content:null};
-        // 文章评论列表
-        $scope.replies = [];
+       
         // 保存评论
         $scope.replySave = function () {
         	$scope.isSaving = true;
@@ -57,6 +59,21 @@ angular.module('finderApp')
                 $scope.isSaving = false;
             });
         };
+        
+        function scrollTo(name, add, speed) {
+    	    if (!speed) speed = 300
+    	    if (!name) {
+    	        $('html,body').animate({
+    	            scrollTop: 0
+    	        }, speed)
+    	    } else {
+    	        if ($(name).length > 0) {
+    	            $('html,body').animate({
+    	                scrollTop: $(name).offset().top + (add || 0)
+    	            }, speed)
+    	        }
+    	    }
+    	}
         
         /*var onSaveSuccess = function (result) {
         	// $emit — 将事件向上传播到所有子作用域，包括自己。

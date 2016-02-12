@@ -12,7 +12,7 @@
 					<!-- 格式化日期 2016-01-07 09:55 -->
 					<span class="article-time">{{article.createdDate | date:'yyyy-MM-dd HH:mm'}}</span>
 					<span class="article-share">收藏1</span>
-					<span class="article-pl">评论2</span>
+					<span class="article-pl">评论{{replies.length}}</span>
 				</div>
 				<!-- 文章内容前的图片 -->
 				<div class="text-center">
@@ -59,7 +59,7 @@
 							<div ng-switch-when="true">
 								<div class="form-group" ng-class="{'has-error':editForm.content.$dirty && editForm.content.$invalid}">
 								<textarea ng-model="articleReply.content" name="content" class="form-control login-box-editor" 
-										  placeholder="写下的你评论" style="height: 180px;" required ng-maxlength="200"></textarea>
+										  placeholder="写下你的评论" style="height: 180px;" required ng-maxlength="200"></textarea>
 								<div ng-show="editForm.content.$invalid">
 					                <p class="help-block"
 					                    ng-show="editForm.content.$dirty && editForm.content.$error.required">
@@ -80,10 +80,26 @@
 					<div>
 						<!-- 显示提示信息，中文有乱码问题 -->
 						<!-- <jh-alert></jh-alert> -->
-						<div ng-repeat="reply in replies track by reply.id">
-							{{reply.replyer.nickName}} 
-							{{reply.createdDate | date:'yyyy-MM-dd HH:mm'}}
-							{{reply.content}}
+						<div class="pl-box-wrap" ng-repeat="reply in replies track by reply.id">
+							<div class="pl-box-top">
+								<div class="author-info pull-right">
+									<span class="time">{{reply.prettyTime}}</span>
+								</div>
+								<div class="author-info">
+									<div class="author-face">
+										<img data-ng-src="{{'data:' + reply.replyer.pictureContentType + ';base64,' + reply.replyer.picture}}"
+						                    class="img-circle profile-img-small center-block" alt="头像" ng-if="reply.replyer.picture"/>
+									</div>
+									<span class="author-name">
+										<a href="/member/182478.html">{{reply.replyer.nickName}}</a>
+									</span>
+									<!-- <span class="time">{{reply.createdDate | date:'yyyy-MM-dd HH:mm'}}</span> -->
+								</div>
+								<!-- 评论内容 -->
+								<div class="pl-content">
+									{{reply.content}}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
