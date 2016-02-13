@@ -1,13 +1,14 @@
 package com.app.finder.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.app.finder.domain.Article;
-import com.app.finder.domain.ArticleReply;
-import com.app.finder.security.AuthoritiesConstants;
-import com.app.finder.service.ArticleService;
-import com.app.finder.web.rest.dto.ArticleDTO;
-import com.app.finder.web.rest.util.HeaderUtil;
-import com.app.finder.web.rest.util.PaginationUtil;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.inject.Inject;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -17,16 +18,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import javax.validation.Valid;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import com.app.finder.domain.Article;
+import com.app.finder.domain.ArticleReply;
+import com.app.finder.security.AuthoritiesConstants;
+import com.app.finder.service.ArticleService;
+import com.app.finder.web.rest.dto.ArticleDTO;
+import com.app.finder.web.rest.dto.ArticleReplyDTO;
+import com.app.finder.web.rest.util.HeaderUtil;
+import com.app.finder.web.rest.util.PaginationUtil;
+import com.codahale.metrics.annotation.Timed;
 
 /**
  * REST controller for managing Article.
@@ -148,13 +154,13 @@ public class ArticleResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<ArticleReply>> createArticleDetailsReply(@Valid @RequestBody ArticleReply articleReply) throws URISyntaxException {
+    public ResponseEntity<List<ArticleReplyDTO>> createArticleDetailsReply(@Valid @RequestBody ArticleReply articleReply) throws URISyntaxException {
         log.debug("REST request to save ArticleReply : {}", articleReply);
         if (articleReply.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("articleReply", "idexists", "A new articleReply cannot already have an ID")).body(null);
         }
-        List<ArticleReply> replies = articleService.createArticleReply(articleReply);
+        List<ArticleReplyDTO> articleRepliesDTO = articleService.createArticleReply(articleReply);
         HttpHeaders headers = HeaderUtil.createAlert("评论保存成功！", "");
-        return new ResponseEntity<>(replies, headers, HttpStatus.OK);
+        return new ResponseEntity<>(articleRepliesDTO, headers, HttpStatus.OK);
     }
 }

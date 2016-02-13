@@ -23,6 +23,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -286,12 +287,8 @@ public class ArticleService {
     	
         // 查询文章对应的全部评论
         List<ArticleReply> articleReplies = articleReplyRepository.findReplyByArticleID(id, true);
-        // 转换DTO
-        List<ArticleReplyDTO> articleDTOReplies = articleReplies.stream()
-        			  .map(result -> new ArticleReplyDTO(result, 
-        					  // result.getCreatedDate().toInstant().toEpochMilli() 取得毫秒
-        					  PrettyTimeUtils.timeAgo(System.currentTimeMillis() - result.getCreatedDate().toInstant().toEpochMilli())))
-        			  .collect(Collectors.toList());
+        
+        List<ArticleReplyDTO> articleRepliesDTO = transArticleReplyDTO(articleReplies);
         
         Integer countArticleReplyUid = 0;
 		Integer countArticleSaveAid = 0;
@@ -299,8 +296,18 @@ public class ArticleService {
 		return new ArticleDTO(article, countArticleUid, 
 				countArticleReplyUid, countArticleSaveAid, 
 				countArticleReplyAid, hotArticles,
-				articleDTOReplies);
+				articleRepliesDTO);
     }
+
+    // 文章评论转换DTO
+	private List<ArticleReplyDTO> transArticleReplyDTO(List<ArticleReply> articleReplies) {
+        List<ArticleReplyDTO> articleRepliesDTO = articleReplies.stream()
+        			  .map(result -> new ArticleReplyDTO(result, 
+        					  // result.getCreatedDate().toInstant().toEpochMilli() 取得毫秒
+        					  PrettyTimeUtils.timeAgo(System.currentTimeMillis() - result.getCreatedDate().toInstant().toEpochMilli())))
+        			  .collect(Collectors.toList());
+		return articleRepliesDTO;
+	}
 
     /*
      * 右边栏 热门文章
@@ -324,7 +331,9 @@ public class ArticleService {
      * 文章详细页面，新建文章评论
      * @return
      */
-    public List<ArticleReply> createArticleReply(ArticleReply articleReply) {
+    // 清空articleDetail 对应的文章ID 缓存
+    @CacheEvict(value = "articleDetail", key = "#articleReply.getArticle().getId()")
+    public List<ArticleReplyDTO> createArticleReply(ArticleReply articleReply) {
     	log.debug("文章详细页面，新建文章评论 : {}", articleReply);
     	// 父评论人
     	articleReply.setParentReplyer(null);
@@ -337,7 +346,9 @@ public class ArticleService {
     	articleReplyRepository.saveAndFlush(articleReply);
     	
     	// 查询文章对应的全部评论
-    	return articleReplyRepository.findReplyByArticleID(articleReply.getArticle().getId(), true);
+    	List<ArticleReply> articleReplies =  articleReplyRepository.findReplyByArticleID(articleReply.getArticle().getId(), true);
+    	
+    	return transArticleReplyDTO(articleReplies);
     }
     
     /*
