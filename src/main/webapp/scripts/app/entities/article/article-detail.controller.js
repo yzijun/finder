@@ -55,11 +55,14 @@ angular.module('finderApp')
 //            JSON.stringify(data)
             // 用$http.post发请求
             $http.post('api/articleDetailsReplys', JSON.stringify($scope.articleReply)).success(function (response) {
+            	// 文章评论列表
                 $scope.replies = response;
+                // 评论发表按钮为可用状态
                 $scope.isSaving = false;
             });
         };
         
+        // 回到顶部按钮实现函数
         function scrollTo(name, add, speed) {
     	    if (!speed) speed = 300
     	    if (!name) {
