@@ -7,7 +7,9 @@ angular.module('finderApp')
                 parent: 'entity',
                 url: '/articles',
                 data: {
-                    authorities: ['ROLE_USER'],
+//                    authorities: ['ROLE_USER'],
+                	// 文章管理者角色可以访问
+                    authorities: ['ROLE_ARTICLE_ADMIN'],
                     pageTitle: 'finderApp.article.home.title'
                 },
                 views: {
@@ -104,7 +106,9 @@ angular.module('finderApp')
                 parent: 'article',
                 url: '/{id}/edit',
                 data: {
-                    authorities: ['ROLE_USER'],
+//                    authorities: ['ROLE_USER'],
+                	// 文章管理者角色可以访问
+                    authorities: ['ROLE_ARTICLE_ADMIN'],
                 },
                /* onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -138,7 +142,9 @@ angular.module('finderApp')
                 parent: 'article',
                 url: '/{id}/delete',
                 data: {
-                    authorities: ['ROLE_USER'],
+//                    authorities: ['ROLE_USER'],
+                	// 文章管理者角色可以访问
+                    authorities: ['ROLE_ARTICLE_ADMIN'],
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({

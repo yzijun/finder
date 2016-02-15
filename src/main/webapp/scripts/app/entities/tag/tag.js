@@ -7,7 +7,9 @@ angular.module('finderApp')
                 parent: 'entity',
                 url: '/tags',
                 data: {
-                    authorities: ['ROLE_USER'],
+//                    authorities: ['ROLE_USER'],
+                	// 文章管理者角色可以访问
+                    authorities: ['ROLE_ARTICLE_ADMIN'],
                     pageTitle: 'finderApp.tag.home.title'
                 },
                 views: {
@@ -28,7 +30,9 @@ angular.module('finderApp')
                 parent: 'entity',
                 url: '/tag/{id}',
                 data: {
-                    authorities: ['ROLE_USER'],
+//                    authorities: ['ROLE_USER'],
+                	// 文章管理者角色可以访问
+                    authorities: ['ROLE_ARTICLE_ADMIN'],
                     pageTitle: 'finderApp.tag.detail.title'
                 },
                 views: {
@@ -51,7 +55,9 @@ angular.module('finderApp')
                 parent: 'tag',
                 url: '/new',
                 data: {
-                    authorities: ['ROLE_USER'],
+//                    authorities: ['ROLE_USER'],
+                	// 文章管理者角色可以访问
+                    authorities: ['ROLE_ARTICLE_ADMIN'],
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -77,7 +83,9 @@ angular.module('finderApp')
                 parent: 'tag',
                 url: '/{id}/edit',
                 data: {
-                    authorities: ['ROLE_USER'],
+//                    authorities: ['ROLE_USER'],
+                	// 文章管理者角色可以访问
+                    authorities: ['ROLE_ARTICLE_ADMIN'],
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
@@ -100,7 +108,9 @@ angular.module('finderApp')
                 parent: 'tag',
                 url: '/{id}/delete',
                 data: {
-                    authorities: ['ROLE_USER'],
+//                    authorities: ['ROLE_USER'],
+                	// 文章管理者角色可以访问
+                    authorities: ['ROLE_ARTICLE_ADMIN'],
                 },
                 onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                     $uibModal.open({
