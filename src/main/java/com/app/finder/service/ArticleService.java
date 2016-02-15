@@ -279,7 +279,11 @@ public class ArticleService {
         }
         
         //取得该用户全部文章数
-        int countArticleUid = articleRepository.findByCountArticleIsUid(article.getUser().getId());
+        Integer countArticleUid = articleRepository.findByCountArticleIsUid(article.getUser().getId());
+        // 没有文章的情况
+ 		if (countArticleUid == null) {
+ 			countArticleUid = 0;
+ 		}
         //文章的浏览数量加1
         articleRepository.updatePageView(article.getId());
         // 右边栏 热门文章
