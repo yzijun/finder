@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.finder.domain.ArticleCategory;
 import com.app.finder.repository.ArticleCategoryRepository;
+import com.app.finder.security.AuthoritiesConstants;
 import com.app.finder.web.rest.util.HeaderUtil;
 import com.codahale.metrics.annotation.Timed;
 
@@ -44,6 +46,7 @@ public class ArticleCategoryResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<ArticleCategory> createArticleCategory(@Valid @RequestBody ArticleCategory articleCategory) throws URISyntaxException {
         log.debug("REST request to save ArticleCategory : {}", articleCategory);
         if (articleCategory.getId() != null) {
@@ -62,6 +65,7 @@ public class ArticleCategoryResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<ArticleCategory> updateArticleCategory(@Valid @RequestBody ArticleCategory articleCategory) throws URISyntaxException {
         log.debug("REST request to update ArticleCategory : {}", articleCategory);
         if (articleCategory.getId() == null) {
@@ -109,6 +113,7 @@ public class ArticleCategoryResource {
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<Void> deleteArticleCategory(@PathVariable Long id) {
         log.debug("REST request to delete ArticleCategory : {}", id);
         articleCategoryRepository.delete(id);

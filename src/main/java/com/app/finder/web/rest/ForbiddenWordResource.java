@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.finder.domain.ForbiddenWord;
 import com.app.finder.repository.ForbiddenWordRepository;
+import com.app.finder.security.AuthoritiesConstants;
 import com.app.finder.web.rest.util.HeaderUtil;
 import com.app.finder.web.rest.util.PaginationUtil;
 import com.codahale.metrics.annotation.Timed;
@@ -47,6 +49,7 @@ public class ForbiddenWordResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<ForbiddenWord> createForbiddenWord(@RequestBody ForbiddenWord forbiddenWord) throws URISyntaxException {
         log.debug("REST request to save ForbiddenWord : {}", forbiddenWord);
         if (forbiddenWord.getId() != null) {
@@ -65,6 +68,7 @@ public class ForbiddenWordResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<ForbiddenWord> updateForbiddenWord(@RequestBody ForbiddenWord forbiddenWord) throws URISyntaxException {
         log.debug("REST request to update ForbiddenWord : {}", forbiddenWord);
         if (forbiddenWord.getId() == null) {
@@ -83,6 +87,7 @@ public class ForbiddenWordResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<List<ForbiddenWord>> getAllForbiddenWords(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of ForbiddenWords");
@@ -98,6 +103,7 @@ public class ForbiddenWordResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<ForbiddenWord> getForbiddenWord(@PathVariable Long id) {
         log.debug("REST request to get ForbiddenWord : {}", id);
         ForbiddenWord forbiddenWord = forbiddenWordRepository.findOne(id);
@@ -115,6 +121,7 @@ public class ForbiddenWordResource {
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<Void> deleteForbiddenWord(@PathVariable Long id) {
         log.debug("REST request to delete ForbiddenWord : {}", id);
         forbiddenWordRepository.delete(id);

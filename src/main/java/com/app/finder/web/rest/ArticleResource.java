@@ -154,6 +154,7 @@ public class ArticleResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.USER) //用户角色可以访问
     public ResponseEntity<List<ArticleReplyDTO>> createArticleDetailsReply(@Valid @RequestBody ArticleReply articleReply) throws URISyntaxException {
         log.debug("REST request to save ArticleReply : {}", articleReply);
         if (articleReply.getId() != null) {

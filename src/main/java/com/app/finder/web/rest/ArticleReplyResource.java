@@ -3,6 +3,7 @@ package com.app.finder.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.app.finder.domain.ArticleReply;
 import com.app.finder.repository.ArticleReplyRepository;
+import com.app.finder.security.AuthoritiesConstants;
 import com.app.finder.web.rest.util.HeaderUtil;
 import com.app.finder.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
@@ -46,6 +48,7 @@ public class ArticleReplyResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<ArticleReply> createArticleReply(@Valid @RequestBody ArticleReply articleReply) throws URISyntaxException {
         log.debug("REST request to save ArticleReply : {}", articleReply);
         if (articleReply.getId() != null) {
@@ -64,6 +67,7 @@ public class ArticleReplyResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<ArticleReply> updateArticleReply(@Valid @RequestBody ArticleReply articleReply) throws URISyntaxException {
         log.debug("REST request to update ArticleReply : {}", articleReply);
         if (articleReply.getId() == null) {
@@ -128,6 +132,7 @@ public class ArticleReplyResource {
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
     public ResponseEntity<Void> deleteArticleReply(@PathVariable Long id) {
         log.debug("REST request to delete ArticleReply : {}", id);
         articleReplyRepository.delete(id);
