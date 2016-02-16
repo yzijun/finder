@@ -37,6 +37,7 @@ public class HomeResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
+    @Secured(AuthoritiesConstants.USER) //用户角色可以访问
     public ResponseEntity<Integer> getArticleSumByUserId() {
     	log.debug("REST request to get getArticleSumByUserId");
         Integer articleSum = homeService.getArticleSumByUserId();
