@@ -26,7 +26,7 @@
                    	<div>
                    		<!-- 可以用  p class="text-center" 让内容居中-->
                    		<p class="text-center">
-	                   		<a class="btn btn-primary" href="#">
+	                   		<a class="btn btn-primary btn-lg" href="#" style="width: 110px;">
 	                   			<!-- 用的是 Font Awesome的图标-->
 	 							<i class="fa fa-bookmark-o fa-lg"></i> 收藏
 	 						</a>
@@ -86,12 +86,14 @@
 									<span class="time">{{reply.prettyTime}}</span>
 								</div>
 								<div class="author-info">
-									<div class="author-face">
-										<img data-ng-src="{{'data:' + reply.replyer.pictureContentType + ';base64,' + reply.replyer.picture}}"
-						                    class="img-circle profile-img-small center-block" alt="头像" ng-if="reply.replyer.picture"/>
+									<div class="author-face avatar">
+										<a href="">
+											<img data-ng-src="{{'data:' + reply.replyer.pictureContentType + ';base64,' + reply.replyer.picture}}"
+							                    class="img-circle profile-img-small center-block" alt="头像" ng-if="reply.replyer.picture"/>
+						                </a>
 									</div>
 									<span class="author-name">
-										<a href="/member/182478.html">{{reply.replyer.nickName}}</a>
+										<a href="">{{reply.replyer.nickName}}</a>
 									</span>
 									<!-- <span class="time">{{reply.createdDate | date:'yyyy-MM-dd HH:mm'}}</span> -->
 								</div>
@@ -101,6 +103,12 @@
 								</div>
 							</div>
 						</div>
+						<p class="pl-box-wrap load-more">
+							<a href="/notes/3006399/comments?max_id=1462113&order=asc&page=2">
+								加载更多
+								<i class="fa fa-arrow-down"></i>
+							</a>
+						</p>
 					</div>
 				</div>
         	</div>

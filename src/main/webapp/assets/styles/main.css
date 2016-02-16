@@ -458,3 +458,19 @@ a:hover, a:link {
 .author-info .time {
     color: #bbb;
 }
+
+.load-more {
+    font-size: 12px;
+    margin-bottom: 0;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.load-more a:hover {
+    color: #3da9f7;
+}
+
+.avatar:hover img {
+    border: 2px solid white;
+    border-color: #e78170;
+}
