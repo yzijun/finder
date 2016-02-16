@@ -278,13 +278,12 @@ public class ArticleService {
         	return null;
         }
         
-        //取得该用户全部文章数
+        // 取得该用户全部文章数
         Integer countArticleUid = articleRepository.findByCountArticleIsUid(article.getUser().getId());
-        // 没有文章的情况
- 		if (countArticleUid == null) {
- 			countArticleUid = 0;
- 		}
-        //文章的浏览数量加1
+ 		// 取得该用户全部评论数
+        Integer countArticleReplyUid = articleRepository.findByCountArticleReplyUid(article.getUser().getId());
+        
+        // 文章的浏览数量加1
         articleRepository.updatePageView(article.getId());
         // 右边栏 热门文章
         List<Article> hotArticles = hotArticleDetail();
@@ -294,7 +293,6 @@ public class ArticleService {
         
         List<ArticleReplyDTO> articleRepliesDTO = transArticleReplyDTO(articleReplies);
         
-        Integer countArticleReplyUid = 0;
 		Integer countArticleSaveAid = 0;
 		Integer countArticleReplyAid = 0;
 		return new ArticleDTO(article, countArticleUid, 

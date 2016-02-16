@@ -23,7 +23,11 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
     int updatePageView(Long id);
     
     //取得该用户全部文章数 uid = user_id
-    @Query("select count(*) from Article article where article.user.id = ?1 group by article.user.id")
+    @Query("select count(*) from Article article where article.user.id = ?1")
     Integer findByCountArticleIsUid(Long uid);
+    
+    //取得该用户全部评论数 uid = replyer_id
+    @Query("select count(*) from ArticleReply reply where reply.replyer.id = ?1")
+    Integer findByCountArticleReplyUid(Long uid);
 
 }
