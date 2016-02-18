@@ -60,6 +60,10 @@
 								<div class="form-group" ng-class="{'has-error':editForm.content.$dirty && editForm.content.$invalid}">
 								<textarea ng-model="articleReply.content" name="content" class="form-control login-box-editor" 
 										  placeholder="写下你的评论" style="height: 180px;" required ng-maxlength="200"></textarea>
+								<div class="pull-right comment_insert_pic">
+									 插入：
+									<a class="comment_emotion" href="javascript:insert_emotions();">表情</a>
+								</div>
 								<div ng-show="editForm.content.$invalid">
 					                <p class="help-block"
 					                    ng-show="editForm.content.$dirty && editForm.content.$error.required">
@@ -155,7 +159,7 @@
 			</blockquote>
 			<div class="thumbnail voffset3">
 				<div ng-repeat="hotArticle in hotArticles track by hotArticle.id">
-					<a target="_blank" ui-sref="article.detail({id:hotArticle.id})">
+					<a target="_blank" ui-sref="article.detail({id:hotArticle.id})" title="{{hotArticle.title}}">
 						<img data-ng-src="{{'data:' + hotArticle.firstImgContentType + ';base64,' + hotArticle.firstImg}}"/>
 					</a>
 					<!-- 文章标题 -->
