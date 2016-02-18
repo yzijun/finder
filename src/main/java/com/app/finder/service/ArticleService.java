@@ -339,11 +339,17 @@ public class ArticleService {
     	log.debug("文章详细页面，新建文章评论 : {}", articleReply);
     	// 父评论人
     	articleReply.setParentReplyer(null);
-    	//页面参数传不过来,重新查找User
+    	// 页面参数传不过来,重新查找User
     	User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
     	articleReply.setReplyer(user);
     	
     	articleReply.setCreatedDate(ZonedDateTime.now());
+    	
+    	// 过滤敏感词汇
+        forbiddenWordRepository.findAllCached().forEach(f -> {
+        	String repContent = articleReply.getContent().replaceAll(f.getWord(), "**");
+        	articleReply.setContent(repContent);
+        });
     	// 保存评论
     	articleReplyRepository.saveAndFlush(articleReply);
     	
