@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, $http, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal) {
+    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, $http, $state, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal) {
     	 Principal.identity().then(function(account) {
              $scope.isAuthenticated = Principal.isAuthenticated;
          });
@@ -17,6 +17,12 @@ angular.module('finderApp')
             $scope.hotArticles = $scope.article.hotArticles;
             // 文章评论列表
             $scope.replies = $scope.article.articleReplies;
+        }, function(response) {
+        	// 可能有文章id不存在或是该文章不允许发布
+            if (response.status === 404) {
+            	// 转到404错误页面
+            	$state.go('404');
+            }
         });
         $scope.load = function (id) {
             Article.get({id: id}, function(result) {

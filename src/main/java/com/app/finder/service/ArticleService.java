@@ -272,8 +272,8 @@ public class ArticleService {
     public ArticleDTO findOne(Long id) {
     	log.debug("查看缓存是否执行文章ID:" + id);
         log.debug("Request to get Article : {}", id);
-        Article article = articleRepository.findOne(id);
-        //可能有id不存在的情况
+        Article article = articleRepository.findByIdAndPublishedTrue(id);
+        // 可能有文章id不存在或是该文章不允许发布
         if (article == null) {
         	return null;
         }

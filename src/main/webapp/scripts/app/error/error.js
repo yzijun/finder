@@ -22,6 +22,25 @@ angular.module('finderApp')
                     }]
                 }
             })
+            .state('404', {
+                parent: 'site',
+                url: '/404',
+                data: {
+                    authorities: [],
+                    pageTitle: 'error.title'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/error/404.html'
+                    }
+                },
+                resolve: {
+                    mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
+                        $translatePartialLoader.addPart('error');
+                        return $translate.refresh();
+                    }]
+                }
+            })
             .state('accessdenied', {
                 parent: 'site',
                 url: '/accessdenied',
