@@ -5,7 +5,6 @@ import com.app.finder.domain.Authority;
 import com.app.finder.domain.User;
 import com.app.finder.repository.AuthorityRepository;
 import com.app.finder.repository.UserRepository;
-import com.app.finder.repository.search.UserSearchRepository;
 import com.app.finder.security.AuthoritiesConstants;
 import com.app.finder.service.MailService;
 import com.app.finder.service.UserService;
@@ -30,9 +29,6 @@ import java.net.URISyntaxException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing users.
@@ -77,8 +73,6 @@ public class UserResource {
     @Inject
     private UserService userService;
 
-    @Inject
-    private UserSearchRepository userSearchRepository;
 
     /**
      * POST  /users -> Creates a new user.
@@ -201,17 +195,4 @@ public class UserResource {
         return ResponseEntity.ok().headers(HeaderUtil.createAlert( "user-management.deleted", login)).build();
     }
 
-    /**
-     * SEARCH  /_search/users/:query -> search for the User corresponding
-     * to the query.
-     */
-    @RequestMapping(value = "/_search/users/{query}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    public List<User> search(@PathVariable String query) {
-        return StreamSupport
-            .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .collect(Collectors.toList());
-    }
 }
