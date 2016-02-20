@@ -2,10 +2,11 @@
 	<div class="row" ng-switch="isAuthenticated()">
 		<!-- 定义panel面板 -->
 		<div class="col-md-9 panel panel-default">
-			<div class="panel-body">
+				<!-- 暂时不用 -->
+			<!-- <div class="panel-body"> -->
 				<!-- 说明：外层的网格包裹后内层网格也是12栅格的 -->
 				<!-- 幻灯片 -->
-				<div class="col-md-12">
+				<div class="col-md-12 col-padding-over-bs" style="padding-top: 15px;">
 					<div id="carousel-example-generic" class="carousel slide"
 						data-ride="carousel">
 						<!-- Indicators -->
@@ -57,7 +58,7 @@
 					</div>
 				</div>
 				<!-- 发现内容 -->
-				<div class="col-md-4">
+				<div class="col-md-4 col-padding-over-bs">
 					<div class="thumbnail voffset3">
 						<img alt="242x200"
 							src="http://www.bootcss.com/p/layoutit/img/people.jpg" />
@@ -71,7 +72,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4 col-padding-over-bs">
 					<div class="thumbnail voffset3">
 						<img alt="242x200"
 							src="http://www.bootcss.com/p/layoutit/img/people.jpg" />
@@ -85,7 +86,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4 col-padding-over-bs">
 					<div class="thumbnail voffset3">
 						<img alt="300x200"
 							src="http://www.bootcss.com/p/layoutit/img/people.jpg" />
@@ -100,7 +101,7 @@
 					</div>
 				</div>
 				<!-- 资讯内容 -->
-				<div class="col-md-12">
+				<div class="col-md-12 col-padding-over-bs">
 					<div class="media">
 						<div class="media-left media-middle">
 							<a href="#"> <img class="media-object"
@@ -127,10 +128,10 @@
 						<hr>
 					</div>
 				</div>
-			</div>
+			<!-- </div> -->
 		</div>
 		<!-- 右边栏 未登录时显示  网站说明 -->
-		<div class="col-md-3" ng-switch-when="false">
+		<div class="col-md-3 col-padding-left-over-bs" ng-switch-when="false">
 			<ul class="list-group">
 			  <!-- 列表组 list-group 列表中的条目添加颜色样式 -->
 			  <li class="list-group-item list-group-item-success">
@@ -140,7 +141,7 @@
 			</ul>
 		</div>
 		<!-- 右边栏 已登录时显示  用户头像 -->
-		<div class="col-md-3" ng-switch-when="true">
+		<div class="col-md-3 col-padding-left-over-bs" ng-switch-when="true">
 			<ul class="list-group">
 			  <li class="list-group-item">
 			    <div class="profile-image">
@@ -173,7 +174,7 @@
 			</ul>
 		</div>
 		<!-- 右边栏 活跃作者 -->
-		<div class="col-md-3">
+		<div class="col-md-3 col-padding-left-over-bs">
 			<div class="panel panel-success">
 				<div class="panel-heading">
 					<h3 class="panel-title">活跃作者</h3>
@@ -192,7 +193,7 @@
 			</div>
 		</div>
 		<!-- 右边栏 热门文章 -->
-		<div class="col-md-3">
+		<div class="col-md-3 col-padding-left-over-bs">
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">热门文章</h3>
