@@ -89,7 +89,7 @@ public class UserService {
             });
     }
 
-    public User createUserInformation(String login, String password, String nickName, String email,
+    public User createUserInformation(String login, String password, String email,
         String langKey) {
 
         User newUser = new User();
@@ -99,7 +99,8 @@ public class UserService {
         newUser.setLogin(login);
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);
-        newUser.setNickName(nickName);
+        // 默认昵称就是账号
+        newUser.setNickName(login);
         newUser.setEmail(email);
         newUser.setLangKey(langKey);
         // new user is not active
@@ -108,6 +109,11 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
+        // 设置注册用户的默认头像,从login=user中查询
+        User findUser = userRepository.findOneByLogin("user").get();
+        newUser.setPicture(findUser.getPicture());
+        newUser.setPictureContentType(findUser.getPictureContentType());
+        
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
