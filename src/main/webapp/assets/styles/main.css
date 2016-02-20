@@ -489,7 +489,6 @@ a.comment_emotion {
 
 .article-end-collect {
     background: rgba(0, 0, 0, 0) url("../images/article_share.png") no-repeat scroll -112px 0 / 194px 84px;
-    cursor: pointer;
     display: block;
     height: 28px;
     width: 82px;
