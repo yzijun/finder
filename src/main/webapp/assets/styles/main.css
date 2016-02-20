@@ -365,7 +365,7 @@ a:hover, a:link {
 .tag-box {
     display: inline-block;
     margin-top: 10px;
-    padding-top: 20px;
+    padding-top: 10px;
     width: 100%;
     border-top: 1px solid #f0f0f0;
 }
@@ -486,3 +486,16 @@ a.comment_emotion {
     padding: 1px 2px 1px 18px;
     text-decoration: none;
 }
+
+.article-end-collect {
+    background: rgba(0, 0, 0, 0) url("../images/article_share.png") no-repeat scroll -112px 0 / 194px 84px;
+    cursor: pointer;
+    display: block;
+    height: 28px;
+    width: 82px;
+}
+
+.article-end-collect:hover {
+    background-position: -112px -28px;
+}
+
