@@ -14,7 +14,9 @@ angular.module('finderApp')
                     Auth.logout();
                     $rootScope.previousStateName = to;
                     $rootScope.previousStateNameParams = params;
-                    $state.go('login');
+                    
+                    // 不需要跳转到登录页面
+//                    $state.go('login');
                 }
                 return $q.reject(response);
             }
