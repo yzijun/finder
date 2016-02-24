@@ -1,13 +1,19 @@
 package com.app.finder.service;
 
 import com.app.finder.domain.ArticleFavorite;
+import com.app.finder.domain.User;
 import com.app.finder.repository.ArticleFavoriteRepository;
+import com.app.finder.repository.UserRepository;
+import com.app.finder.security.SecurityUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,6 +34,8 @@ public class ArticleFavoriteService {
     @Inject
     private ArticleFavoriteRepository articleFavoriteRepository;
 
+    @Inject
+    private UserRepository userRepository;
     
     /**
      * Save a articleFavorite.
@@ -35,6 +43,12 @@ public class ArticleFavoriteService {
      */
     public ArticleFavorite save(ArticleFavorite articleFavorite) {
         log.debug("Request to save ArticleFavorite : {}", articleFavorite);
+        // 设置默认值
+        articleFavorite.setCreatedDate(ZonedDateTime.now());
+        // 页面参数传不过来,重新查找User
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+        articleFavorite.setUser(user);
+        
         ArticleFavorite result = articleFavoriteRepository.save(articleFavorite);
         return result;
     }

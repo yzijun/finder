@@ -48,9 +48,7 @@ public class ArticleFavoriteResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("articleFavorite", "idexists", "A new articleFavorite cannot already have an ID")).body(null);
         }
         ArticleFavorite result = articleFavoriteService.save(articleFavorite);
-        return ResponseEntity.created(new URI("/api/articleFavorites/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("articleFavorite", result.getId().toString()))
-            .body(result);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     /**

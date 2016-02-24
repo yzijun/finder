@@ -31,9 +31,24 @@
 	 							<i class="fa fa-bookmark-o fa-lg"></i> 收藏
 	 						</a>
  						</p> -->
- 						<p class="pull-right">
-	 						<a class="article-end-collect"></a>
-						</p>
+ 						<!-- 文章收藏 -->
+ 						<div ng-switch="isAuthenticated()">
+ 							<!-- 未登录 -->
+ 							<div ng-switch-when="false">
+	 							<p class="pull-right">
+		 							<a class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a>
+								</p>
+ 							</div>
+ 							<!-- 已登录 -->
+ 							<div ng-switch-when="true">
+ 								<p class="pull-right">
+ 									<!-- 根据id是否存在显示不同标签  span是已收藏  a是未收藏 -->
+		 							<span ng-show="articleFavorite.id" class="article-end-collect-fin"></span>
+		 							<a ng-show="!articleFavorite.id" class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a>
+								</p>
+ 							</div>
+ 						</div>
+ 						
 					</div>
                    	<span class="c2">
 						*文章为作者独立观点，不代表本站立场

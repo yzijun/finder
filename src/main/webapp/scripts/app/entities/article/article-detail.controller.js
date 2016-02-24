@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, $http, $state, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal) {
+    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, $http, $state, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal, ArticleFavorite) {
     	 Principal.identity().then(function(account) {
              $scope.isAuthenticated = Principal.isAuthenticated;
          });
@@ -17,6 +17,8 @@ angular.module('finderApp')
             $scope.hotArticles = $scope.article.hotArticles;
             // 文章评论列表
             $scope.replies = $scope.article.articleReplies;
+            // 文章收藏
+            $scope.articleFavorite = {};
         }, function(response) {
         	// 可能有文章id不存在或是该文章不允许发布
             if (response.status === 404) {
@@ -83,6 +85,33 @@ angular.module('finderApp')
     	        }
     	    }
     	}
+        
+        // 文章收藏
+        $scope.addFavorite = function (fid) {
+            // 设定所属的文章ID
+            $scope.articleFavorite.article = {id:$scope.article.id};
+            // $scope.articleFavorite.id = fid
+            if (fid != null) {
+            	// 取消收藏功能暂不提供,页面不传参数fid的值
+            	ArticleFavorite.delete({id: fid}, onAddSuccess);
+            } else {
+            	// 用户是否登录
+            	if ($scope.isAuthenticated()) {
+            		ArticleFavorite.save($scope.articleFavorite, onAddSuccess, onAddError);
+            	} else {
+            		// 转到登录页面
+                	$state.go('login');
+            	}
+            }
+        };
+        // 文章收藏成功
+        var onAddSuccess = function (result) {
+        	$scope.articleFavorite = result;
+        };
+        // 文章收藏错误
+        var onAddError = function (result) {
+        	
+        };
         
         /*var onSaveSuccess = function (result) {
         	// $emit — 将事件向上传播到所有子作用域，包括自己。

@@ -509,3 +509,10 @@ a.comment_emotion {
     background-position: -112px -28px;
 }
 
+.article-end-collect-fin {
+    background: rgba(0, 0, 0, 0) url("../images/article_share.png") no-repeat scroll -112px 0 / 194px 84px;
+    display: block;
+    height: 28px;
+    width: 82px;
+    background-position: -112px -56px;
+}
