@@ -11,7 +11,8 @@
 					<i class="icon icon-line"></i>
 					<!-- 格式化日期 2016-01-07 09:55 -->
 					<span class="article-time">{{article.createdDate | date:'yyyy-MM-dd HH:mm'}}</span>
-					<span class="article-share">收藏1</span>
+					<span class="article-share">收藏{{articleFavoriteCount}}</span>
+					<!-- java中Array转换js数组用length -->
 					<span class="article-pl">评论{{replies.length}}</span>
 				</div>
 				<!-- 文章内容前的图片 -->
@@ -43,8 +44,8 @@
  							<div ng-switch-when="true">
  								<p class="pull-right">
  									<!-- 根据id是否存在显示不同标签  span是已收藏  a是未收藏 -->
-		 							<span ng-show="articleFavorite.id" class="article-end-collect-fin"></span>
-		 							<a ng-show="!articleFavorite.id" class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a>
+		 							<span ng-show="isArticleFavoriteCurrentUser" class="article-end-collect-fin"></span>
+		 							<a ng-show="!isArticleFavoriteCurrentUser" class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a>
 								</p>
  							</div>
  						</div>

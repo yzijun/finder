@@ -37,9 +37,11 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import com.app.finder.common.util.PrettyTimeUtils;
 import com.app.finder.domain.Article;
+import com.app.finder.domain.ArticleFavorite;
 import com.app.finder.domain.ArticleReply;
 import com.app.finder.domain.Tag;
 import com.app.finder.domain.User;
+import com.app.finder.repository.ArticleFavoriteRepository;
 import com.app.finder.repository.ArticleReplyRepository;
 import com.app.finder.repository.ArticleRepository;
 import com.app.finder.repository.ForbiddenWordRepository;
@@ -80,6 +82,9 @@ public class ArticleService {
     
     @Inject
     private ArticleReplyRepository articleReplyRepository;
+    
+    @Inject
+    private ArticleFavoriteRepository articleFavoriteRepository;
     
     /**
      * Save a article.
@@ -290,15 +295,28 @@ public class ArticleService {
     	
         // 查询文章对应的全部评论
         List<ArticleReply> articleReplies = articleReplyRepository.findReplyByArticleID(id, true);
-        
         List<ArticleReplyDTO> articleRepliesDTO = transArticleReplyDTO(articleReplies);
         
-		Integer countArticleSaveAid = 0;
+        // 取得文章的收藏数
+		Integer countArticleSaveAid = articleFavoriteRepository.findByCountArticleFavoriteAid(id);
+		// 当前登录用户是否收藏过该文章,默认否
+		boolean isArticleFavoriteCurrentUser = false;
+		// 当前用户是否登录
+		if (SecurityUtils.isAuthenticated()) {
+			// 当前登录用是否收藏过该文章
+			User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+			ArticleFavorite f = articleFavoriteRepository.findByUserIdAndArticleId(user.getId(), id);
+			// 当前用户已经收藏过该文章
+			if (f != null) {
+				isArticleFavoriteCurrentUser = true;
+			}
+		}
+		
 		Integer countArticleReplyAid = 0;
 		return new ArticleDTO(article, countArticleUid, 
 				countArticleReplyUid, countArticleSaveAid, 
 				countArticleReplyAid, hotArticles,
-				articleRepliesDTO);
+				articleRepliesDTO, isArticleFavoriteCurrentUser);
     }
 
     // 文章评论转换DTO

@@ -17,8 +17,10 @@ angular.module('finderApp')
             $scope.hotArticles = $scope.article.hotArticles;
             // 文章评论列表
             $scope.replies = $scope.article.articleReplies;
-            // 文章收藏
-            $scope.articleFavorite = {};
+            // 文章的收藏数
+            $scope.articleFavoriteCount = $scope.article.countArticleSaveAid;
+            // 当前登录用户是否收藏过该文章
+            $scope.isArticleFavoriteCurrentUser = $scope.article.articleFavoriteCurrentUser;
         }, function(response) {
         	// 可能有文章id不存在或是该文章不允许发布
             if (response.status === 404) {
@@ -88,6 +90,8 @@ angular.module('finderApp')
         
         // 文章收藏
         $scope.addFavorite = function (fid) {
+        	
+        	$scope.articleFavorite = {};
             // 设定所属的文章ID
             $scope.articleFavorite.article = {id:$scope.article.id};
             // $scope.articleFavorite.id = fid
@@ -97,6 +101,9 @@ angular.module('finderApp')
             } else {
             	// 用户是否登录
             	if ($scope.isAuthenticated()) {
+            		// 设定文章收藏不能点击，避免重复提交
+            		$scope.isArticleFavoriteCurrentUser = true;
+            		
             		ArticleFavorite.save($scope.articleFavorite, onAddSuccess, onAddError);
             	} else {
             		// 转到登录页面
@@ -107,6 +114,10 @@ angular.module('finderApp')
         // 文章收藏成功
         var onAddSuccess = function (result) {
         	$scope.articleFavorite = result;
+        	// 文章的收藏数
+            $scope.articleFavoriteCount = result.countArticleSaveAid;
+        	// 已收藏
+        	$scope.isArticleFavoriteCurrentUser = true;
         };
         // 文章收藏错误
         var onAddError = function (result) {

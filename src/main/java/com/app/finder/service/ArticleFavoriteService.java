@@ -5,10 +5,12 @@ import com.app.finder.domain.User;
 import com.app.finder.repository.ArticleFavoriteRepository;
 import com.app.finder.repository.UserRepository;
 import com.app.finder.security.SecurityUtils;
+import com.app.finder.web.rest.dto.ArticleFavoriteDTO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -41,7 +43,9 @@ public class ArticleFavoriteService {
      * Save a articleFavorite.
      * @return the persisted entity
      */
-    public ArticleFavorite save(ArticleFavorite articleFavorite) {
+    // 清空ArticleService中的缓存名称是  articleDetail 对应的文章ID 缓存
+    @CacheEvict(value = "articleDetail", key = "#articleFavorite.getArticle().getId()")
+    public ArticleFavoriteDTO save(ArticleFavorite articleFavorite) {
         log.debug("Request to save ArticleFavorite : {}", articleFavorite);
         // 设置默认值
         articleFavorite.setCreatedDate(ZonedDateTime.now());
@@ -50,7 +54,11 @@ public class ArticleFavoriteService {
         articleFavorite.setUser(user);
         
         ArticleFavorite result = articleFavoriteRepository.save(articleFavorite);
-        return result;
+        
+        // 取得文章的收藏数
+     	Integer countArticleSaveAid = articleFavoriteRepository.findByCountArticleFavoriteAid(articleFavorite.getArticle().getId());
+        
+        return new ArticleFavoriteDTO(result, countArticleSaveAid);
     }
 
     /**

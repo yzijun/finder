@@ -56,6 +56,9 @@ public class ArticleDTO {
 	// 该文章的评论数
 	private Integer countArticleReplyAid;
 	
+	// 当前登录用户是否收藏过该文章
+	private boolean articleFavoriteCurrentUser;
+	
 	// 右边栏 热门文章
 	List<Article> hotArticles;
 	
@@ -64,20 +67,21 @@ public class ArticleDTO {
 
 	public ArticleDTO(Article article, Integer countArticleUid, Integer countArticleReplyUid,
 			Integer countArticleSaveAid, Integer countArticleReplyAid,List<Article> hotArticles,
-			List<ArticleReplyDTO> articleReplies) {
+			List<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser) {
 		this(article.getId(), article.getTitle(), article.getFirstImg(),
 				article.getFirstImgContentType(), article.getContent(), article.isPublished(),
 				article.getPageView(), article.getCreatedDate(), article.getUser(),
 				article.getArticleCategory(), article.getTags(), countArticleUid,
 				countArticleReplyUid, countArticleSaveAid, countArticleReplyAid, hotArticles,
-				articleReplies);
+				articleReplies, articleFavoriteCurrentUser);
 	}
 
 	public ArticleDTO(Long id, String title, byte[] firstImg, String firstImgContentType,
 			String content, boolean published, Integer pageView, ZonedDateTime createdDate,
 			User user, ArticleCategory articleCategory, Set<Tag> tags, Integer countArticleUid,
 			Integer countArticleReplyUid, Integer countArticleSaveAid,
-			Integer countArticleReplyAid, List<Article> hotArticles, List<ArticleReplyDTO> articleReplies) {
+			Integer countArticleReplyAid, List<Article> hotArticles, 
+			List<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser) {
 		this.id = id;
 		this.title = title;
 		this.firstImg = firstImg;
@@ -95,6 +99,7 @@ public class ArticleDTO {
 		this.countArticleReplyAid = countArticleReplyAid;
 		this.hotArticles = hotArticles;
 		this.articleReplies = articleReplies;
+		this.articleFavoriteCurrentUser = articleFavoriteCurrentUser;
 	}
 
 	public Long getId() {
@@ -224,7 +229,6 @@ public class ArticleDTO {
 	public void setHotArticles(List<Article> hotArticles) {
 		this.hotArticles = hotArticles;
 	}
-
 	
 	public List<ArticleReplyDTO> getArticleReplies() {
 		return articleReplies;
@@ -232,6 +236,14 @@ public class ArticleDTO {
 
 	public void setArticleReplies(List<ArticleReplyDTO> articleReplies) {
 		this.articleReplies = articleReplies;
+	}
+	
+	public boolean isArticleFavoriteCurrentUser() {
+		return articleFavoriteCurrentUser;
+	}
+
+	public void setArticleFavoriteCurrentUser(boolean articleFavoriteCurrentUser) {
+		this.articleFavoriteCurrentUser = articleFavoriteCurrentUser;
 	}
 
 	@Override
