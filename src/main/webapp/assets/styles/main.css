@@ -399,6 +399,7 @@ a:hover, a:link {
 /*文章底部的发表评论  */
 .pl-wrap {
     margin-top: 50px;
+    line-height: 25px;
 }
 
 .span-mark-author.active {
@@ -422,7 +423,7 @@ a:hover, a:link {
 }
 
 .btn-article{
-    margin-top: 20px;
+    margin-top: 10px;
     width: 130px;
 }
 
@@ -515,4 +516,9 @@ a.comment_emotion {
     height: 28px;
     width: 82px;
     background-position: -112px -56px;
+}
+
+.article-comment-label {
+	font-size: 18px;
+	margin-top: 40px;
 }
