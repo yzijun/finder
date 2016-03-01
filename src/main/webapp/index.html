@@ -32,10 +32,11 @@
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
 		<div id="wrapper">
 	        <div ui-view="navbar" ng-cloak=""></div>
-	        <br><br><br>
+	        <div style="height: 65px;"></div>
 	        <div id="page-wrapper" class="container">
+	        	<!-- 页面内容 -->
 	            <div ui-view="content"></div>
-
+				<!-- 页脚 -->
 	            <div ui-view="footer"></div>
 	        </div>
 	    </div>
