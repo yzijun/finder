@@ -107,7 +107,7 @@
 						<div class="pl-box-wrap" ng-repeat="reply in replies track by reply.id">
 							<div class="pl-box-top">
 								<div class="author-info pull-right">
-									<span class="time">{{reply.prettyTime}}</span>
+									<span class="time" title="{{reply.createdDate | date:'yyyy-MM-dd HH:mm'}}">{{reply.prettyTime}}</span>
 								</div>
 								<div class="author-info">
 									<div class="author-face avatar">
