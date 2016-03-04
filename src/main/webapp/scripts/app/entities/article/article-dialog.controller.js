@@ -26,8 +26,6 @@ angular.module('finderApp').controller('ArticleDialogController',
         };
 
         $scope.save = function () {
-        	//设置百度编辑器的内容
-        	//$scope.article.content = UM.getEditor('myEditor').getContent();
         	//设置bootstrap-wysiwyg文本编辑器的内容
         	//cleanHtml(true)和html()同时可以上传图片和文字，图片是编码后的字符串
         	$scope.article.content = $('#editor').html();
