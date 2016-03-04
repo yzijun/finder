@@ -5,7 +5,7 @@ angular.module('finderApp')
         $stateProvider
             .state('articleAuthorDetail', {
                 parent: 'entity',
-                url: '/articleAuthorDetails',
+                url: '/articleAuthorDetails/:uid',
                 data: {
 //                    authorities: ['ROLE_USER'],
                 	//不需要登录不设定角色就可以显示文章作者详细页面
@@ -20,7 +20,7 @@ angular.module('finderApp')
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('articleCategory');
+//                        $translatePartialLoader.addPart('articleCategory');
                         $translatePartialLoader.addPart('global');
                         return $translate.refresh();
                     }]
