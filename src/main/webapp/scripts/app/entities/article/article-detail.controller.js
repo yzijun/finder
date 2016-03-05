@@ -63,12 +63,22 @@ angular.module('finderApp')
             $scope.articleReply.article = {id:$scope.article.id};
             // 目的是把json对象转换成字符串
 //            JSON.stringify(data)
+            // 取得kindeditor文本编辑器的内容
+            // contents() 如果元素是一个iframe，则查找文档内容
+            $scope.articleReply.content = $('iframe').contents().find('.ke-content').html();
             // 用$http.post发请求
             $http.post('api/articleDetailsReplys', JSON.stringify($scope.articleReply)).success(function (response) {
+            	
+            	// 取得文章评论内容时有html转义在app.js文件angular.module中增加依赖'ngSanitize'模块
+            	// 就不需要增加信任$sce.trustAsHtml的方式了
+            	// 页面显示部分用指令ng-bind-html="reply.content"
+            	
             	// 文章评论列表
                 $scope.replies = response;
                 // 评论发表按钮为可用状态
                 $scope.isSaving = false;
+                // 清空评论内容
+                $('iframe').contents().find('.ke-content').html('');
             });
         };
         

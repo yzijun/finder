@@ -487,18 +487,6 @@ a:hover, a:link {
     border-color: #e78170;
 }
 
-.comment_insert_pic {
-	font-size: 12px;
-}
-
-a.comment_emotion {
-    background: rgba(0, 0, 0, 0) url("../images/emotion.gif") no-repeat scroll left center;
-    border: 1px solid #fff;
-    color: #666;
-    padding: 1px 2px 1px 18px;
-    text-decoration: none;
-}
-
 .article-end-collect {
     background: rgba(0, 0, 0, 0) url("../images/article_share.png") no-repeat scroll -112px 0 / 194px 84px;
     display: block;

@@ -77,25 +77,43 @@
 							<!-- 评论输入框 -->
 							<div ng-switch-when="true">
 								<div class="form-group" ng-class="{'has-error':editForm.content.$dirty && editForm.content.$invalid}">
-								<textarea ng-model="articleReply.content" name="content" class="form-control login-box-editor" 
-										  placeholder="写下你的评论" style="height: 180px;" required ng-maxlength="200"></textarea>
-								<div class="pull-right comment_insert_pic">
-									 插入：
-									<a class="comment_emotion" href="javascript:insert_emotions();">表情</a>
-								</div>
-								<div ng-show="editForm.content.$invalid">
-					                <p class="help-block"
-					                    ng-show="editForm.content.$dirty && editForm.content.$error.required">
-					                    	请输入评论内容
-					                </p>
-					                <p class="help-block"
-					                    ng-show="editForm.content.$dirty && editForm.content.$error.maxlength" >
-					                    	评论内容不能超过200个字
-					                </p>
-					            </div>
+									<textarea ng-model="articleReply.content" name="content" class="form-control login-box-editor" 
+											  placeholder="写下你的评论" required ng-maxlength="200"
+											  style="height:200px;visibility:hidden;"></textarea>
+									<!-- kindeditor-4.1.10 国内文本编辑器  
+										 js写在这的原因是使用的jquery.js的版本不同
+										 如果不用kindeditor自带的会显示两个文本编辑器-->
+									<script src="../../../../bower_components/kindeditor-4.1.10/examples/jquery.js"></script>
+									<script src="../../../../bower_components/kindeditor-4.1.10/kindeditor-min.js"></script>
+									<script src="../../../../bower_components/kindeditor-4.1.10/lang/zh_CN.js"></script>
+										
+									<script type="text/javascript">
+										$(function() {
+											KindEditor.create('textarea[name="content"]',{
+												resizeType : 1,
+												allowPreviewEmoticons : false,
+												allowImageUpload : false,
+												items : [
+													'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+													'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+													'insertunorderedlist', '|', 'emoticons', 'link']
+											});
+										});
+									</script>
+									
+									<!-- <div ng-show="editForm.content.$invalid">
+						                <p class="help-block"
+						                    ng-show="editForm.content.$dirty && editForm.content.$error.required">
+						                    	请输入评论内容
+						                </p>
+						                <p class="help-block"
+						                    ng-show="editForm.content.$dirty && editForm.content.$error.maxlength" >
+						                    	评论内容不能超过200个字
+						                </p>
+						            </div> -->
 								</div>
 							</div>
-							<button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-lg btn-article">发表</button>
+							<button type="submit" class="btn btn-primary btn-lg btn-article">发表</button>
 						</form>
 					</div>
 					
@@ -122,8 +140,7 @@
 									<!-- <span class="time">{{reply.createdDate | date:'yyyy-MM-dd HH:mm'}}</span> -->
 								</div>
 								<!-- 评论内容 -->
-								<div class="pl-content">
-									{{reply.content}}
+								<div class="pl-content" ng-bind-html="reply.content">
 								</div>
 							</div>
 						</div>
