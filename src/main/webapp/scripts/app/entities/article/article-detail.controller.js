@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, $http, $state, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal, ArticleFavorite) {
+    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, $http, $state, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal, ArticleFavorite, AlertService) {
     	 Principal.identity().then(function(account) {
              $scope.isAuthenticated = Principal.isAuthenticated;
          });
@@ -79,6 +79,14 @@ angular.module('finderApp')
                 $scope.isSaving = false;
                 // 清空评论内容
                 $('iframe').contents().find('.ke-content').html('');
+                
+                // 显示提交后的提示信息  http header中的提示信息<jh-alert>指令会有中文乱码问题
+                // 直接用AlertService
+                var f = AlertService.success('评论保存成功！');
+                // 设置浮动
+                f.toast = true;
+                // 设置显示位置
+                f.position = 'top center';
             });
         };
         

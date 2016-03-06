@@ -161,7 +161,7 @@ public class ArticleResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("articleReply", "idexists", "A new articleReply cannot already have an ID")).body(null);
         }
         List<ArticleReplyDTO> articleRepliesDTO = articleService.createArticleReply(articleReply);
-        HttpHeaders headers = HeaderUtil.createAlert("评论保存成功！", "");
-        return new ResponseEntity<>(articleRepliesDTO, headers, HttpStatus.OK);
+//        HttpHeaders headers = HeaderUtil.createAlert("评论保存成功！", "");
+        return new ResponseEntity<>(articleRepliesDTO, HttpStatus.OK);
     }
 }
