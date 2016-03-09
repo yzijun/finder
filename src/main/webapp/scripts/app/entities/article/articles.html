@@ -7,6 +7,9 @@
                 <button class="btn btn-primary" ui-sref="article.new">
                     <span class="glyphicon glyphicon-flash"></span> <span translate="finderApp.article.home.createLabel">Create a new Article</span>
                 </button>
+                <button class="btn btn-primary" ng-click="updatePublished()">
+                    <span class="glyphicon glyphicon-flash"></span> 禁止发布文章
+                </button>
             </div>
             <div class="col-md-8">
                 <form name="searchForm" class="form-inline">
@@ -24,6 +27,7 @@
         <table class="table table-striped">
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                	<th> </th>
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="title"><span translate="finderApp.article.title">Title</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="content"><span translate="finderApp.article.content">Content</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -37,6 +41,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="article in articles track by article.id">
+                	<td><input i-check type="checkbox" ng-model="article.published" value="{{article.id}}"></td>
                     <td><a ui-sref="article.detail({id:article.id})">{{article.id}}</a></td>
                     <td>{{article.title}}</td>
                     <td>
@@ -48,7 +53,7 @@
                     <!-- 格式化日期时间 yyyy-MM-dd HH:mm -->
                     <td>{{article.createdDate | date:'yyyy-MM-dd HH:mm'}}</td>
                     <td>
-                        {{article.published == true ? '已发布':'未发布'}}
+                        {{article.published == true ? '允许发布':'禁止发布'}}
                     </td>
                     <td>
                         {{article.pageView}}

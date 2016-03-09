@@ -431,6 +431,16 @@ public class ArticleService {
             .stream(articleSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
+
+    /**
+     * 设置文章禁止发布的状态
+     * @param integer
+     */
+    // 清空articleDetail 缓存
+    @CacheEvict(value="articleDetail",key="#id")
+	public void updatePublished(Long id) {
+		articleRepository.updatePublished(id);
+	}
     
     /**
      * 文章详细页面  右边栏 热门文章

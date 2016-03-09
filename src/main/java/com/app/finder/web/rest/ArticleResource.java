@@ -3,6 +3,7 @@ package com.app.finder.web.rest;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -163,5 +164,25 @@ public class ArticleResource {
         List<ArticleReplyDTO> articleRepliesDTO = articleService.createArticleReply(articleReply);
 //        HttpHeaders headers = HeaderUtil.createAlert("评论保存成功！", "");
         return new ResponseEntity<>(articleRepliesDTO, HttpStatus.OK);
+    }
+    
+    
+    /**
+     * 设置文章禁止发布的状态
+     * @throws URISyntaxException 
+     */
+    @RequestMapping(value = "/updatePublished",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Secured(AuthoritiesConstants.ARTICLE_ADMIN) //文章管理者角色可以访问
+    public ResponseEntity<List<Article>> updatePublished (Pageable pageable, @RequestBody Long[] ids) throws URISyntaxException {
+    	// 方法参数有Pageable pageable时会自动实例化，不需要人为设定值
+    	log.debug("REST request to update Article updatePublished pageable : {}", pageable);
+    	log.debug("REST request to update Article updatePublished id : {}", Arrays.toString(ids));
+    	for (int i = 0; i < ids.length; i++) {
+    		articleService.updatePublished(ids[i]);
+		}
+    	return getAllArticles(pageable);
     }
 }

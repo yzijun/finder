@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleController', function ($scope, $state, $sce, DataUtils, Article, ArticleSearch, ParseLinks) {
+    .controller('ArticleController', function ($scope, $state, $sce, $http, DataUtils, Article, ArticleSearch, ParseLinks) {
 
         $scope.articles = [];
         $scope.predicate = 'id';
@@ -56,4 +56,20 @@ angular.module('finderApp')
         $scope.abbreviate = DataUtils.abbreviate;
 
         $scope.byteSize = DataUtils.byteSize;
+        
+        // 设置文章禁止发布的状态
+        $scope.updatePublished = function () {
+        	var ids = [];
+        	// 取得checkbox没有选择的更新发布状态
+        	$(":checkbox:not(:checked)").each(function(){
+        		ids.push($(this).val());
+			});
+        	if (ids.length > 0) {
+        		// 用$http.post发请求
+                $http.post('api/updatePublished', JSON.stringify(ids)).success(function (result) {
+                	 $scope.articles = result;
+                });
+        	}
+        }
+        
     });

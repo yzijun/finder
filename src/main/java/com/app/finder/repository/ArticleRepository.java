@@ -32,5 +32,13 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
     
 	//查询一篇可以发布的文章
     Article findByIdAndPublishedTrue(Long id);
+    
+    /*
+     * 设置文章禁止发布的状态,
+     * 不用默认更新原因是会更新所有字段没有必要
+     */
+    @Modifying
+    @Query("update Article a set a.published = false where a.id = ?1")
+    int updatePublished(Long id);
 
 }
