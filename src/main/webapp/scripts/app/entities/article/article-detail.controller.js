@@ -66,6 +66,21 @@ angular.module('finderApp')
             // 取得kindeditor文本编辑器的内容
             // contents() 如果元素是一个iframe，则查找文档内容
             $scope.articleReply.content = $('iframe').contents().find('.ke-content').html();
+
+            // 替换空格或Tab键生成的html
+            var articleContent = $scope.articleReply.content.replace(/&nbsp;/g,'');
+            // 替换html<br>
+            articleContent = articleContent.replace(/<br>/g,'');
+            articleContent = $.trim(articleContent);
+            
+            // 没有输入评论内容的验证
+            if (articleContent == "") {
+            	return alertMsg('请输入评论内容.');
+            }
+            // articleContent.length 可以取得字符串长度
+            if (articleContent.length > 1000) {
+            	return alertMsg('您输入的评论内容过长删除几个字试试.');
+            }
             // 用$http.post发请求
             $http.post('api/articleDetailsReplys', JSON.stringify($scope.articleReply)).success(function (response) {
             	
@@ -89,6 +104,16 @@ angular.module('finderApp')
                 f.position = 'top center';
             });
         };
+        
+        // 显示浮动消息框toast
+        function alertMsg(msg) {
+        	var f = AlertService.success(msg);
+            // 设置浮动
+            f.toast = true;
+            // 设置显示位置
+            f.position = 'top center';
+            return false;
+        }
         
         // 回到顶部按钮实现函数
         function scrollTo(name, add, speed) {
