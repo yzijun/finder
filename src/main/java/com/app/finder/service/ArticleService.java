@@ -145,7 +145,7 @@ public class ArticleService {
 	        widthAndHeight = ThumbnailsUtils.getWidthAndHeight(is);
 	        picWidth = widthAndHeight[0];
 	        picHeight = widthAndHeight[1];
-	        //TODO 正式系统需要改路径
+	        // 正式系统需要改路径
 	        String savePicPath = "D:/apachePic/";
 	        //取得当前日期作为文件夹
 	        String day = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
@@ -159,7 +159,7 @@ public class ArticleService {
 	        Files.createParentDirs(f);
 	        
 	        //图片显示URL中的路径
-	        //TODO 正式系统需要改URL地址
+	        // 正式系统需要改URL地址
 	        urlPics.add("http://localhost:8089/" + fileName);
 	        
 			if ((picWidth > width && picHeight > height)
@@ -465,7 +465,7 @@ public class ArticleService {
 
         Context context = new Context();
         context.setVariable("articles", articles);
-        // TODO baseURL 正式环境时需要替换,作为模板使用
+        // baseURL 正式环境时需要替换,作为模板使用
         String baseURL = "http://127.0.0.1:8080";
         context.setVariable("baseUrl", baseURL);
         String content = templateEngine.process("article/hotArticleDetail", context);
