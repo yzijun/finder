@@ -8,10 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -20,12 +18,16 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -86,6 +88,8 @@ public class ArticleService {
     @Inject
     private ArticleFavoriteRepository articleFavoriteRepository;
     
+	@PersistenceContext
+	private EntityManager entityManager;
     /**
      * Save a article.
      * @return the persisted entity
@@ -294,8 +298,12 @@ public class ArticleService {
         List<Article> hotArticles = hotArticleDetail();
     	
         // 查询文章对应的全部评论
-        List<ArticleReply> articleReplies = articleReplyRepository.findReplyByArticleID(id, true);
-        List<ArticleReplyDTO> articleRepliesDTO = transArticleReplyDTO(articleReplies);
+//        List<ArticleReply> articleReplies = articleReplyRepository.findReplyByArticleID(id, true);
+//        List<ArticleReplyDTO> articleRepliesDTO = transArticleReplyDTO(articleReplies);
+        
+        // 默认显示5条评论
+        Pageable pageable = new PageRequest(0, 5);
+        Page<ArticleReplyDTO> articleRepliesDTO = findPageArticleReply(pageable, id);
         
         // 取得文章的收藏数
 		Integer countArticleSaveAid = articleFavoriteRepository.findByCountArticleFavoriteAid(id);
@@ -317,6 +325,38 @@ public class ArticleService {
 				countArticleReplyUid, countArticleSaveAid, 
 				countArticleReplyAid, hotArticles,
 				articleRepliesDTO, isArticleFavoriteCurrentUser);
+    }
+    
+    /**
+     * 查询文章对应的分页评论
+     * 带查询条件的分页
+     * @param pageable
+     * @param id 文章ID
+     * @return
+     */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public Page<ArticleReplyDTO> findPageArticleReply(Pageable pageable, Long id) {
+		// 使用entityManager查询分页数据
+		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
+		Query query = entityManager.createQuery("select a from ArticleReply a left join fetch a.replyer where a.article.id = ?1 and published = ?2 order by a.createdDate asc");
+		// 设置查询参数
+		query.setParameter(1, id);
+		query.setParameter(2, true);
+		// 总记录数
+		int totalElements = query.getResultList().size();
+		log.debug("Request to findPageArticleReply totalElements : {} ", totalElements);
+		// 取得分页数据
+		List articleReplies = query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize())
+	    	 .setMaxResults(pageable.getPageSize())
+	    	 .getResultList();
+		
+		log.debug("Request to findPageArticleReply pageable : {} id : {}", pageable, id);
+		log.debug("Request to findPageArticleReply List<ArticleReply> size : {}", articleReplies.size());
+		
+		List<ArticleReplyDTO> alist = transArticleReplyDTO(articleReplies);
+		// 从新构造page对象
+		Page<ArticleReplyDTO> page = new PageImpl(alist, pageable, totalElements); 
+		return page;
     }
 
     // 文章评论转换DTO

@@ -145,8 +145,8 @@
 								</div>
 							</div>
 						</div>
-						<p class="pl-box-wrap load-more">
-							<a href="/notes/3006399/comments?max_id=1462113&order=asc&page=2">
+						<p class="pl-box-wrap load-more" ng-show="!nextPage">
+							<a ng-click="loadPageArticleReply(pageNumber)">
 								加载更多
 								<i class="fa fa-arrow-down"></i>
 							</a>

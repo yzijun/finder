@@ -15,8 +15,14 @@ angular.module('finderApp')
             $scope.account = $scope.article.user;
             // 右边栏 热门文章
             $scope.hotArticles = $scope.article.hotArticles;
-            // 文章评论列表
-            $scope.replies = $scope.article.articleReplies;
+            // 文章评论第一页列表
+            $scope.replies = $scope.article.articleReplies.content;
+            // 文章评论当前是第几页
+            $scope.pageNumber = $scope.article.articleReplies.number;
+            // 文章评论总页数
+            $scope.totalPages = $scope.article.articleReplies.totalPages;
+            // 文章评论是否有下一页
+            $scope.nextPage = $scope.article.articleReplies.totalPages == ($scope.article.articleReplies.number + 1);
             // 文章的收藏数
             $scope.articleFavoriteCount = $scope.article.countArticleSaveAid;
             // 当前登录用户是否收藏过该文章
@@ -166,6 +172,31 @@ angular.module('finderApp')
         var onAddError = function (result) {
         	
         };
+        
+        // 取得文章评论分页数据
+        $scope.loadPageArticleReply = function() {
+            // 下一页页数
+        	var page = $scope.pageNumber + 1;
+        	// 每页多少条数据
+        	var size = 5;
+        	var id = $scope.article.id;
+        	// 用$http.get发请求
+            $http.get('api/loadPageArticleReply?page='+page+'&size='+size+'&id='+id).success(function (response) {
+                // 文章评论当前是第几页
+                $scope.pageNumber = response.number;
+                // 文章评论总页数
+                $scope.totalPages = response.totalPages;
+                // 文章评论是否有下一页
+                $scope.nextPage = response.totalPages == (response.number + 1);
+                // 取得文章评论下一页数据
+                var contents = response.content;
+                for (var i = 0; i < contents.length; i++) {
+                	// 下一页的数据加到原来的评论下
+                	$scope.replies.push(contents[i]);
+				}
+            });
+        };
+        
         
         /*var onSaveSuccess = function (result) {
         	// $emit — 将事件向上传播到所有子作用域，包括自己。

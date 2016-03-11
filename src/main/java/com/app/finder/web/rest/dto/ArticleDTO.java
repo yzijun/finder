@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.domain.Page;
+
 import com.app.finder.domain.Article;
 import com.app.finder.domain.ArticleCategory;
 import com.app.finder.domain.ArticleReply;
@@ -62,12 +64,12 @@ public class ArticleDTO {
 	// 右边栏 热门文章
 	List<Article> hotArticles;
 	
-	//文章对应的全部评论
-	List<ArticleReplyDTO> articleReplies;
+	//文章对应的分页评论
+	Page<ArticleReplyDTO> articleReplies;
 
 	public ArticleDTO(Article article, Integer countArticleUid, Integer countArticleReplyUid,
 			Integer countArticleSaveAid, Integer countArticleReplyAid,List<Article> hotArticles,
-			List<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser) {
+			Page<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser) {
 		this(article.getId(), article.getTitle(), article.getFirstImg(),
 				article.getFirstImgContentType(), article.getContent(), article.isPublished(),
 				article.getPageView(), article.getCreatedDate(), article.getUser(),
@@ -81,7 +83,7 @@ public class ArticleDTO {
 			User user, ArticleCategory articleCategory, Set<Tag> tags, Integer countArticleUid,
 			Integer countArticleReplyUid, Integer countArticleSaveAid,
 			Integer countArticleReplyAid, List<Article> hotArticles, 
-			List<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser) {
+			Page<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser) {
 		this.id = id;
 		this.title = title;
 		this.firstImg = firstImg;
@@ -230,11 +232,11 @@ public class ArticleDTO {
 		this.hotArticles = hotArticles;
 	}
 	
-	public List<ArticleReplyDTO> getArticleReplies() {
+	public Page<ArticleReplyDTO> getArticleReplies() {
 		return articleReplies;
 	}
 
-	public void setArticleReplies(List<ArticleReplyDTO> articleReplies) {
+	public void setArticleReplies(Page<ArticleReplyDTO> articleReplies) {
 		this.articleReplies = articleReplies;
 	}
 	

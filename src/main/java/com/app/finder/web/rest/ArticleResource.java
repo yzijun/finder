@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.finder.domain.Article;
@@ -181,8 +183,26 @@ public class ArticleResource {
     	log.debug("REST request to update Article updatePublished pageable : {}", pageable);
     	log.debug("REST request to update Article updatePublished id : {}", Arrays.toString(ids));
     	for (int i = 0; i < ids.length; i++) {
+    		// 一个一个id更新的原因是可以根据文章ID移除对应的文章缓存
     		articleService.updatePublished(ids[i]);
 		}
     	return getAllArticles(pageable);
+    }
+    
+    /**
+     * 取得加载更多文章评论分页数据
+     * @throws URISyntaxException 
+     */
+    @RequestMapping(value = "/loadPageArticleReply",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public Page<ArticleReplyDTO> loadPageArticleReply (@RequestParam(required = true) Integer page, 
+    												   @RequestParam(required = true) Integer size, 
+    												   @RequestParam(required = true) Long id) throws URISyntaxException {
+    	Pageable pageable = new PageRequest(page, size);
+    	log.debug("REST request to update Article loadPageArticleReply pageable : {}", pageable);
+    	log.debug("REST request to update Article loadPageArticleReply articleId : {}", id);
+    	return articleService.findPageArticleReply(pageable, id);
     }
 }
