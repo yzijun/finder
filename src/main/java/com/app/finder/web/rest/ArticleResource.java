@@ -113,6 +113,7 @@ public class ArticleResource {
     @Timed
     public ResponseEntity<ArticleDTO> getArticle(@PathVariable Long id) {
         log.debug("REST request to get Article : {}", id);
+        articleService.updatePageView(id);
         ArticleDTO article = articleService.findOne(id);
         return Optional.ofNullable(article)
             .map(result -> new ResponseEntity<>(

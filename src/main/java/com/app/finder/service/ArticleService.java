@@ -292,8 +292,6 @@ public class ArticleService {
  		// 取得该用户全部评论数
         Integer countArticleReplyUid = articleRepository.findByCountArticleReplyUid(article.getUser().getId());
         
-        // 文章的浏览数量加1
-        articleRepository.updatePageView(article.getId());
         // 右边栏 热门文章
         List<Article> hotArticles = hotArticleDetail();
     	
@@ -325,6 +323,22 @@ public class ArticleService {
 				countArticleReplyUid, countArticleSaveAid, 
 				countArticleReplyAid, hotArticles,
 				articleRepliesDTO, isArticleFavoriteCurrentUser);
+    }
+    
+    /**
+     * 更新文章的浏览量
+     * 单独调用的原因是在文章缓存前更新文章浏览量
+     * @param id 文章ID
+     */
+    public void updatePageView(Long id) {
+    	 Article article = articleRepository.findByIdAndPublishedTrue(id);
+         // 可能有文章id不存在或是该文章不允许发布
+         if (article == null) {
+         	return;
+         }
+         
+         // 文章的浏览数量加1
+         articleRepository.updatePageView(article.getId());
     }
     
     /**
