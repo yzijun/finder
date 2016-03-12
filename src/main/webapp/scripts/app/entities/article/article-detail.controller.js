@@ -108,6 +108,9 @@ angular.module('finderApp')
                 f.toast = true;
                 // 设置显示位置
                 f.position = 'top center';
+                
+                // 隐藏加载更多  显示全部评论没有下一页
+                $scope.nextPage = true;
             });
         };
         
