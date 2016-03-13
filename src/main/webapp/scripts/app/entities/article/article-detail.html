@@ -116,11 +116,11 @@
 						            </div> -->
 								</div>
 							</div>
-							<button type="submit" class="btn btn-primary btn-lg btn-article">发表</button>
+							<button type="submit" ng-disabled="isSaving" class="btn btn-primary btn-lg btn-article">发表</button>
 						</form>
 					</div>
 					
-					<div class="article-comment-label reply-title">文章评论</div>
+					<div class="article-comment-label reply-title" ng-show="hasReply">文章评论</div>
 					<!-- 评论列表 -->
 					<div>
 						<div class="pl-box-wrap" ng-repeat="reply in replies track by reply.id">

@@ -299,7 +299,7 @@ public class ArticleService {
 //        List<ArticleReply> articleReplies = articleReplyRepository.findReplyByArticleID(id, true);
 //        List<ArticleReplyDTO> articleRepliesDTO = transArticleReplyDTO(articleReplies);
         
-        // 默认显示5条评论
+        // 默认第一页显示5条评论
         Pageable pageable = new PageRequest(0, 5);
         Page<ArticleReplyDTO> articleRepliesDTO = findPageArticleReply(pageable, id);
         
@@ -407,7 +407,7 @@ public class ArticleService {
      */
     // 清空articleDetail 对应的文章ID 缓存
     @CacheEvict(value = "articleDetail", key = "#articleReply.getArticle().getId()")
-    public List<ArticleReplyDTO> createArticleReply(ArticleReply articleReply) {
+    public Page<ArticleReplyDTO> createArticleReply(ArticleReply articleReply) {
     	log.debug("文章详细页面，新建文章评论 : {}", articleReply);
     	// 父评论人
     	articleReply.setParentReplyer(null);
@@ -426,9 +426,15 @@ public class ArticleService {
     	articleReplyRepository.saveAndFlush(articleReply);
     	
     	// 查询文章对应的全部评论
-    	List<ArticleReply> articleReplies =  articleReplyRepository.findReplyByArticleID(articleReply.getArticle().getId(), true);
+//    	List<ArticleReply> articleReplies =  articleReplyRepository.findReplyByArticleID(articleReply.getArticle().getId(), true);
     	
-    	return transArticleReplyDTO(articleReplies);
+//    	return transArticleReplyDTO(articleReplies);
+    	
+    	// 默认第一页显示5条评论
+        Pageable pageable = new PageRequest(0, 5);
+        Page<ArticleReplyDTO> articleRepliesDTO = findPageArticleReply(pageable, articleReply.getArticle().getId());
+    	
+        return articleRepliesDTO;
     }
     
     /*

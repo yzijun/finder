@@ -159,12 +159,12 @@ public class ArticleResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Secured(AuthoritiesConstants.USER) //用户角色可以访问
-    public ResponseEntity<List<ArticleReplyDTO>> createArticleDetailsReply(@Valid @RequestBody ArticleReply articleReply) throws URISyntaxException {
+    public ResponseEntity<Page<ArticleReplyDTO>> createArticleDetailsReply(@Valid @RequestBody ArticleReply articleReply) throws URISyntaxException {
         log.debug("REST request to save ArticleReply : {}", articleReply);
         if (articleReply.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("articleReply", "idexists", "A new articleReply cannot already have an ID")).body(null);
         }
-        List<ArticleReplyDTO> articleRepliesDTO = articleService.createArticleReply(articleReply);
+        Page<ArticleReplyDTO> articleRepliesDTO = articleService.createArticleReply(articleReply);
 //        HttpHeaders headers = HeaderUtil.createAlert("评论保存成功！", "");
         return new ResponseEntity<>(articleRepliesDTO, HttpStatus.OK);
     }

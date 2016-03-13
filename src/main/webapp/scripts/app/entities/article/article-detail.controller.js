@@ -22,7 +22,9 @@ angular.module('finderApp')
             // 文章评论总页数
             $scope.totalPages = $scope.article.articleReplies.totalPages;
             // 文章评论是否有下一页
-            $scope.nextPage = $scope.article.articleReplies.totalPages == ($scope.article.articleReplies.number + 1);
+            $scope.nextPage = haveNextPage($scope.article.articleReplies);
+            // 是否有评论数据
+            $scope.hasReply = $scope.article.articleReplies.totalPages > 0;
             // 文章的收藏数
             $scope.articleFavoriteCount = $scope.article.countArticleSaveAid;
             // 当前登录用户是否收藏过该文章
@@ -95,7 +97,7 @@ angular.module('finderApp')
             	// 页面显示部分用指令ng-bind-html="reply.content"
             	
             	// 文章评论列表
-                $scope.replies = response;
+                $scope.replies = response.content;
                 // 评论发表按钮为可用状态
                 $scope.isSaving = false;
                 // 清空评论内容
@@ -109,10 +111,19 @@ angular.module('finderApp')
                 // 设置显示位置
                 f.position = 'top center';
                 
-                // 隐藏加载更多  显示全部评论没有下一页
-                $scope.nextPage = true;
+                // 文章评论是否有下一页
+                $scope.nextPage = haveNextPage(response);
+                // 是否有评论数据
+                $scope.hasReply = true;
             });
         };
+        
+        // 判断是否要显示加载更多 
+        // 不显示条件是当前页等于总页数，总页数等于零
+        function haveNextPage(res) {
+        	return res.totalPages == (res.number + 1) 
+        		   || res.totalPages == 0;
+        }
         
         // 显示浮动消息框toast
         function alertMsg(msg) {
