@@ -1,26 +1,48 @@
 <div>
 	<div class="row">
 		<!-- 定义panel面板 -->
-		<div class="col-md-9 panel panel-default">
-			<ul class="list-group">
-			  <li class="list-group-item">
-			    <div class="profile-image">
-			    <!-- center-block 让内容块居中 -->
-                  <img
-                    data-ng-src="{{'data:' + account.pictureContentType + ';base64,' + account.picture}}"
-                    class="img-circle profile-img-middle center-block" alt="profile" ng-if="account.picture"/>
-                </div>
-                <!-- text-center 让文字居中 -->
-			    <p class="list-group-item-text text-center box-author-name">{{account.nickName}}</p>
-			    <!-- 个性签名 过滤器  characters:3 显示3个字符-->
-			    <p class="list-group-item-text text-center box-author-one">{{account.signature | characters:28 }}</p>
-			    
-			  </li>
-			</ul>
-        </div>
-        <!-- 右边栏  用户头像 -->
-		<div class="col-md-3">
-			
+		<div class="col-md-12 panel panel-default">
+			<!-- <ul class="list-group">
+				<li class="list-group-item">
+					<div class="profile-image">
+						center-block 让内容块居中
+						<img
+							data-ng-src="{{'data:' + account.pictureContentType + ';base64,' + account.picture}}"
+							class="img-circle profile-img-middle center-block" alt="profile"
+							ng-if="account.picture" />
+					</div> text-center 让文字居中
+					<p class="list-group-item-text text-center box-author-name">{{account.nickName}}</p>
+					个性签名 过滤器  characters:3 显示3个字符
+					<p class="list-group-item-text text-center box-author-one">{{account.signature
+						| characters:28 }}</p>
+
+				</li>
+			</ul> -->
+
+			<div class="mod-user-info">
+				<div class="profile-image">
+					<img class="img-circle profile-img-middle center-block" alt="王玄"
+						src="http://7xil86.com2.z0.glb.qiniucdn.com/uploads/thumb/8af59040f41254f74adcb78b62a4520b9e50803c_100_100.JPG">
+				</div>
+				<h1 class="name">王玄</h1>
+				<p class="bio">钛媒体编辑wangxuanxuan@btmedia.com</p>
+				
+				<div class="options">
+					<button  class="btn btn-default" type="button">
+					<i class="fa fa-user-plus"></i>
+						关注
+					</button>
+				</div>
+			</div>
+			<div class="user-nav">
+				<div class="parts">
+					<a class="part current" href="/user/295954">发表文章（74）</a>
+					<span class="line"></span>
+					<a class="part " href="/user/295954/timeline">评论（0）</a>
+					<span class="line"></span>
+					<a class="part " href="/user/295954/timeline">收藏（12）</a>
+				</div>
+			</div>
 		</div>
-    </div>
+	</div>
 </div>

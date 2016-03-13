@@ -510,3 +510,92 @@ a:hover, a:link {
 	font-size: 18px;
 	margin-top: 40px;
 }
+
+.reply-title {
+    color: #1b8fd8;
+    font-size: 18px;
+    line-height: 1.1;
+    padding: 10px;
+}
+
+/*作者详细页面  */
+.mod-user-info {
+    margin-top: 50px;
+}
+
+.mod-user-info .name {
+    border: medium none;
+    color: #333;
+    font-size: 3.6rem;
+    margin-bottom: 20px;
+    padding-bottom: 0;
+    text-align: center;
+}
+
+.mod-user-info .bio {
+    color: #808080;
+    font-size: 1.4rem;
+    margin: 0 auto 10px;
+    text-align: center;
+    width: 640px;
+}
+
+.mod-user-info p {
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.mod-user-info .options {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.mod-user-info .btn-default {
+    border-color: #2e8be0;
+    color: #2e8be0;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    margin: 20px 0;
+    padding: 0;
+    width: 130px;
+}
+
+.mod-user-info .btn-default:hover {
+    background: #58a4e9 none repeat scroll 0 0;
+    border-color: #58a4e9;
+    color: #fff;
+}
+
+.user-detail .user-article-list .user-nav .parts {
+    background-color: #f6f6f6;
+    display: inline-block;
+}
+.user-nav {
+	text-align: center;
+	margin-bottom: 30px;
+}
+.user-nav .parts {
+	background-color: #f6f6f6;
+    display: inline-block;
+}
+
+.user-nav .part.current {
+    color: #ee6e50;
+}
+
+.user-nav .part {
+    color: #808080;
+    display: inline-block;
+    font-size: 1.4rem;
+    line-height: 38px;
+    width: 150px;
+}
+
+.user-nav .line {
+    border-right: 1px solid #d7d7d7;
+    display: inline-block;
+    height: 14px;
+    vertical-align: middle;
+}
