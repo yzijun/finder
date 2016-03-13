@@ -64,7 +64,7 @@
 					</div>
 					<!-- 发表评论 -->
 					<div class="pl-wrap">
-						<span class="span-mark-author active">发表评论</span>
+						<span class="span-mark-author reply-title"><i class="fa fa-pencil"></i>发表评论</span>
 					</div>
 					<div class="pl-form-wrap" ng-switch="isAuthenticated()">
 						<div class="no-login-box" ng-switch-when="false">
@@ -120,7 +120,7 @@
 						</form>
 					</div>
 					
-					<div class="article-comment-label">文章评论</div>
+					<div class="article-comment-label reply-title">文章评论</div>
 					<!-- 评论列表 -->
 					<div>
 						<div class="pl-box-wrap" ng-repeat="reply in replies track by reply.id">
