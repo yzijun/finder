@@ -16,9 +16,12 @@ angular.module('finderApp').controller('ArticleDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('finderApp:articleUpdate', result);
-            $scope.isSaving = false;
-            $state.go('article', null, { reload: true });
+//            $scope.$emit('finderApp:articleUpdate', result);
+//            $scope.isSaving = false;
+//            $state.go('article', null, { reload: true });
+        	
+            // 保存成功后跳转到文章详细页面  state名字:article.detail 需要参数:{id:result.id}
+        	$state.go('article.detail', {id:result.id});
         };
 
         var onSaveError = function (result) {
