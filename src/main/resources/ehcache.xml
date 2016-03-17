@@ -73,4 +73,9 @@
            timeToLiveSeconds="3600">
     </cache>
     
+    <!-- 首页数据缓存对象 -->
+    <cache name="homeData"
+           timeToLiveSeconds="7200">
+    </cache>
+    
     </ehcache>
