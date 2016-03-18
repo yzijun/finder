@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 
 import com.app.finder.domain.Article;
 import com.app.finder.domain.ArticleCategory;
-import com.app.finder.domain.ArticleReply;
 import com.app.finder.domain.Tag;
 import com.app.finder.domain.User;
 
@@ -61,6 +60,9 @@ public class ArticleDTO {
 	// 当前登录用户是否收藏过该文章
 	private boolean articleFavoriteCurrentUser;
 	
+	// 当前登录用户是否收藏过该文章的收藏Id
+	private Long favoriteId;
+	
 	// 右边栏 热门文章
 	List<Article> hotArticles;
 	
@@ -69,13 +71,13 @@ public class ArticleDTO {
 
 	public ArticleDTO(Article article, Integer countArticleUid, Integer countArticleReplyUid,
 			Integer countArticleSaveAid, Integer countArticleReplyAid,List<Article> hotArticles,
-			Page<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser) {
+			Page<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser, Long favoriteId) {
 		this(article.getId(), article.getTitle(), article.getFirstImg(),
 				article.getFirstImgContentType(), article.getContent(), article.isPublished(),
 				article.getPageView(), article.getCreatedDate(), article.getUser(),
 				article.getArticleCategory(), article.getTags(), countArticleUid,
 				countArticleReplyUid, countArticleSaveAid, countArticleReplyAid, hotArticles,
-				articleReplies, articleFavoriteCurrentUser);
+				articleReplies, articleFavoriteCurrentUser, favoriteId);
 	}
 
 	public ArticleDTO(Long id, String title, byte[] firstImg, String firstImgContentType,
@@ -83,7 +85,8 @@ public class ArticleDTO {
 			User user, ArticleCategory articleCategory, Set<Tag> tags, Integer countArticleUid,
 			Integer countArticleReplyUid, Integer countArticleSaveAid,
 			Integer countArticleReplyAid, List<Article> hotArticles, 
-			Page<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser) {
+			Page<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser,
+			Long favoriteId) {
 		this.id = id;
 		this.title = title;
 		this.firstImg = firstImg;
@@ -102,6 +105,7 @@ public class ArticleDTO {
 		this.hotArticles = hotArticles;
 		this.articleReplies = articleReplies;
 		this.articleFavoriteCurrentUser = articleFavoriteCurrentUser;
+		this.favoriteId = favoriteId;
 	}
 
 	public Long getId() {
@@ -246,6 +250,14 @@ public class ArticleDTO {
 
 	public void setArticleFavoriteCurrentUser(boolean articleFavoriteCurrentUser) {
 		this.articleFavoriteCurrentUser = articleFavoriteCurrentUser;
+	}
+	
+	public Long getFavoriteId() {
+		return favoriteId;
+	}
+
+	public void setFavoriteId(Long favoriteId) {
+		this.favoriteId = favoriteId;
 	}
 
 	@Override

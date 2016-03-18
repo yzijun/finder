@@ -120,11 +120,11 @@ public class ArticleFavoriteResource {
     		method = RequestMethod.GET,
     		produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Void> delFavoriteWithCache(@RequestParam(required = true) Long id,
+    public Integer delFavoriteWithCache(@RequestParam(required = true) Long id,
     												 @RequestParam(required = true) Long aid) {
     	log.debug("REST request to delete delFavoriteWithCache");
-    	articleFavoriteService.delete(id, aid);
-    	return ResponseEntity.ok().build();
+    	Integer favoriteCount = articleFavoriteService.delete(id, aid);
+    	return favoriteCount;
     }
 
 }

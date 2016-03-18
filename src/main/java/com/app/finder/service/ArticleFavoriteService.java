@@ -98,9 +98,13 @@ public class ArticleFavoriteService {
      */
     // 清空ArticleService中的缓存名称是  articleDetail 对应的文章ID 缓存
     @CacheEvict(value = "articleDetail", key = "#aid")
-    public void delete(Long id, Long aid) {
+    public Integer delete(Long id, Long aid) {
     	log.debug("Request to delete ArticleFavorite id: {}, aid: {}", id, aid);
-    	articleFavoriteRepository.delete(id);
+    	// 查找当前User
+    	User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+    	articleFavoriteRepository.deleteByidUid(id, user.getId(), aid);
+    	// 取得文章的收藏数
+    	return articleFavoriteRepository.findByCountArticleFavoriteAid(aid);
     }
 
 }

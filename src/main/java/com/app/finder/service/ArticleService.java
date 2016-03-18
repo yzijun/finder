@@ -307,6 +307,8 @@ public class ArticleService {
 		Integer countArticleSaveAid = articleFavoriteRepository.findByCountArticleFavoriteAid(id);
 		// 当前登录用户是否收藏过该文章,默认否
 		boolean isArticleFavoriteCurrentUser = false;
+		// 当前用户已经收藏过该文章的收藏Id
+		Long favoriteId = null;
 		// 当前用户是否登录
 		if (SecurityUtils.isAuthenticated()) {
 			// 当前登录用是否收藏过该文章
@@ -315,6 +317,7 @@ public class ArticleService {
 			// 当前用户已经收藏过该文章
 			if (f != null) {
 				isArticleFavoriteCurrentUser = true;
+				favoriteId = f.getId();
 			}
 		}
 		
@@ -322,7 +325,8 @@ public class ArticleService {
 		return new ArticleDTO(article, countArticleUid, 
 				countArticleReplyUid, countArticleSaveAid, 
 				countArticleReplyAid, hotArticles,
-				articleRepliesDTO, isArticleFavoriteCurrentUser);
+				articleRepliesDTO, isArticleFavoriteCurrentUser,
+				favoriteId);
     }
     
     /**
