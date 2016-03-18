@@ -210,6 +210,18 @@ ul#strengthBar {
 	padding-left: 10px;
 }
 
+/*全局按钮样式  继承了bootstrap的按钮的部分样式  */
+.btn-default {
+    border-color: #2e8be0;
+    color: #2e8be0;
+}
+/*全局按钮样式hover  */
+.btn-default:hover {
+    background: #58a4e9 none repeat scroll 0 0;
+    border-color: #58a4e9;
+    color: #fff;
+}
+
 /* ==========================================================================
 用户头像显示大小
 ========================================================================== */

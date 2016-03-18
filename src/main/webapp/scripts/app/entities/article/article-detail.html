@@ -24,7 +24,7 @@
 					<span class="form-control-static" data-ng-bind-html="article.content">
                     <!-- angular对html转义 data-ng-bind-html -->
                    	</span>
-                   	<div>
+                   	<div class="favoriteAticle-wrap">
                    		<!-- 可以用  p class="text-center" 让内容居中-->
                    		<!-- <p class="text-center">
 	                   		<a class="btn btn-primary btn-lg" href="#" style="width: 110px;">
@@ -32,24 +32,34 @@
 	 							<i class="fa fa-bookmark-o fa-lg"></i> 收藏
 	 						</a>
  						</p> -->
- 						<!-- 文章收藏 -->
- 						<div ng-switch="isAuthenticated()">
- 							<!-- 未登录 -->
- 							<div ng-switch-when="false">
-	 							<p class="pull-right">
-		 							<a class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a>
-								</p>
- 							</div>
- 							<!-- 已登录 -->
- 							<div ng-switch-when="true">
- 								<p class="pull-right">
- 									<!-- 根据id是否存在显示不同标签  span是已收藏  a是未收藏 -->
-		 							<span ng-show="isArticleFavoriteCurrentUser" class="article-end-collect-fin"></span>
-		 							<a ng-show="!isArticleFavoriteCurrentUser" class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a>
-								</p>
- 							</div>
- 						</div>
- 						
+ 						<form name="updateForm" role="form" ng-submit="addFavorite(articleFavorite.id)">
+	 						<!-- 文章收藏 -->
+	 						<div ng-switch="isAuthenticated()">
+	 							<!-- 未登录 -->
+	 							<div ng-switch-when="false">
+		 							<p class="pull-right">
+			 							<!-- <a class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a> -->
+			 							<button class="btn btn-default" type="submit">
+											<i class="fa fa-user-plus"></i>
+												收藏
+										</button>
+									</p>
+	 							</div>
+	 							<!-- 已登录 -->
+	 							<div ng-switch-when="true">
+	 								<p class="pull-right">
+	 									<!-- 根据id是否存在显示不同标签  span是已收藏  a是未收藏 -->
+			 							<!-- <span ng-show="isArticleFavoriteCurrentUser" class="article-end-collect-fin"></span>
+			 							<a ng-show="!isArticleFavoriteCurrentUser" class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a> -->
+			 							<button class="btn btn-default" ng-disabled="isArticleFavoriteCurrentUser" type="submit">
+											<i class="fa fa-heart"></i>
+											<span ng-if="isArticleFavoriteCurrentUser">已收藏</span>
+											<span ng-if="!isArticleFavoriteCurrentUser">收藏</span>
+										</button>
+									</p>
+	 							</div>
+	 						</div>
+ 						</form>
 					</div>
                    	<span class="c2">
 						*文章为作者独立观点，不代表本站立场
@@ -116,11 +126,12 @@
 						            </div> -->
 								</div>
 							</div>
-							<button type="submit" ng-disabled="isSaving" class="btn btn-primary btn-lg btn-article">发表</button>
+							<button type="submit" ng-disabled="isSaving" class="btn btn-default btn-lg btn-article">发表</button>
 						</form>
 					</div>
 					
-					<div class="article-comment-label reply-title" ng-show="hasReply">文章评论</div>
+					<div class="article-comment-label reply-title" ng-show="hasReply">
+						<i class="fa fa-comments"></i>文章评论</div>
 					<!-- 评论列表 -->
 					<div>
 						<div class="pl-box-wrap" ng-repeat="reply in replies track by reply.id">
@@ -170,10 +181,10 @@
 			    <!-- 个性签名 过滤器  characters:3 显示3个字符-->
 			    <p class="list-group-item-text text-center box-author-one">{{account.signature | characters:28 }}</p>
 			    <p class="text-center">
-                 	<a class="btn btn-primary" target="_blank" ui-sref="article.new">
+                 	<a class="btn btn-default" target="_blank" ui-sref="article.new">
 						<!-- <i class="fa fa-file-o fa-lg"></i> -->{{article.countArticleUid}}篇文章
 					</a>
-                 	<a class="btn btn-primary" target="_blank" ui-sref="article.new">
+                 	<a class="btn btn-default" target="_blank" ui-sref="article.new">
                  		<!-- 用的是 Font Awesome的图标-->
 						<!-- <i class="fa fa-comments fa-lg"></i> -->{{article.countArticleReplyUid}}个评论
 					</a>
