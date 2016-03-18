@@ -51,7 +51,7 @@
 	 									<!-- 根据id是否存在显示不同标签  span是已收藏  a是未收藏 -->
 			 							<!-- <span ng-show="isArticleFavoriteCurrentUser" class="article-end-collect-fin"></span>
 			 							<a ng-show="!isArticleFavoriteCurrentUser" class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a> -->
-			 							<button class="btn btn-default" ng-disabled="isArticleFavoriteCurrentUser" type="submit">
+			 							<button class="btn btn-default" ng-disabled="isFavoriteSaving" type="submit">
 											<i class="fa fa-heart"></i>
 											<span ng-if="isArticleFavoriteCurrentUser">已收藏</span>
 											<span ng-if="!isArticleFavoriteCurrentUser">收藏</span>

@@ -90,5 +90,17 @@ public class ArticleFavoriteService {
         log.debug("Request to delete ArticleFavorite : {}", id);
         articleFavoriteRepository.delete(id);
     }
+    
+    /**
+     * 删除文章收藏并清空该文章缓存
+     * @param id 文章收藏id
+     * @param aid 文章id
+     */
+    // 清空ArticleService中的缓存名称是  articleDetail 对应的文章ID 缓存
+    @CacheEvict(value = "articleDetail", key = "#aid")
+    public void delete(Long id, Long aid) {
+    	log.debug("Request to delete ArticleFavorite id: {}, aid: {}", id, aid);
+    	articleFavoriteRepository.delete(id);
+    }
 
 }

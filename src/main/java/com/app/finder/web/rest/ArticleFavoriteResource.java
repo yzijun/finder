@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.finder.domain.ArticleFavorite;
@@ -100,7 +101,7 @@ public class ArticleFavoriteResource {
     }
 
     /**
-     * DELETE  /articleFavorites/:id -> delete the "id" articleFavorite.
+     * 
      */
     @RequestMapping(value = "/articleFavorites/{id}",
         method = RequestMethod.DELETE,
@@ -110,6 +111,20 @@ public class ArticleFavoriteResource {
         log.debug("REST request to delete ArticleFavorite : {}", id);
         articleFavoriteService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("articleFavorite", id.toString())).build();
+    }
+    
+    /**
+     * 删除文章收藏并清空该文章缓存
+     */
+    @RequestMapping(value = "/delFavoriteWithCache",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Void> delFavoriteWithCache(@RequestParam(required = true) Long id,
+    												 @RequestParam(required = true) Long aid) {
+    	log.debug("REST request to delete delFavoriteWithCache");
+    	articleFavoriteService.delete(id, aid);
+    	return ResponseEntity.ok().build();
     }
 
 }

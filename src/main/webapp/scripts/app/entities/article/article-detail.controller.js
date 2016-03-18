@@ -156,18 +156,20 @@ angular.module('finderApp')
         	$scope.articleFavorite = {};
             // 设定所属的文章ID
             $scope.articleFavorite.article = {id:$scope.article.id};
-            // $scope.articleFavorite.id = fid
+            // fid文章收藏ID
             if (fid != null) {
-            	// 取消收藏功能暂不提供,页面不传参数fid的值
-            	ArticleFavorite.delete({id: fid}, onAddSuccess);
+            	// 取消收藏功能暂
+            	// 用$http.get发请求
+                $http.get('api/delFavoriteWithCache?id='+fid+'&aid='+$scope.article.id).success(function () {
+                	// 刷新当前页面
+                	$state.go('article.detail', {id:$scope.article.id});
+                });
             } else {
             	// 用户是否登录
             	if ($scope.isAuthenticated()) {
             		// 设定文章收藏按钮为不可用状态
             		$scope.isFavoriteSaving = true;
-            		// 已收藏
-                	$scope.isArticleFavoriteCurrentUser = true;
-                	
+
             		ArticleFavorite.save($scope.articleFavorite, onAddSuccess, onAddError);
             	} else {
             		// 转到登录页面
@@ -184,6 +186,8 @@ angular.module('finderApp')
         	$scope.isArticleFavoriteCurrentUser = true;
         	// 设定文章收藏按钮为可用状态
     		$scope.isFavoriteSaving = false;
+    		// 设置显示取消收藏
+    		
         };
         // 文章收藏错误
         var onAddError = function (result) {
