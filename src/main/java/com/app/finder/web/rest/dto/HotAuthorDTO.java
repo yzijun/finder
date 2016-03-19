@@ -12,9 +12,9 @@ public class HotAuthorDTO {
 	private User author;
 
 	// 文章数量
-	private Integer articleNum;
+	private Long articleNum;
 
-	public HotAuthorDTO(User author, Integer articleNum) {
+	public HotAuthorDTO(User author, Long articleNum) {
 		this.author = author;
 		this.articleNum = articleNum;
 	}
@@ -27,11 +27,11 @@ public class HotAuthorDTO {
 		this.author = author;
 	}
 
-	public Integer getArticleNum() {
+	public Long getArticleNum() {
 		return articleNum;
 	}
 
-	public void setArticleNum(Integer articleNum) {
+	public void setArticleNum(Long articleNum) {
 		this.articleNum = articleNum;
 	}
 

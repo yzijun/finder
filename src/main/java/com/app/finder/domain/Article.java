@@ -64,7 +64,7 @@ public class Article implements Serializable {
     @JoinColumn(name = "article_category_id")
     private ArticleCategory articleCategory;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "fin_article_tag",
     joinColumns = @JoinColumn(name="articles_id", referencedColumnName="ID"),

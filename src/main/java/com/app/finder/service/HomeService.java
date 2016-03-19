@@ -88,7 +88,7 @@ public class HomeService {
 	private List<Article> slides() {
         // 使用entityManager查询分页数据
 		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
-		Query query = entityManager.createQuery("select a from Article a left join fetch a.user where a.published = ?1 order by a.pageView desc");
+		Query query = entityManager.createQuery("select a from Article a left join fetch a.user left join fetch a.articleCategory where a.published = ?1 order by a.pageView desc");
 		// 设置查询参数(参数索引值从1开始)
 		query.setParameter(1, true);
 		// 默认显示的数量
@@ -108,9 +108,9 @@ public class HomeService {
 	private List<Article> originalities() {
     	// 使用entityManager查询分页数据
 		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
-		Query query = entityManager.createQuery("select a from Article a left join fetch a.user where a.articleCategory.id = ?1 and a.published = ?2 order by a.pageView desc");
+		Query query = entityManager.createQuery("select a from Article a left join fetch a.user left join fetch a.articleCategory where a.articleCategory.id = ?1 and a.published = ?2 order by a.pageView desc");
 		// 设置查询参数(参数索引值从1开始)
-		query.setParameter(1, 3);
+		query.setParameter(1, Long.valueOf(3));
 		query.setParameter(2, true);
 		// 默认显示的数量
     	int pageSize = 2;
@@ -129,7 +129,7 @@ public class HomeService {
 	public Page<Article> pageArticleData(Pageable pageable) {
         // 使用entityManager查询分页数据
 		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
-		Query query = entityManager.createQuery("select a from Article a left join fetch a.user where a.published = ?1 order by a.createdDate desc");
+		Query query = entityManager.createQuery("select a from Article a left join fetch a.user left join fetch a.articleCategory where a.published = ?1 order by a.createdDate desc");
 		// 设置查询参数(参数索引值从1开始)
 		query.setParameter(1, true);
 		// 总记录数
@@ -147,8 +147,10 @@ public class HomeService {
     // 活跃作者(文章数最多)
     @SuppressWarnings("unchecked")
  	private List<HotAuthorDTO> authors() {
-		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
-		Query query = entityManager.createQuery("select new com.app.finder.web.rest.dto.HotAuthorDTO(a.user,count(*) num) from Article a left join fetch a.user group by a.user.id order by num desc");
+		// 用迫切左外连接取得User会出错,
+    	// 不用迫切左外连会发送多条取得User的SQL,
+    	// 先这样以后再有好的方式在修改
+		Query query = entityManager.createQuery("select new com.app.finder.web.rest.dto.HotAuthorDTO(a.user,count(*) as num) from Article a group by a.user.id order by num desc");
 		// 默认显示的数量
     	int pageSize = 5;
 		// 取得分页数据
@@ -163,7 +165,7 @@ public class HomeService {
     @SuppressWarnings("unchecked")
  	private List<Article> hotArticles() {
     	// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
-		Query query = entityManager.createQuery("select a from Article a left join fetch a.user where a.published = ?1 order by a.pageView desc");
+		Query query = entityManager.createQuery("select a from Article a where a.published = ?1 order by a.pageView desc");
 		// 设置查询参数(参数索引值从1开始)
 		query.setParameter(1, true);
 		// 默认显示的数量
