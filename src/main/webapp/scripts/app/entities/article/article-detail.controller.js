@@ -35,8 +35,10 @@ angular.module('finderApp')
             	// 设置文章收藏ID点击取消或收藏时用
             	$scope.articleFavorite.id = $scope.article.favoriteId;
             	$("#fbtn").find("span").html("已收藏");
+            	$("#fbtn").attr("title","取消收藏");
             } else {
             	$("#fbtn").find("span").html("收藏");
+            	$("#fbtn").attr("title","添加收藏");
             }
             // 设定文章收藏按钮为可用状态
     		$scope.isFavoriteSaving = false;
@@ -77,7 +79,6 @@ angular.module('finderApp')
        
         // 保存评论
         $scope.replySave = function () {
-        	$scope.isSaving = true;
         	// 设置文章评论对应的文章ID(文章和评论的关联关系)
             $scope.articleReply.article = {id:$scope.article.id};
             // 目的是把json对象转换成字符串
@@ -100,6 +101,8 @@ angular.module('finderApp')
             if (articleContent.length > 1000) {
             	return alertMsg('您输入的评论内容过长删除几个字试试.');
             }
+            
+            $scope.isSaving = true;
             // 用$http.post发请求
             $http.post('api/articleDetailsReplys', JSON.stringify($scope.articleReply)).success(function (response) {
             	
@@ -184,6 +187,7 @@ angular.module('finderApp')
                 	$scope.isArticleFavoriteCurrentUser = false;
                 	
                 	$("#fbtn").find("span").html("收藏");
+                	$("#fbtn").attr("title","添加收藏");
                 	// 设定文章收藏按钮为可用状态
             		$scope.isFavoriteSaving = false;
                 });
@@ -207,6 +211,7 @@ angular.module('finderApp')
         	$scope.isArticleFavoriteCurrentUser = true;
         	
         	$("#fbtn").find("span").html("已收藏");
+        	$("#fbtn").attr("title","取消收藏");
         	// 设定文章收藏按钮为可用状态
     		$scope.isFavoriteSaving = false;
         };
