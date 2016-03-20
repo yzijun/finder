@@ -20,6 +20,8 @@ public class UserDTO {
     public static final int PASSWORD_MIN_LENGTH = 5;
     public static final int PASSWORD_MAX_LENGTH = 100;
 
+    private Long id;
+    
     @Pattern(regexp = "^[a-z0-9]*$")
     @NotNull
     @Size(min = 1, max = 50)
@@ -56,16 +58,16 @@ public class UserDTO {
     }
 
     public UserDTO(User user) {
-        this(user.getLogin(), null, user.getNickName(),
+        this(user.getId(), user.getLogin(), null, user.getNickName(),
             user.getEmail(), user.getActivated(), user.getLangKey(),
             user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()), 
             user.getPictureContentType(), user.getPicture(), user.getGender(), user.getSignature());
     }
 
-    public UserDTO(String login, String password, String nickName,
+    public UserDTO(Long id, String login, String password, String nickName,
         String email, boolean activated, String langKey, Set<String> authorities,
         String pictureContentType, byte[] picture, String gender, String signature) {
-
+    	this.id = id;
         this.login = login;
         this.password = password;
         this.nickName = nickName;
@@ -78,6 +80,10 @@ public class UserDTO {
         this.gender = gender;
         this.signature = signature;
     }
+    
+    public Long getId() {
+		return id;
+	}
 
     public String getPassword() {
         return password;
