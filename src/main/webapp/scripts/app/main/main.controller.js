@@ -15,7 +15,10 @@ angular.module('finderApp')
         $('.carousel').carousel({
         	interval: 5000
         });
-        
+        // 显示tooltip
+        $(function () {
+        	  $('[data-toggle="tooltip"]').tooltip()
+        });
        /* $scope.page = 1;
         $scope.pageSize = 20;
         $scope.loadAll = function() {
