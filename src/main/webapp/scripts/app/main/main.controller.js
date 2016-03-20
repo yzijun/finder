@@ -15,10 +15,12 @@ angular.module('finderApp')
         $('.carousel').carousel({
         	interval: 5000
         });
+        
         // 显示tooltip
         $(function () {
-        	  $('[data-toggle="tooltip"]').tooltip()
+        	  $('[data-toggle="tooltip"]').tooltip();
         });
+       
        /* $scope.page = 1;
         $scope.pageSize = 20;
         $scope.loadAll = function() {
@@ -38,9 +40,16 @@ angular.module('finderApp')
         $scope.loadData = function() {
         	// 用$http.get发请求
             $http.get('api/home').success(function (data) {
-            	console.log(data);
+            	$scope.slides = data.slides;
+            	$scope.originalities = data.originalities;
+            	$scope.pageData = data.pageData;
+            	$scope.authors = data.authors;
+            	$scope.hotArticles = data.hotArticles;
+            	
+            	console.log($scope.authors);
             });
         };
         
         $scope.loadData();
+       
     });

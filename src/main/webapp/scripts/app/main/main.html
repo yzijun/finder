@@ -168,18 +168,23 @@
 		<div class="col-md-3 col-padding-left-over-bs">
 			<div class="panel panel-success">
 				<div class="panel-heading">
-					<h3 class="panel-title">活跃作者</h3>
+					<h3 class="panel-title"><i class="fa fa-user"></i>活跃作者</h3>
 				</div>
 				<!-- <div class="panel-body">Panel content</div> -->
 				<!-- List group 面板列表组-->
 				<ul class="list-group">
 					<!-- pull-right css 向左或向右浮动 -->
-					<li class="list-group-item"><a href="#">Cras justo odio<span
-							class="badge pull-right" data-toggle="tooltip" data-placement="left" title="发表文章数">42</span></a></li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
+					<li class="list-group-item" ng-repeat="au in authors track by au.author.id">
+						<a ui-sref="articleAuthorDetail({uid:au.author.id})" title="{{au.author.nickName}}">
+							<span class="pull-left">
+								<img
+				                    data-ng-src="{{'data:' + au.author.pictureContentType + ';base64,' + au.author.picture}}"
+				                    class="img-circle profile-img-smaller" alt="profile" ng-if="au.author.picture"/>
+							</span>
+							<span class="main-hot-user-img">{{au.author.nickName}}</span>
+							<span class="badge pull-right" data-toggle="tooltip" data-placement="left" title="发表文章数">{{au.articleNum}}</span>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -187,17 +192,17 @@
 		<div class="col-md-3 col-padding-left-over-bs">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h3 class="panel-title">热门文章</h3>
+					<h3 class="panel-title"><i class="fa fa-star"></i>热门文章</h3>
 				</div>
 				<!-- <div class="panel-body">Panel content</div> -->
 				<!-- List group 面板列表组-->
 				<ul class="list-group">
-					<li class="list-group-item"><a href="#">Cras justo odio<span
-							class="badge pull-right" data-toggle="tooltip" data-placement="left" title="文章浏览数">112</span></a></li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
+					<li class="list-group-item" ng-repeat="hotArticle in hotArticles track by hotArticle.id">
+						<a ui-sref="article.detail({id:hotArticle.id})" title="{{hotArticle.title}}">
+							{{hotArticle.title | characters:12}}
+							<span class="badge pull-right" data-toggle="tooltip" data-placement="top" title="文章浏览数">{{hotArticle.pageView}}</span>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
