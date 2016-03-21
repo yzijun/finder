@@ -17,9 +17,19 @@ angular.module('finderApp')
         });
         
         // 显示tooltip
-        $(function () {
+       /* $(function () {
         	  $('[data-toggle="tooltip"]').tooltip();
-        });
+        });*/
+        
+        // DOM加载完成时  绑定tooltip 页面用指令data-ng-init
+        $scope.loadInitAuthor = function() {  
+        	$('[data-toggle="tooltip"]').tooltip();
+        };
+        
+        // DOM加载完成时  绑定tooltip 页面用指令data-ng-init
+        $scope.loadInitArticle = function() {  
+        	$('[data-toggle="tooltip"]').tooltip();
+        };
        
        /* $scope.page = 1;
         $scope.pageSize = 20;
@@ -37,19 +47,23 @@ angular.module('finderApp')
         
         $scope.loadAll();*/
         
+        // 初始化页面时请求加载数据
         $scope.loadData = function() {
         	// 用$http.get发请求
             $http.get('api/home').success(function (data) {
+            	// 幻灯片数据 
             	$scope.slides = data.slides;
+            	// 创意数据
             	$scope.originalities = data.originalities;
+            	// 文章分页数据  默认第一页显示10条
             	$scope.pageData = data.pageData;
+            	// 活跃作者(文章数最多)
             	$scope.authors = data.authors;
+            	// 热门文章(访问最多的数据)
             	$scope.hotArticles = data.hotArticles;
-            	
-            	console.log($scope.authors);
             });
         };
         
         $scope.loadData();
-       
+        
     });
