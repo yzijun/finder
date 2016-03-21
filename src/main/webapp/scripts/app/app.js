@@ -52,11 +52,13 @@ angular.module('finderApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
             if (toState.data.pageTitle) {
                 titleKey = toState.data.pageTitle;
             }
-            updateTitle(titleKey);
+            // 不需要自动更新页面title,在各自页面添加
+//            updateTitle(titleKey);
         });
         
         // if the current translation changes, update the window title
-        $rootScope.$on('$translateChangeSuccess', function() { updateTitle(); });
+        // 不需要自动更新页面title,在各自页面添加
+//        $rootScope.$on('$translateChangeSuccess', function() { updateTitle(); });
 
         
         $rootScope.back = function() {
