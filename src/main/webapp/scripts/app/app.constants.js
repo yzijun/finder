@@ -6,4 +6,6 @@ angular.module('finderApp')
 
 .constant('VERSION', '0.0.1-SNAPSHOT')
 
+.constant('WEBSITENAME', '科品者')
+
 ;

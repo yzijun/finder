@@ -1,14 +1,19 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleDetailController', function ($scope, $rootScope, $stateParams, $sce, $http, $state, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal, ArticleFavorite, AlertService) {
+    .controller('ArticleDetailController', function ($scope, $rootScope, $window, $stateParams, $sce, $http, $state, 
+    		DataUtils, entity, Article, User, ArticleCategory, Tag, 
+    		Principal, ArticleFavorite, AlertService, WEBSITENAME) {
     	 Principal.identity().then(function(account) {
              $scope.isAuthenticated = Principal.isAuthenticated;
          });
+    	 
     	//异步请求时需要在回调函数中对文章内容html转义
 //        $scope.article = entity;
     	Article.get({id : $stateParams.id}, function(result) {
             $scope.article = result;
+            // 添加页面title
+            $window.document.title = $scope.article.title + "-" + WEBSITENAME;
             //angular对html转义,增加信任$sce.trustAsHtml
             $scope.article.content = $sce.trustAsHtml($scope.article.content);
             //文章作者
