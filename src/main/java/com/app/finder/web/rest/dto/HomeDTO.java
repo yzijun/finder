@@ -13,7 +13,7 @@ import com.app.finder.domain.Article;
 public class HomeDTO {
 
 	// 幻灯片数据 (资讯、发现、创意)访问最多的数据
-	private List<SlideDTO> slides;
+	private List<Article> slides;
 	
 	// 创意数据
 	private List<Article> originalities;
@@ -27,7 +27,7 @@ public class HomeDTO {
 	// 热门文章(访问最多的数据)
 	private List<Article> hotArticles;
 	
-	public HomeDTO(List<SlideDTO> slides, List<Article> originalities, Page<Article> pageData,
+	public HomeDTO(List<Article> slides, List<Article> originalities, Page<Article> pageData,
 			List<HotAuthorDTO> authors, List<Article> hotArticles) {
 		this.slides = slides;
 		this.originalities = originalities;
@@ -36,11 +36,11 @@ public class HomeDTO {
 		this.hotArticles = hotArticles;
 	}
 
-	public List<SlideDTO> getSlides() {
+	public List<Article> getSlides() {
 		return slides;
 	}
 
-	public void setSlides(List<SlideDTO> slides) {
+	public void setSlides(List<Article> slides) {
 		this.slides = slides;
 	}
 

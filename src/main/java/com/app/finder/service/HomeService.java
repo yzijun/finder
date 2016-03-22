@@ -80,10 +80,10 @@ public class HomeService {
 	private HomeDTO getAllData() {
 		// 幻灯片数据 
 		List<Article> slidesData = slides();
-		List<SlideDTO> slidesDTOData = new ArrayList<>();
+		/*List<SlideDTO> slidesDTOData = new ArrayList<>();
 		try {
 			slidesDTOData = makePicForSlide(slidesData);
-		} catch (IOException e) {}
+		} catch (IOException e) {}*/
 		// 创意数据
 		List<Article> oriData = originalities();
 		// 文章分页数据  默认第一页显示10条
@@ -93,7 +93,7 @@ public class HomeService {
 		List<HotAuthorDTO> authorData = authors();
 		// 热门文章(访问最多的数据)
 		List<Article> hotData = hotArticles();
-		return new HomeDTO(slidesDTOData, oriData, pageData, authorData, hotData);
+		return new HomeDTO(slidesData, oriData, pageData, authorData, hotData);
 	}
 	
 	 /*
