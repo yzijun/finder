@@ -16,15 +16,19 @@ angular.module('finderApp')
         	interval: 5000
         });*/
         // DOM加载完成时  绑定 SkitterSlideshow 幻灯片初始化
-        $scope.loadInitSlide = function() {  
-        	 $('.box_skitter_large')
-             .css({width: 830, height: 300})
-             .skitter({
-               theme: 'clean',
-               numbers_align: 'center',
-               dots: true, 
-               preview: true
-             });
+        $scope.loadInitSlide = function() {
+        	// 延迟调用等待图片加载完成
+        	setTimeout(function(){
+        		 $('.box_skitter_large')
+                 .css({width: 830, height: 300})
+                 .skitter({
+                   theme: 'clean',
+                   numbers_align: 'center',
+                   dots: true, 
+                   preview: true
+                 });
+    	    },1000);
+        	 
         };
         // 显示tooltip
        /* $(function () {

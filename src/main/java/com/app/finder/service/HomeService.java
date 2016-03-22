@@ -223,10 +223,18 @@ public class HomeService {
 	        String savePicPath = "D:/apachePic/";
 	        // 保存幻灯片图片的文件夹
 	        String slidesPic = "mainSlidesPic/";
-	        //取得当前日期作为文件夹
+	        // 取得当前日期作为文件夹
 	        String day = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-			
-	        String fileName = slidesPic + day + "/" + System.currentTimeMillis() + "." + article.getFirstImgContentType();
+	        // 取得图片后缀名
+	        String picSuffix = article.getFirstImgContentType().split("/")[1];
+			// 生成文件名路径
+	        StringBuilder sb = new StringBuilder();
+	        sb.append(slidesPic)
+	          .append(day).append("/")
+	          .append(System.currentTimeMillis())
+	          .append(".").append(picSuffix);
+	        
+	        String fileName = sb.toString();
 	        //保存图片的完整路径和文件名
 	        savePicPath += fileName;
 	        
