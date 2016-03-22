@@ -1,5 +1,13 @@
 package com.app.finder.service;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.finder.common.util.ThumbnailsUtils;
 import com.app.finder.domain.Article;
 import com.app.finder.domain.User;
 import com.app.finder.repository.ArticleRepository;
@@ -25,6 +34,8 @@ import com.app.finder.repository.UserRepository;
 import com.app.finder.security.SecurityUtils;
 import com.app.finder.web.rest.dto.HomeDTO;
 import com.app.finder.web.rest.dto.HotAuthorDTO;
+import com.app.finder.web.rest.dto.SlideDTO;
+import com.google.common.io.Files;
 
 /**
  * 首页service
@@ -68,7 +79,11 @@ public class HomeService {
 	// 取得首页全部数据
 	private HomeDTO getAllData() {
 		// 幻灯片数据 
-		List<Article> sliderData = slides();
+		List<Article> slidesData = slides();
+		List<SlideDTO> slidesDTOData = new ArrayList<>();
+		try {
+			slidesDTOData = makePicForSlide(slidesData);
+		} catch (IOException e) {}
 		// 创意数据
 		List<Article> oriData = originalities();
 		// 文章分页数据  默认第一页显示10条
@@ -78,7 +93,7 @@ public class HomeService {
 		List<HotAuthorDTO> authorData = authors();
 		// 热门文章(访问最多的数据)
 		List<Article> hotData = hotArticles();
-		return new HomeDTO(sliderData, oriData, pageData, authorData, hotData);
+		return new HomeDTO(slidesDTOData, oriData, pageData, authorData, hotData);
 	}
 	
 	 /*
@@ -194,4 +209,47 @@ public class HomeService {
 		return articleSum;
 	}
 
+	/*
+	 * 首页加载幻灯片的图片时为了能正常显示，
+	 * 需要把文章的firstImg字节生成图片保存到服务器中。
+	 * 图片的缩放比例是：宽=830  高=300
+	 */
+	private List<SlideDTO> makePicForSlide(List<Article> slidesData) 
+			throws IOException{
+		List<SlideDTO> slides = new ArrayList<>();
+		
+		for (Article article : slidesData) {
+			//TODO 正式系统需要改路径
+	        String savePicPath = "D:/apachePic/";
+	        // 保存幻灯片图片的文件夹
+	        String slidesPic = "mainSlidesPic/";
+	        //取得当前日期作为文件夹
+	        String day = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+			
+	        String fileName = slidesPic + day + "/" + System.currentTimeMillis() + "." + article.getFirstImgContentType();
+	        //保存图片的完整路径和文件名
+	        savePicPath += fileName;
+	        
+	        File f = new File(savePicPath);
+	        //google IO 不存在时创建父文件夹
+	        Files.createParentDirs(f);
+	        
+	        //图片显示URL中的路径
+	        //TODO 正式系统需要改URL地址
+	        String urlPic = "http://localhost:8089/" + fileName;
+	        
+	        slides.add(new SlideDTO(article.getId(), article.getTitle(), urlPic));
+	        
+	    	//保存缩小后的图片
+	    	try (BufferedOutputStream bos = new BufferedOutputStream(
+	    			new FileOutputStream(savePicPath))) {
+	    		 ByteArrayOutputStream out = new ByteArrayOutputStream();
+	    	      // 等比例缩放幻灯片图片的大小
+	    	     ThumbnailsUtils.resetPicture(830, 300, article.getFirstImg(), out);
+				 bos.write(out.toByteArray());
+			}
+		}
+		
+		return slides;
+	}
 }
