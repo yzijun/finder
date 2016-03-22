@@ -12,9 +12,20 @@ angular.module('finderApp')
             });
         });
         // 幻灯片 间隔5秒显示
-        $('.carousel').carousel({
+       /* $('.carousel').carousel({
         	interval: 5000
-        });
+        });*/
+        // SkitterSlideshow 幻灯片初始化
+        $(document).ready(function() {
+            $('.box_skitter_large')
+            .css({width: 830, height: 300})
+            .skitter({
+              theme: 'clean',
+              numbers_align: 'center',
+              dots: true, 
+              preview: true
+            });
+          });
         
         // 显示tooltip
        /* $(function () {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleAuthorDetailController', function ($scope, $state, $window, $http, $stateParams) {
+    .controller('ArticleAuthorDetailController', function ($scope, $state, $window, $http, $stateParams, WEBSITENAME) {
     	// 在controller中使用$stateParams中获取参数
 //    	alert($stateParams.uid);
     	// 取得数据类型有文章、评论、收藏
