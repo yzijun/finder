@@ -28,13 +28,13 @@
         <!-- endbuild -->
     </head>
     <body ng-app="finderApp">
-        <!--[if lt IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
 		<div id="wrapper">
 	        <div ui-view="navbar" ng-cloak=""></div>
 	        <div style="height: 65px;"></div>
+	        <!--[if lt IE 10]>
+	            <p class="browserupgrade">系统检测到您正在使用 <strong>已过时的IE</strong> 浏览器。 请使用火狐、Chrome最新版浏览器来改善你的体验。</p>
+	        <![endif]-->
 	        <div id="page-wrapper" class="container">
 	        	<!-- 页面内容 -->
 	            <div ui-view="content"></div>
