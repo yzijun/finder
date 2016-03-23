@@ -627,7 +627,12 @@ a:hover, a:link {
 	line-height: 2;
 	margin-left: 7px;
 }
-
+/*全局a链接*/
 a:hover {
     color: #3da9f7;
+}
+/*幻灯片*/
+.slide-box-img {
+	width: 600px;
+	height: 300px;
 }

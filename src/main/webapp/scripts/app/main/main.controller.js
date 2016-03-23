@@ -20,7 +20,7 @@ angular.module('finderApp')
         	// 延迟调用等待图片加载完成
         	setTimeout(function(){
         		 $('.box_skitter_large')
-                 .css({width: 830, height: 300})
+                 .css({width: 600, height: 300})
                  .skitter({
                    theme: 'clean',
                    numbers_align: 'center',
