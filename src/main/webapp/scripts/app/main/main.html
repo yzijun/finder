@@ -62,7 +62,7 @@
 				      <div class="border_box">
 				        <div class="box_skitter box_skitter_large slide-box-img">
 				          <ul>
-				            <li ng-repeat="s in slides track by s.id" data-ng-init="loadInitSlide()">
+				            <li ng-repeat="s in slides track by s.id">
 					            <a href="#cubeStop" ui-sref="article.detail({id:s.id})">
 					            <img
 				                    data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
@@ -194,7 +194,7 @@
 				<!-- List group 面板列表组-->
 				<ul class="list-group">
 					<!-- pull-right css 向左或向右浮动 -->
-					<li class="list-group-item" ng-repeat="au in authors track by au.author.id" data-ng-init="loadInitAuthor()">
+					<li class="list-group-item" ng-repeat="au in authors track by au.author.id">
 						<a ui-sref="articleAuthorDetail({uid:au.author.id})" title="{{au.author.nickName}}">
 							<span class="pull-left">
 								<img
@@ -217,7 +217,7 @@
 				<!-- <div class="panel-body">Panel content</div> -->
 				<!-- List group 面板列表组-->
 				<ul class="list-group">
-					<li class="list-group-item" ng-repeat="hotArticle in hotArticles track by hotArticle.id" data-ng-init="loadInitArticle()">
+					<li class="list-group-item" ng-repeat="hotArticle in hotArticles track by hotArticle.id">
 						<a ui-sref="article.detail({id:hotArticle.id})" title="{{hotArticle.title}}">
 							{{hotArticle.title | characters:12}}
 							<span class="badge pull-right" data-toggle="tooltip" data-placement="left" title="文章浏览数">{{hotArticle.pageView}}</span>

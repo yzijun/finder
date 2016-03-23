@@ -16,7 +16,7 @@ angular.module('finderApp')
         	interval: 5000
         });*/
         // DOM加载完成时  绑定 SkitterSlideshow 幻灯片初始化
-        $scope.loadInitSlide = function() {
+       /* $scope.loadInitSlide = function() {
         	// 延迟调用等待图片加载完成
         	setTimeout(function(){
         		 $('.box_skitter_large')
@@ -29,21 +29,21 @@ angular.module('finderApp')
                  });
     	    },1000);
         	 
-        };
+        };*/
         // 显示tooltip
        /* $(function () {
         	  $('[data-toggle="tooltip"]').tooltip();
         });*/
         
         // DOM加载完成时  绑定tooltip 页面用指令data-ng-init
-        $scope.loadInitAuthor = function() {  
+       /* $scope.loadInitAuthor = function() {  
         	$('[data-toggle="tooltip"]').tooltip();
-        };
+        };*/
         
         // DOM加载完成时  绑定tooltip 页面用指令data-ng-init
-        $scope.loadInitArticle = function() {  
+       /* $scope.loadInitArticle = function() {  
         	$('[data-toggle="tooltip"]').tooltip();
-        };
+        };*/
        
        /* $scope.page = 1;
         $scope.pageSize = 20;
@@ -75,6 +75,23 @@ angular.module('finderApp')
             	$scope.authors = data.authors;
             	// 热门文章(访问最多的数据)
             	$scope.hotArticles = data.hotArticles;
+            	
+            	// 延迟调用等待幻灯片图片加载完成
+            	setTimeout(function(){
+            		 $('.box_skitter_large')
+                     .css({width: 600, height: 300})
+                     .skitter({
+                       theme: 'clean',
+                       numbers_align: 'center',
+                       dots: true, 
+                       preview: true
+                     });
+        	    },500);
+            	
+            	// 延迟调用等待数据加载完成
+            	setTimeout(function(){
+            		$('[data-toggle="tooltip"]').tooltip();
+        	    },500);
             });
         };
         
