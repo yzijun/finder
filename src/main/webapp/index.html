@@ -32,9 +32,17 @@
 		<div id="wrapper">
 	        <div ui-view="navbar" ng-cloak=""></div>
 	        <div style="height: 65px;"></div>
-	        <!--[if lt IE 10]>
-	            <p class="browserupgrade">系统检测到您正在使用 <strong>已过时的IE</strong> 浏览器。 请使用火狐、Chrome最新版浏览器来改善你的体验。</p>
-	        <![endif]-->
+	        <div class="col-md-10 col-md-offset-1">
+		        <!-- 用警告信息 alert.js显示提示信息 -->
+				<!--[if lt IE 10]>
+					<div class="alert alert-danger alert-dismissible fade in" role="alert">
+						<button class="close" aria-label="Close" data-dismiss="alert" type="button">
+							<span aria-hidden="true">×</span>
+						</button>
+						系统检测到您正在使用 <strong>已过时的IE</strong> 浏览器。 请使用火狐、Chrome最新版浏览器来改善你的体验。
+					</div>
+		        <![endif]-->
+	        </div>
 	        <div id="page-wrapper" class="container">
 	        	<!-- 页面内容 -->
 	            <div ui-view="content"></div>
@@ -75,8 +83,10 @@
         <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
         <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-        <!-- jQuery插件  Tooltips -->
+        <!-- bootstrap js插件  Tooltips -->
         <script src="bower_components/bootstrap/js/tooltip.js"></script>
+        <!-- bootstrap js插件  警告信息 alert.js -->
+        <script src="bower_components/bootstrap/js/alert.js"></script>
         <script src="bower_components/json3/lib/json3.js"></script>
         <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
         <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
