@@ -116,7 +116,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
              * @Secured(AuthoritiesConstants.ADMIN) 基于spring
              * @RolesAllowed(AuthoritiesConstants.ADMIN) 基于JSR
              */
-            .antMatchers("/api/home").permitAll()
+            .antMatchers("/api/home/**").permitAll()
             .antMatchers("/api/articles/**").permitAll()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()

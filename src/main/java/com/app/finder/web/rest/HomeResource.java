@@ -38,7 +38,7 @@ public class HomeResource {
      * 取得首页数据
      * @throws URISyntaxException 
      */
-    @RequestMapping(value = "/home",
+    @RequestMapping(value = "/home/all",
     		method = RequestMethod.GET,
     		produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed

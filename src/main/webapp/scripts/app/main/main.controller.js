@@ -64,7 +64,7 @@ angular.module('finderApp')
         // 初始化页面时请求加载数据
         $scope.loadData = function() {
         	// 用$http.get发请求
-            $http.get('api/home').success(function (data) {
+            $http.get('api/home/all').success(function (data) {
             	// 幻灯片数据 
             	$scope.slides = data.slides;
             	// 创意数据
