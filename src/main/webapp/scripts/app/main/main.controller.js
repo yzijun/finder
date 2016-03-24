@@ -80,14 +80,14 @@ angular.module('finderApp')
             	
             	// 延迟调用等待幻灯片图片加载完成
             	setTimeout(function(){
-            		 $('.box_skitter_large')
-                     .css({width: 600, height: 300})
-                     .skitter({
-                       theme: 'clean',
-                       numbers_align: 'center',
-                       dots: true, 
-                       preview: true
-                     });
+            		 $('.box_skitter_normal')
+            		 .css({width: 600, height: 300})
+            		 .skitter({
+            		        theme: 'clean',
+            		        numbers_align: 'center',
+            		        dots: true, 
+            		        preview: true
+            		 });
         	    },500);
             	
             	// 延迟调用等待数据加载完成

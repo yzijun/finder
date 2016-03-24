@@ -60,14 +60,13 @@
 				<!-- 幻灯片 SkitterSlideshow jQuery Plugin -->
 				<div class="col-md-12 col-padding-over-bs" style="padding-top: 15px;">
 				      <div class="border_box">
-				        <div class="box_skitter box_skitter_large slide-box-img">
+				        <div class="box_skitter box_skitter_normal slide-box-img">
 				          <ul>
 				            <li ng-repeat="s in slides track by s.id">
-					            <a href="#cubeStop" ui-sref="article.detail({id:s.id})">
+					            <a href="#blind" ui-sref="article.detail({id:s.id})">
 					            <img
 				                    data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
-				                    class="cubeShow slide-box-img" alt="slide"/>
-					            	
+				                    class="blind" alt="slide"/>
 					            </a>
 					            <div class="label_text">
 					            	<p>{{s.title}}</p>
