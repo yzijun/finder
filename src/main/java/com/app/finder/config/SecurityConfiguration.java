@@ -107,13 +107,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
             .authorizeRequests()
             /*
-             * 自定义修改  文章详细页不需要登录验证
+             * 自定义修改 
+             * 1.取得首页数据不需要登录验证
+             * 2.文章详细页不需要登录验证
              * 这样文章下面的所有api都暴露不需要登录，这样是不安全的
              * 需要在每个rest（ArticleResource）方法上加入角色验证
              * 可用注解
              * @Secured(AuthoritiesConstants.ADMIN) 基于spring
              * @RolesAllowed(AuthoritiesConstants.ADMIN) 基于JSR
              */
+            .antMatchers("/api/home").permitAll()
             .antMatchers("/api/articles/**").permitAll()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
