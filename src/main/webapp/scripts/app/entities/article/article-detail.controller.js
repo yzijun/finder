@@ -90,8 +90,9 @@ angular.module('finderApp')
 //            JSON.stringify(data)
             // 取得kindeditor文本编辑器的内容
             // contents() 如果元素是一个iframe，则查找文档内容
-            $scope.articleReply.content = $('iframe').contents().find('.ke-content').html();
-
+//            $scope.articleReply.content = $('iframe').contents().find('.ke-content').html();
+            // 取得kindeditor文本编辑器的HTML内容
+            $scope.articleReply.content = editor.html();
             // 替换空格或Tab键生成的html
             var articleContent = $scope.articleReply.content.replace(/&nbsp;/g,'');
             // 替换html<br>
@@ -120,8 +121,9 @@ angular.module('finderApp')
                 // 评论发表按钮为可用状态
                 $scope.isSaving = false;
                 // 清空评论内容
-                $('iframe').contents().find('.ke-content').html('');
-                
+//                $('iframe').contents().find('.ke-content').html('');
+                // 清空kindeditor文本编辑器的内容
+                editor.html('');
                 // 显示提交后的提示信息  http header中的提示信息<jh-alert>指令会有中文乱码问题
                 // 直接用AlertService
                 var f = AlertService.success('评论保存成功！');
