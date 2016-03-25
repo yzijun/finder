@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleDetailController', function ($scope, $rootScope, $window, $stateParams, $sce, $http, $state, 
+    .controller('ArticleDetailController', function ($scope, $rootScope, $window, $stateParams, $sce, $http, $state, $timeout, 
     		DataUtils, entity, Article, User, ArticleCategory, Tag, 
     		Principal, ArticleFavorite, AlertService, WEBSITENAME) {
     	 Principal.identity().then(function(account) {
@@ -260,4 +260,18 @@ angular.module('finderApp')
         var onSaveError = function (result) {
             $scope.isSaving = false;
         };*/
+        
+        // kindeditor-4.1.10 国内文本编辑器  初始化
+        var editor;
+        $timeout(function() {
+        	editor = KindEditor.create('textarea[name="content"]',{
+				resizeType : 1,
+				allowPreviewEmoticons : false,
+				allowImageUpload : false,
+				items : [
+					'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+					'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+					'insertunorderedlist', '|', 'emoticons', 'link']
+			});
+		});
     });

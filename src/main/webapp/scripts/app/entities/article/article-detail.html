@@ -93,26 +93,6 @@
 									<textarea ng-model="articleReply.content" name="content" class="form-control login-box-editor" 
 											  placeholder="写下你的评论" required ng-maxlength="200"
 											  style="height:200px;visibility:hidden;"></textarea>
-									<!-- kindeditor-4.1.10 国内文本编辑器  
-										 js写在这的原因是使用的jquery.js的版本不同
-										 如果不用kindeditor自带的会显示两个文本编辑器-->
-									<script src="../../../../bower_components/kindeditor-4.1.10/examples/jquery.js"></script>
-									<script src="../../../../bower_components/kindeditor-4.1.10/kindeditor-min.js"></script>
-									<script src="../../../../bower_components/kindeditor-4.1.10/lang/zh_CN.js"></script>
-										
-									<script type="text/javascript">
-										$(function() {
-											KindEditor.create('textarea[name="content"]',{
-												resizeType : 1,
-												allowPreviewEmoticons : false,
-												allowImageUpload : false,
-												items : [
-													'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
-													'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-													'insertunorderedlist', '|', 'emoticons', 'link']
-											});
-										});
-									</script>
 									
 									<!-- <div ng-show="editForm.content.$invalid">
 						                <p class="help-block"
