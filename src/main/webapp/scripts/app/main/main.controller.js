@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('MainController', function ($scope, Principal, $http, $timeout) {
+    .controller('MainController', function ($scope, Principal, $http, $timeout, $window, WEBSITENAME) {
         Principal.identity().then(function(account) {
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
@@ -13,34 +13,8 @@ angular.module('finderApp')
             	});
             }
         });
-        // 幻灯片 间隔5秒显示
-       /* $('.carousel').carousel({
-        	interval: 5000
-        });*/
-        // DOM加载完成时  绑定 SkitterSlideshow 幻灯片初始化
-       /* $scope.loadInitSlide = function() {
-        	// 延迟调用等待图片加载完成
-        	setTimeout(function(){
-        		 $('.box_skitter_large')
-                 .css({width: 600, height: 300})
-                 .skitter({
-                   theme: 'clean',
-                   numbers_align: 'center',
-                   dots: true, 
-                   preview: true
-                 });
-    	    },1000);
-        	 
-        };*/
-        // 显示tooltip
-       /* $(function () {
-        	  $('[data-toggle="tooltip"]').tooltip();
-        });*/
-        
-        // DOM加载完成时  绑定tooltip 页面用指令data-ng-init
-       /* $scope.loadInitAuthor = function() {  
-        	$('[data-toggle="tooltip"]').tooltip();
-        };*/
+        // 添加页面title
+        $window.document.title = "科技改变生活-" + WEBSITENAME;
         
         // DOM加载完成时  绑定tooltip 页面用指令data-ng-init
        /* $scope.loadInitArticle = function() {  
