@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('MainController', function ($scope, Principal, $http) {
+    .controller('MainController', function ($scope, Principal, $http, $timeout) {
         Principal.identity().then(function(account) {
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
@@ -79,7 +79,7 @@ angular.module('finderApp')
             	$scope.hotArticles = data.hotArticles;
             	
             	// 延迟调用等待幻灯片图片加载完成
-            	setTimeout(function(){
+            	$timeout(function(){
             		 $('.box_skitter_normal')
             		 .css({width: 600, height: 300})
             		 .skitter({
@@ -88,15 +88,15 @@ angular.module('finderApp')
             		        dots: true, 
             		        preview: true
             		 });
-        	    },500);
+        	    });
             	
             	// 延迟调用等待数据加载完成
-            	setTimeout(function(){
+            	$timeout(function(){
             		$('[data-toggle="tooltip"]').tooltip();
-        	    },500);
+        	    });
+            	
             });
         };
         
         $scope.loadData();
-        
     });
