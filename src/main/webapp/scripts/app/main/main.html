@@ -27,9 +27,11 @@
 				<!-- 创意内容 -->
 				<div class="col-md-3" style="padding-top: 15px;padding-left: 0px;">
 					<div class="" ng-repeat="s in originalities track by s.id">
-						<img 
-							data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
-							alt="ori" ng-if="s.firstImg" class="original-box-img"/>
+						<a ui-sref="article.detail({id:s.id})">
+							<img 
+								data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
+								alt="ori" ng-if="s.firstImg" class="original-box-img"/>
+						</a>
 					</div>
 				</div>
 				<!-- <div class="col-md-4 col-padding-over-bs">
