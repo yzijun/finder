@@ -202,7 +202,7 @@ ul#strengthBar {
 /* 设置bootstrap网格 */
 
 .col-padding-over-bs {
-	padding-left: 5px;
+	padding-left: 0px;
 	padding-right: 5px;
 }
 
@@ -641,4 +641,32 @@ a:hover {
 	width: 210px;
 	height: 150px;
 	margin-bottom: 3px;
+}
+.mob-img {
+	width: 220px;
+	height: 124px;
+}
+.mob-author {
+    margin: 15px 0;
+}
+.mob-author .author-face {
+    height: 25px;
+    position: absolute;
+    width: 25px;
+}
+.mob-author .mob-author-name, .mob-author .time, .mob-author em {
+    color: #bbb;
+    font-style: normal;
+    line-height: 24px;
+}
+.mob-author .mob-author-name {
+    margin-left: 42px;
+}
+.mob-author .time {
+    margin-left: 20px;
+}
+.mob-sub {
+    color: #999;
+    font-size: 14px;
+    line-height: 24px;
 }

@@ -14,7 +14,7 @@
 					            <a href="#blind" ui-sref="article.detail({id:s.id})">
 					            <img
 				                    data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
-				                    class="blind" alt="slide" ng-if="s.firstImg"/>
+				                    class="slide-box-img blind" alt="slide" ng-if="s.firstImg"/>
 					            </a>
 					            <div class="label_text">
 					            	<p>{{s.title}}</p>
@@ -27,7 +27,7 @@
 				<!-- 创意内容 -->
 				<div class="col-md-3" style="padding-top: 15px;padding-left: 0px;">
 					<div class="" ng-repeat="s in originalities track by s.id">
-						<a ui-sref="article.detail({id:s.id})">
+						<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
 							<img 
 								data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
 								alt="ori" ng-if="s.firstImg" class="original-box-img"/>
@@ -56,30 +56,45 @@
 						</div>
 					</div>
 				</div> -->
-				<!-- 资讯内容 -->
+				<!-- 最新的资讯、发现、创意内容 -->
 				<div class="col-md-12 col-padding-over-bs">
-					<div class="media">
+					<hr>
+					<div class="media" style="margin-top: 0px;" ng-repeat="s in pageData.content track by s.id">
 						<div class="media-left media-middle">
-							<a href="#"> <img class="media-object"
-								src="http://www.bootcss.com/p/layoutit/img/people.jpg"
-								style="height: 200px; width: 300px;" alt="...">
+							<a ui-sref="article.detail({id:s.id})">
+							<img 
+								data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
+								alt="info" ng-if="s.firstImg" class="media-object mob-img"/>
 							</a>
 						</div>
-						<div class="media-body">
-							<h4 class="media-heading">Middle aligned media</h4>
-							请尽量使用HTML5兼容的视频格式和视频代码实现视频播放, 以达到更好的体验效果.
-						</div>
-						<hr>
-					</div>
-					<div class="media">
-						<div class="media-left media-middle">
-							<a href="#"> <img class="media-object"
-								src="http://www.bootcss.com/p/layoutit/img/people.jpg" alt="...">
-							</a>
-						</div>
-						<div class="media-body">
-							<h4 class="media-heading">Middle aligned media</h4>
-							请尽量使用HTML5兼容的视频格式和视频代码实现视频播放, 以达到更好的体验效果.
+						<div class="media-body" style="padding-left: 15px;">
+							<h4 class="media-heading">
+								<a ui-sref="article.detail({id:s.id})">{{s.title}}</a>
+							</h4>
+							<div class="mob-author">
+								<div class="author-face">
+									<a target="_blank" href="/member/296601.html">
+									<img
+					                    data-ng-src="{{'data:' + s.user.pictureContentType + ';base64,' + s.user.picture}}"
+					                    class="img-circle profile-img-smaller" alt="profile" ng-if="s.user.picture"/>
+									</a>
+								</div>
+								<a target="_blank" >
+									<span class="mob-author-name">王新喜</span>
+								</a>
+								<span class="time">
+									1小时前
+								</span>
+								<span class="time">
+									<i class="fa fa-comment"></i>
+									<em>7</em>
+								</span>
+								<span class="time">
+									<i class="fa fa-heart"></i>
+									<em>3</em>
+								</span>
+							</div>
+							<div class="mob-author mob-sub">我用的是最好最贵的手机，你来一个廉价版的iPhone是怎么回...</div>
 						</div>
 						<hr>
 					</div>
