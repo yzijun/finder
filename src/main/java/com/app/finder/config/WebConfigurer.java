@@ -49,10 +49,11 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         if (!env.acceptsProfiles(Constants.SPRING_PROFILE_FAST)) {
             initMetrics(servletContext, disps);
         }
-        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
+        // 正式产品环境时不好用暂时注释
+        /*if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps);
             initStaticResourcesProductionFilter(servletContext, disps);
-        }
+        }*/
         log.info("Web application fully configured");
     }
 
@@ -97,8 +98,8 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
             servletContext.addFilter("cachingHttpHeadersFilter",
                 new CachingHttpHeadersFilter(env));
 
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/dist/assets/*");
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/dist/scripts/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/assets/*");
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");
         cachingHttpHeadersFilter.setAsyncSupported(true);
     }
 
