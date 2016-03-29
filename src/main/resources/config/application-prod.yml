@@ -46,9 +46,9 @@ spring:
 #                  data: /tmp/elasticsearch/data
 # ==================================================================                          
     mail:
-        host: 139.196.213.231
+        host: mail.kepinzhe.com
         port: 25
-        username: kpz
+        username: kpz@kepinzhe.com
         password: KePinZhe1234!@#
     thymeleaf:
         cache: true
