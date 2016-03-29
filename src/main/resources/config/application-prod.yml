@@ -23,7 +23,7 @@ spring:
         url: jdbc:mysql://localhost:3306/finder?useUnicode=true&characterEncoding=utf8
         name:
         username: root
-        password:
+        password: root
     jpa:
         database-platform: org.hibernate.dialect.MySQLInnoDBDialect
         database: MYSQL
@@ -46,10 +46,10 @@ spring:
 #                  data: /tmp/elasticsearch/data
 # ==================================================================                          
     mail:
-        host: localhost
+        host: 139.196.213.231
         port: 25
-        username:
-        password:
+        username: kpz
+        password: KePinZhe1234!@#
     thymeleaf:
         cache: true
 
@@ -78,9 +78,9 @@ jhipster:
     cache: # Hibernate 2nd level cache, used by CacheConfiguration
         timeToLiveSeconds: 3600
         ehcache:
-            maxBytesLocalHeap: 256M
+            maxBytesLocalHeap: 512M
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: finder@localhost
+        from: kpz@kepinzhe.com
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         spark:
