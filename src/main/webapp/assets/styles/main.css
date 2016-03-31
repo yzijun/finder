@@ -30,11 +30,15 @@ Developement Ribbon
 /* ==========================================================================
 Version number in navbar
 ========================================================================== */
-.navbar-version {
-    font-size: 10px;
-    color: #ccc
+.navbar-domain {
+    font-size: 11px;
+    color: #ccc;
+    line-height: 15px;
+    font-weight: bold;
 }
-
+.navbar-sitename {
+	font-weight: bold;
+}
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
