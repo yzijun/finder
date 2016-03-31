@@ -45,7 +45,7 @@ spring:
 #            cluster-nodes: localhost:9300     
 # ==================================================================                          
     mail:
-        host: mail.kepinzhe.com
+        host: smtp.kepinzhe.com
         port: 25
         username: kpz@kepinzhe.com
         password: KePinZhe1234!@#

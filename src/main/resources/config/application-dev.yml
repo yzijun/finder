@@ -42,7 +42,10 @@ spring:
                   logs: target/elasticsearch/log
                   data: target/elasticsearch/data
     mail:
-        host: localhost
+        host: smtp.kepinzhe.com
+        port: 25
+        username: kpz@kepinzhe.com
+        password: KePinZhe1234!@#
     messages:
         cache-seconds: 1
     thymeleaf:
