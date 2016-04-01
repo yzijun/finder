@@ -34,11 +34,11 @@ public class MailService {
 
     @Inject
     private JavaMailSenderImpl javaMailSender;
-    */
+    
     
     @Inject
     private MessageSource messageSource;
-
+    */
     @Inject
     private SpringTemplateEngine templateEngine;
 
@@ -88,7 +88,9 @@ public class MailService {
         context.setVariable("user", user);
         context.setVariable("baseUrl", baseUrl);
         String content = templateEngine.process("activationEmail", context);
-        String subject = messageSource.getMessage("email.activation.title", null, locale);
+     // 用java -jar 命令时由于msg文件被打包到war中就找不到了，不在使用message文件
+//        String subject = messageSource.getMessage("email.activation.title", null, locale);
+        String subject = "科品者激活账号";
         sendEmail(user.getEmail(), subject, content, false, true);
     }
 
@@ -100,7 +102,9 @@ public class MailService {
         context.setVariable("user", user);
         context.setVariable("baseUrl", baseUrl);
         String content = templateEngine.process("creationEmail", context);
-        String subject = messageSource.getMessage("email.activation.title", null, locale);
+     // 用java -jar 命令时由于msg文件被打包到war中就找不到了，不在使用message文件
+//        String subject = messageSource.getMessage("email.activation.title", null, locale);
+        String subject = "科品者激活账号";
         sendEmail(user.getEmail(), subject, content, false, true);
     }
 
@@ -112,7 +116,9 @@ public class MailService {
         context.setVariable("user", user);
         context.setVariable("baseUrl", baseUrl);
         String content = templateEngine.process("passwordResetEmail", context);
-        String subject = messageSource.getMessage("email.reset.title", null, locale);
+     // 用java -jar 命令时由于msg文件被打包到war中就找不到了，不在使用message文件
+//        String subject = messageSource.getMessage("email.reset.title", null, locale);
+        String subject = "科品者密码重置";
         sendEmail(user.getEmail(), subject, content, false, true);
     }
     

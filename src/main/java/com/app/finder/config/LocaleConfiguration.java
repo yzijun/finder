@@ -31,14 +31,15 @@ public class LocaleConfiguration extends WebMvcConfigurerAdapter implements Envi
         return cookieLocaleResolver;
     }
 
-    @Bean
+    // 用java -jar 命令时由于msg文件被打包到war中就找不到了
+    /*@Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:/i18n/messages");
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(propertyResolver.getProperty("cache-seconds", Integer.class, -1));
         return messageSource;
-    }
+    }*/
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
