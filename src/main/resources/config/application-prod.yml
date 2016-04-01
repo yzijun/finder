@@ -44,11 +44,12 @@ spring:
 # =============================原来用的配置=============================
 #            cluster-nodes: localhost:9300     
 # ==================================================================                          
-    mail:
-        host: smtp.kepinzhe.com
-        port: 25
-        username: kpz@kepinzhe.com
-        password: KePinZhe1234!@#
+# 由于spring发送邮件不好用，不需要用这个配置
+#    mail:
+#        host: smtp.kepinzhe.com
+#        port: 25
+#        username: system@kepinzhe.com
+#        password: KePinZhe1234!@#
     thymeleaf:
         cache: true
 
