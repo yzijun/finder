@@ -24,6 +24,7 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -90,6 +91,15 @@ public class ArticleService {
     
 	@PersistenceContext
 	private EntityManager entityManager;
+	
+	// 保存文章内容的图片路径
+	@Value("${apacheset.articleContent.picturePath}")
+	private String savePicPath;
+	
+	// 文章内容图片的apache显示URL
+	@Value("${apacheset.articleContent.contentPicURL}")
+	private String contentPicURL;
+	
     /**
      * Save a article.
      * @return the persisted entity
@@ -197,8 +207,7 @@ public class ArticleService {
         	String picEncode = m.group(2);
         	//Base64解码为字节数组
         	byte[] decode = Base64.getDecoder().decode(picEncode);
-	        //TODO 正式系统需要改路径
-	        String savePicPath = "D:/apachePic/";
+
 	        //取得当前日期作为文件夹
 	        String day = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 			
@@ -210,9 +219,8 @@ public class ArticleService {
 	        //google IO 不存在时创建父文件夹
 	        Files.createParentDirs(f);
 	        
-	        //图片显示URL中的路径
-	        //TODO 正式系统需要改URL地址
-	        urlPics.add("http://localhost:8089/" + fileName);
+	        //文章内容图片的apache显示URL
+	        urlPics.add(contentPicURL + fileName);
         	//保存缩小后的图片
         	try (BufferedOutputStream bos = new BufferedOutputStream(
         			new FileOutputStream(savePicPath))) {
