@@ -1,24 +1,21 @@
 package com.app.finder.service;
 
-import com.app.finder.config.JHipsterProperties;
-import com.app.finder.domain.User;
+import java.util.Locale;
 
-import org.apache.commons.lang.CharEncoding;
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
-
-
-import javax.inject.Inject;
-import javax.mail.internet.MimeMessage;
-import java.util.Locale;
+import com.app.finder.common.util.MailSender;
+import com.app.finder.config.JHipsterProperties;
+import com.app.finder.domain.User;
 
 /**
  * Service for sending e-mails.
@@ -32,12 +29,13 @@ public class MailService {
 
     private final Logger log = LoggerFactory.getLogger(MailService.class);
 
-    @Inject
+   /* @Inject
     private JHipsterProperties jHipsterProperties;
 
     @Inject
     private JavaMailSenderImpl javaMailSender;
-
+    */
+    
     @Inject
     private MessageSource messageSource;
 
@@ -55,14 +53,27 @@ public class MailService {
             isMultipart, isHtml, to, subject, content);
 
         // Prepare message using a Spring helper
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+//        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
-            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, CharEncoding.UTF_8);
+        	
+        	//由于用spring自带的代码发送邮件不好用。替换spring发送邮件的代码
+        	
+           /* MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, CharEncoding.UTF_8);
             message.setTo(to);
             message.setFrom(jHipsterProperties.getMail().getFrom());
             message.setSubject(subject);
             message.setText(content, isHtml);
-            javaMailSender.send(mimeMessage);
+            javaMailSender.send(mimeMessage);*/
+        	
+        	MailSender mailSender = new MailSender("smtp.kepinzhe.com");
+        	mailSender.setUsername("system@kepinzhe.com");
+            mailSender.setPassword("KePinZhe1234!@#");
+            String from = "system@kepinzhe.com";
+            String fromName = "科品者";
+            String cc = null;
+            String bcc = null;
+            mailSender.sendHtmlMail(to, from, fromName, subject, content, cc,bcc);
+            
             log.debug("Sent e-mail to User '{}'", to);
         } catch (Exception e) {
             log.warn("E-mail could not be sent to user '{}', exception is: {}", to, e.getMessage());
