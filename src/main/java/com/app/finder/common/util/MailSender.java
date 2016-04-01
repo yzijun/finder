@@ -345,61 +345,27 @@ public class MailSender {
         return mailHost;
     }
 
-    public static void main(String[] args) {
-//        MailSender mailSender1 = new MailSender("walkgame.cn", "BIG5");
+    /*public static void main(String[] args) {
         MailSender mailSender1 = new MailSender("smtp.kepinzhe.com");
         try {
-            /*
-             mailSender1.sendText("mlu@walkgame.com", "mlu@walkgame.com", "測試",
-                                             "中文", "mlu@walkgame.com",
-                                             "");
-             */
-//            String to = "chuang@walkgame.cn,davidluo@walkgame.cn";
             mailSender1.setUsername("system@kepinzhe.com");
             mailSender1.setPassword("KePinZhe1234!@#");
-//            String to =
-//                "chuang@walkgame.cn,casper_huang.tw@yahoo.com.tw,kosic@sina.com,kosic@tom.com";
             String from = "system@kepinzhe.com";
             String to = "yzijun@126.com";
-//            String from = "msgapp@walkgame.cn";
             String fromName = "科品者";
             String subject = "这次测试html";
 
             String content = "<html><head><title>账号激活</title><meta http-equiv='Content-Type' content='text/html; charset=UTF-8' /></head>";
             content+="<body><h1>这是h1</h1><p>测试激活</p> </body></html>";
-        
-//            String htmlFile = "D:/tmp/DM/walkshow.htm";
-//            String htmlFile = "D:/EDMSample/Flash/flash-web.htm";
-//            String htmlFile = "D:/EDMSample/JavaScript/jay.htm";
-//            String htmlFile = "D:/EDMSample/JavaScript/jay.files/01.htm";
 
             String cc = null;
             String bcc = null;
-//            String[] attachFles = new String[1];
-//            attachFles[0] = "D:/walkshow.txt";
-            ArrayList htmlFile = new ArrayList();
-//            String f = args[2];
-//            files.add(f);
 
             mailSender1.sendHtmlMail(to, from, fromName, subject, content, cc,bcc);
-//            mailSender1.sendText(to, from, fromName, subject, content, cc, bcc);
-            
-                    
-//            mailSender1.sendAttachments(to, from,fromName, subject, content, cc, bcc, files);
-
-//            mailSender1.sendPHSAttachments(to, from, fromName, subject, content,
-//                                        cc, bcc, attachFles);
-
-            /*mailSender1.sendAttachments("mlu@walkgame.com",
-                                        "mlu@walkgame.com", "營管系統",
-                                        "測試",
-                                        "中文1" + "\n" + "中文2",
-                                        "mlu@walkgame.com",
-                                        "", new String[] {""});*/
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 }
