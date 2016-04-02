@@ -96,4 +96,4 @@ jhipster:
 apacheset:
     articleContent: 
         picturePath: /srv/finderwar/wwwpicture/
-        contentPicURL: http://localhost:8089/
+        contentPicURL: http://localhost:80/
