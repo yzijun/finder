@@ -212,10 +212,13 @@ public class ArticleService {
 	        String day = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 			
 	        String fileName = day + "/" + System.currentTimeMillis() + "." + picType;
-	        //保存图片的完整路径和文件名
-	        savePicPath += fileName;
 	        
-	        File f = new File(savePicPath);
+	        // 临时保存图片路径，用savePicPath循环后会有字符串累加的情况导致图片路径不正确
+	        String tempPicPath = savePicPath;
+	        //保存图片的完整路径和文件名
+	        tempPicPath += fileName;
+	        
+	        File f = new File(tempPicPath);
 	        //google IO 不存在时创建父文件夹
 	        Files.createParentDirs(f);
 	        
@@ -223,7 +226,7 @@ public class ArticleService {
 	        urlPics.add(contentPicURL + fileName);
         	//保存缩小后的图片
         	try (BufferedOutputStream bos = new BufferedOutputStream(
-        			new FileOutputStream(savePicPath))) {
+        			new FileOutputStream(tempPicPath))) {
 				bos.write(decode);
 			}
         }
