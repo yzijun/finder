@@ -22,7 +22,10 @@
     </appender>
 -->
 
-    <logger name="com.app.finder" level="@logback.loglevel@"/>
+	<!-- 测试环境用 -->
+    <!-- <logger name="com.app.finder" level="@logback.loglevel@"/> -->
+	<!-- 正式环境用 -->
+	<logger name="com.app.finder" level="WARN"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>
