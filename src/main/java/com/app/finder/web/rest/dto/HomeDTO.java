@@ -20,6 +20,9 @@ public class HomeDTO {
 
 	// 列表分页数据
 	private Page<Article> pageData;
+	
+	// 列表分页数据DTO数据显示用
+	List<HomePageDataDTO> pageDataDTO;
 
 	// 活跃作者(文章数最多)
 	private List<HotAuthorDTO> authors;
@@ -28,12 +31,13 @@ public class HomeDTO {
 	private List<Article> hotArticles;
 	
 	public HomeDTO(List<Article> slides, List<Article> originalities, Page<Article> pageData,
-			List<HotAuthorDTO> authors, List<Article> hotArticles) {
+			List<HotAuthorDTO> authors, List<Article> hotArticles, List<HomePageDataDTO> pageDataDTO) {
 		this.slides = slides;
 		this.originalities = originalities;
 		this.pageData = pageData;
 		this.authors = authors;
 		this.hotArticles = hotArticles;
+		this.pageDataDTO = pageDataDTO;
 	}
 
 	public List<Article> getSlides() {
@@ -75,4 +79,13 @@ public class HomeDTO {
 	public void setHotArticles(List<Article> hotArticles) {
 		this.hotArticles = hotArticles;
 	}
+
+	public List<HomePageDataDTO> getPageDataDTO() {
+		return pageDataDTO;
+	}
+
+	public void setPageDataDTO(List<HomePageDataDTO> pageDataDTO) {
+		this.pageDataDTO = pageDataDTO;
+	}
+	
 }

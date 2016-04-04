@@ -661,12 +661,12 @@ a:hover {
 .mob-author .mob-author-name, .mob-author .time, .mob-author em {
     color: #bbb;
     font-style: normal;
-    line-height: 24px;
+    line-height: 30px;
 }
 .mob-author .mob-author-name {
     margin-left: 42px;
 }
-.mob-author .time {
+.mob-author .time,.mob-author .label {
     margin-left: 20px;
 }
 .mob-sub {

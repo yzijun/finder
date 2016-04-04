@@ -59,42 +59,57 @@
 				<!-- 最新的资讯、发现、创意内容 -->
 				<div class="col-md-12 col-padding-over-bs">
 					<hr>
-					<div class="media" style="margin-top: 0px;" ng-repeat="s in pageData.content track by s.id">
+					<div class="media" style="margin-top: 0px;" ng-repeat="s in pageDataDTO track by s.id">
+						<!-- 左侧图片部分 -->
 						<div class="media-left media-middle">
-							<a ui-sref="article.detail({id:s.id})">
+							<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
 							<img 
 								data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
 								alt="info" ng-if="s.firstImg" class="media-object mob-img"/>
 							</a>
 						</div>
 						<div class="media-body" style="padding-left: 15px;">
+							<!-- 文章标题 -->
 							<h4 class="media-heading">
 								<a ui-sref="article.detail({id:s.id})">{{s.title}}</a>
 							</h4>
 							<div class="mob-author">
+								<!-- 用户头像 -->
 								<div class="author-face">
-									<a target="_blank" href="/member/296601.html">
+									<a ui-sref="articleAuthorDetail({uid:s.user.id})" title="{{s.user.nickName}}">
 									<img
 					                    data-ng-src="{{'data:' + s.user.pictureContentType + ';base64,' + s.user.picture}}"
 					                    class="img-circle profile-img-smaller" alt="profile" ng-if="s.user.picture"/>
 									</a>
 								</div>
-								<a target="_blank" >
-									<span class="mob-author-name">王新喜</span>
+								<!-- 用户昵称 -->
+								<a ui-sref="articleAuthorDetail({uid:s.user.id})">
+									<span class="mob-author-name">
+										{{s.user.nickName}}
+									</span>
 								</a>
+								
+								<!-- 发表时间 -->
 								<span class="time">
-									1小时前
+									{{s.prettyTime}}
 								</span>
+								<!-- 评论数 -->
 								<span class="time">
 									<i class="fa fa-comment"></i>
-									<em>7</em>
+									<em>{{s.commentNum}}</em>
 								</span>
+								<!-- 收藏数 -->
 								<span class="time">
 									<i class="fa fa-heart"></i>
-									<em>3</em>
+									<em>{{s.favoriteNum}}</em>
+								</span>
+								<!-- 文章分类 -->
+								<span class="label label-default" style="background-color: #bbb">
+									{{s.articleCategory.name}}
 								</span>
 							</div>
-							<div class="mob-author mob-sub">我用的是最好最贵的手机，你来一个廉价版的iPhone是怎么回...</div>
+							<!-- 文章内容描述 -->
+							<div class="mob-author mob-sub">{{s.describle | characters:40 }}</div>
 						</div>
 						<hr>
 					</div>
@@ -148,7 +163,7 @@
 		<div class="col-md-3 col-padding-left-over-bs">
 			<div class="panel panel-success">
 				<div class="panel-heading">
-					<h3 class="panel-title"><i class="fa fa-user"></i>活跃作者</h3>
+					<h3 class="panel-title"><i class="fa fa-user"></i>活跃用户</h3>
 				</div>
 				<!-- <div class="panel-body">Panel content</div> -->
 				<!-- List group 面板列表组-->

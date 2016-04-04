@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -26,6 +27,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.finder.common.util.PrettyTimeUtils;
 import com.app.finder.common.util.ThumbnailsUtils;
 import com.app.finder.domain.Article;
 import com.app.finder.domain.User;
@@ -33,6 +35,7 @@ import com.app.finder.repository.ArticleRepository;
 import com.app.finder.repository.UserRepository;
 import com.app.finder.security.SecurityUtils;
 import com.app.finder.web.rest.dto.HomeDTO;
+import com.app.finder.web.rest.dto.HomePageDataDTO;
 import com.app.finder.web.rest.dto.HotAuthorDTO;
 import com.app.finder.web.rest.dto.SlideDTO;
 import com.google.common.io.Files;
@@ -89,11 +92,12 @@ public class HomeService {
 		// 文章分页数据  默认第一页显示10条
 	    Pageable pageable = new PageRequest(0, 10);
 		Page<Article> pageData = pageArticleData(pageable);
+		List<HomePageDataDTO> pageDataDTO = transPageData(pageData) ;
 		// 活跃作者(文章数最多)
 		List<HotAuthorDTO> authorData = authors();
 		// 热门文章(访问最多的数据)
 		List<Article> hotData = hotArticles();
-		return new HomeDTO(slidesData, oriData, pageData, authorData, hotData);
+		return new HomeDTO(slidesData, oriData, pageData, authorData, hotData, pageDataDTO);
 	}
 	
 	 /*
@@ -158,6 +162,20 @@ public class HomeService {
 		Page<Article> page = new PageImpl<Article>(articles, pageable, totalElements); 
 		return page;
 	}
+    
+    /*
+     * 转换文章分页数据为DTO，页面列表显示用
+     */
+    private List<HomePageDataDTO> transPageData(Page<Article> page) {
+    	// 转换DTOList
+		List<HomePageDataDTO> pageList = page.getContent().stream()
+		  .map(result -> new HomePageDataDTO(result, 
+				  // result.getCreatedDate().toInstant().toEpochMilli() 取得毫秒
+				  PrettyTimeUtils.timeAgo(System.currentTimeMillis() - result.getCreatedDate().toInstant().toEpochMilli()),12,23))
+		  .collect(Collectors.toList());
+		
+		return pageList;
+    }
 	
     // 活跃作者(文章数最多)
     @SuppressWarnings("unchecked")

@@ -46,11 +46,16 @@ angular.module('finderApp')
             	// 创意数据
             	$scope.originalities = data.originalities;
             	// 文章分页数据  默认第一页显示10条
-            	$scope.pageData = data.pageData;
+            	$scope.pageDataDTO = data.pageDataDTO;
             	// 活跃作者(文章数最多)
             	$scope.authors = data.authors;
             	// 热门文章(访问最多的数据)
             	$scope.hotArticles = data.hotArticles;
+            	
+            	// 增加文章描述，去除html标签截取字符用
+            	$.each(data.pageDataDTO,function(i,item){
+            		item.describle = delHtmlTag(item.content);
+    			});
             	
             	// 延迟调用等待幻灯片图片加载完成
             	$timeout(function(){
@@ -73,4 +78,11 @@ angular.module('finderApp')
         };
         
         $scope.loadData();
+        
+        // 去掉网页中的所有的html标记
+        // js去掉所有html标记的函数
+        function delHtmlTag(str)
+        {
+        	return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+        }
     });
