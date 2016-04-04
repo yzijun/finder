@@ -83,6 +83,6 @@ angular.module('finderApp')
         // js去掉所有html标记的函数
         function delHtmlTag(str)
         {
-        	return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+        	return str.replace(/<[^>]+>/g,"").replace(/&nbsp;/g,"");//去掉所有的html标记
         }
     });
