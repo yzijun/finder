@@ -21,9 +21,10 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(20)">
+            <column name="name" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
+            <column name="parent_id" type="bigint"/>
         </createTable>
         
         <loadData encoding="UTF-8"
