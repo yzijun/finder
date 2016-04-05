@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -40,8 +39,8 @@ public class ArticleCategory implements Serializable {
     private String name;
     
     // 父类别ID
-    @JoinColumn(name = "parent_id")
-    private ArticleCategory parentCategory;
+    @Column(name = "parent_id")
+    private Long parentId;
 
     @OneToMany(mappedBy = "articleCategory")
     @JsonIgnore
@@ -72,13 +71,13 @@ public class ArticleCategory implements Serializable {
     public void setArticles(Set<Article> articles) {
         this.articles = articles;
     }
-    
-    public ArticleCategory getParentCategory() {
-		return parentCategory;
+ 
+	public Long getParentId() {
+		return parentId;
 	}
 
-	public void setParentCategory(ArticleCategory parentCategory) {
-		this.parentCategory = parentCategory;
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 
 	@Override
