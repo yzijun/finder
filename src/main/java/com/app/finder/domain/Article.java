@@ -52,6 +52,11 @@ public class Article implements Serializable {
     //文章浏览次数
     @Column(name = "page_view")
     private Integer pageView;
+    
+    // 保存缩小生成第一张图片的URL
+    // 压缩传输图片数据  首页显示列表图片数据用
+    @Column(name = "minImgURL", length = 300)
+    private String minImgURL;
 
     @Column(name = "created_date")
     private ZonedDateTime createdDate;
@@ -160,7 +165,15 @@ public class Article implements Serializable {
         this.tags = tags;
     }
 
-    @Override
+    public String getMinImgURL() {
+		return minImgURL;
+	}
+
+	public void setMinImgURL(String minImgURL) {
+		this.minImgURL = minImgURL;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -188,6 +201,7 @@ public class Article implements Serializable {
             ", published='" + published + "'" +
             ", pageView='" + pageView + "'" +
             ", createdDate='" + createdDate + "'" +
+            ", minImgURL='" + minImgURL + "'" +
             '}';
     }
 }

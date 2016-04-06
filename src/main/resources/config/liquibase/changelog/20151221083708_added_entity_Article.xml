@@ -25,9 +25,7 @@
                 <constraints nullable="false" />
             </column>
             <column name="first_img" type="mediumblob"/>
-            <column name="first_img_content_type" type="varchar(50)">
-                <constraints nullable="false" />
-            </column>
+            <column name="first_img_content_type" type="varchar(50)"/>
             <column name="content" type="text"/>
             <column name="published" type="boolean" valueBoolean="true">
                 <constraints nullable="false" />
@@ -36,6 +34,7 @@
             <column name="created_date" type="timestamp"/>
             <column name="user_id" type="bigint"/>
             <column name="article_category_id" type="bigint"/>
+            <column name="minImgURL" type="varchar(300)"/>
         </createTable>
         <dropDefaultValue tableName="fin_article" columnName="created_date" columnDataType="datetime"/>
 
