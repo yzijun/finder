@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -86,7 +87,11 @@ public class ArticleCategoryResource {
     @Timed
     public List<ArticleCategory> getAllArticleCategorys() {
         log.debug("REST request to get all ArticleCategorys");
-        return articleCategoryRepository.findAllCached();
+        List<ArticleCategory> list =  articleCategoryRepository.findAllCached();
+        // 过滤子条目的文章类别
+        return list.stream()
+        		   .filter(s -> s.getParentId() != null)
+        	       .collect(Collectors.toList());
     }
 
     /**
