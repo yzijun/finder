@@ -81,14 +81,14 @@ public class HomeService {
 	
 	// 取得首页全部数据
 	private HomeDTO getAllData() {
-		// 幻灯片数据 
-		List<Article> slidesData = slides();
+		// 浏览数最多数据 
+		List<Article> pageViewData = pageViews();
 		/*List<SlideDTO> slidesDTOData = new ArrayList<>();
 		try {
 			slidesDTOData = makePicForSlide(slidesData);
 		} catch (IOException e) {}*/
-		// 创意数据
-		List<Article> oriData = originalities();
+		// 新技术文章数据
+//		List<Article> techData = technologies();
 		// 文章分页数据  默认第一页显示10条
 	    Pageable pageable = new PageRequest(0, 10);
 		Page<Article> pageData = pageArticleData(pageable);
@@ -97,14 +97,14 @@ public class HomeService {
 		List<HotAuthorDTO> authorData = authors();
 		// 热门文章(访问最多的数据)
 		List<Article> hotData = hotArticles();
-		return new HomeDTO(slidesData, oriData, pageData, authorData, hotData, pageDataDTO);
+		return new HomeDTO(pageViewData, null, pageData, authorData, hotData, pageDataDTO);
 	}
 	
 	 /*
-     * 幻灯片文章数据
+     * 浏览数最多的文章数据
      */
     @SuppressWarnings("unchecked")
-	private List<Article> slides() {
+	private List<Article> pageViews() {
         // 使用entityManager查询分页数据
 		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
 		Query query = entityManager.createQuery("select a from Article a left join fetch a.user left join fetch a.articleCategory where a.published = ?1 order by a.pageView desc");
@@ -121,15 +121,15 @@ public class HomeService {
 	}
     
     /*
-     * 创意数据文章数据
+     * 新技术文章数据
      */
     @SuppressWarnings("unchecked")
-	private List<Article> originalities() {
+	private List<Article> technologies() {
     	// 使用entityManager查询分页数据
 		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
 		Query query = entityManager.createQuery("select a from Article a left join fetch a.user left join fetch a.articleCategory where a.articleCategory.id = ?1 and a.published = ?2 order by a.pageView desc");
 		// 设置查询参数(参数索引值从1开始)
-		query.setParameter(1, Long.valueOf(3));
+		query.setParameter(1, Long.valueOf(2));
 		query.setParameter(2, true);
 		// 默认显示的数量
     	int pageSize = 2;

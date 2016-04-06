@@ -41,10 +41,11 @@ angular.module('finderApp')
         $scope.loadData = function() {
         	// 用$http.get发请求
             $http.get('api/home/all').success(function (data) {
-            	// 幻灯片数据 
-            	$scope.slides = data.slides;
-            	// 创意数据
-            	$scope.originalities = data.originalities;
+            	// 浏览数最多数据  slice 取得sublist
+            	$scope.pageViewFirst = data.pageViewData.slice(0, 1);
+            	$scope.pageViewOther = data.pageViewData.slice(1);
+            	// 新技术文章数据
+//            	$scope.techData = data.techData;
             	// 文章分页数据  默认第一页显示10条
             	$scope.pageDataDTO = data.pageDataDTO;
             	// 活跃作者(文章数最多)

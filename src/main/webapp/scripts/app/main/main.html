@@ -5,8 +5,8 @@
 				<!-- 暂时不用 -->
 			<!-- <div class="panel-body"> -->
 				<!-- 说明：外层的网格包裹后内层网格也是12栅格的 -->
-				<!-- 幻灯片 SkitterSlideshow jQuery Plugin -->
-				<div class="col-md-9 col-padding-over-bs" style="padding-top: 15px;">
+				<!-- 暂时不用加载图片多网络慢   幻灯片 SkitterSlideshow jQuery Plugin -->
+				<!-- <div class="col-md-9 col-padding-over-bs" style="padding-top: 15px;">
 				      <div class="border_box">
 				        <div class="box_skitter box_skitter_normal slide-box-img">
 				          <ul>
@@ -23,17 +23,38 @@
 				          </ul>
 				        </div>
 				      </div>
+			    </div> -->
+			    <!-- 浏览数最多 -->
+			    <div class="col-md-12 col-padding-over-bs" style="padding-top: 15px;">
+			    	<!-- 第一张图显示大图 -->
+			    	<span ng-repeat="s in pageViewFirst track by s.id">
+						<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
+							<img 
+								data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
+								alt="ori" ng-if="s.firstImg" class="page-view-box-img"/>
+						</a>
+					</span>
+					<!-- 非第一张图显示小图 -->
+					<div style="float: right;">
+						<div ng-repeat="s in pageViewOther track by s.id">
+							<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
+								<img 
+									data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
+									alt="ori" ng-if="s.firstImg" class="original-box-img"/>
+							</a>
+						</div>
+					</div>
 			    </div>
-				<!-- 创意内容 -->
-				<div class="col-md-3" style="padding-top: 15px;padding-left: 0px;">
-					<div class="" ng-repeat="s in originalities track by s.id">
+				<!-- 新技术内容 -->
+				<!-- <div class="col-md-4 col-padding-over-bs" style="padding-top: 15px;padding-left: 0px;">
+					<div class="" ng-repeat="s in techData track by s.id">
 						<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
 							<img 
 								data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
 								alt="ori" ng-if="s.firstImg" class="original-box-img"/>
 						</a>
 					</div>
-				</div>
+				</div> -->
 				<!-- <div class="col-md-4 col-padding-over-bs">
 					<div class="thumbnail voffset3">
 						<img alt="242x200"
@@ -56,7 +77,7 @@
 						</div>
 					</div>
 				</div> -->
-				<!-- 最新的资讯、发现、创意内容 -->
+				<!-- 最新的内容 -->
 				<div class="col-md-12 col-padding-over-bs">
 					<hr>
 					<div class="media" style="margin-top: 0px;" ng-repeat="s in pageDataDTO track by s.id">

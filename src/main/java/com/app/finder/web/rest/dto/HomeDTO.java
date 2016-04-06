@@ -12,11 +12,11 @@ import com.app.finder.domain.Article;
  */
 public class HomeDTO {
 
-	// 幻灯片数据 (资讯、发现、创意)访问最多的数据
-	private List<Article> slides;
+	// 浏览数最多数据
+	private List<Article> pageViewData;
 	
-	// 创意数据
-	private List<Article> originalities;
+	// 新技术文章数据
+	private List<Article> techData;
 
 	// 列表分页数据
 	private Page<Article> pageData;
@@ -30,30 +30,30 @@ public class HomeDTO {
 	// 热门文章(访问最多的数据)
 	private List<Article> hotArticles;
 	
-	public HomeDTO(List<Article> slides, List<Article> originalities, Page<Article> pageData,
+	public HomeDTO(List<Article> pageViewData, List<Article> techData, Page<Article> pageData,
 			List<HotAuthorDTO> authors, List<Article> hotArticles, List<HomePageDataDTO> pageDataDTO) {
-		this.slides = slides;
-		this.originalities = originalities;
+		this.pageViewData = pageViewData;
+		this.techData = techData;
 		this.pageData = pageData;
 		this.authors = authors;
 		this.hotArticles = hotArticles;
 		this.pageDataDTO = pageDataDTO;
 	}
 
-	public List<Article> getSlides() {
-		return slides;
+	public List<Article> getPageViewData() {
+		return pageViewData;
 	}
 
-	public void setSlides(List<Article> slides) {
-		this.slides = slides;
+	public void setPageViewData(List<Article> pageViewData) {
+		this.pageViewData = pageViewData;
 	}
 
-	public List<Article> getOriginalities() {
-		return originalities;
+	public List<Article> getTechData() {
+		return techData;
 	}
 
-	public void setOriginalities(List<Article> originalities) {
-		this.originalities = originalities;
+	public void setTechData(List<Article> techData) {
+		this.techData = techData;
 	}
 
 	public Page<Article> getPageData() {
