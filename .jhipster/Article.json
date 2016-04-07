@@ -21,6 +21,20 @@
             "relationshipType": "many-to-many",
             "ownerSide": false,
             "otherEntityRelationshipName": "article"
+        },
+	{
+            "relationshipId": 4,
+            "relationshipName": "articleReplies",
+            "otherEntityName": "articleReply",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "article"
+        },
+	{
+            "relationshipId": 5,
+            "relationshipName": "articleFavorites",
+            "otherEntityName": "articleFavorite",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "article"
         }
     ],
     "fields": [
