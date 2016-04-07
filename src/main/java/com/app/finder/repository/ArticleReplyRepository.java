@@ -17,4 +17,8 @@ public interface ArticleReplyRepository extends JpaRepository<ArticleReply,Long>
 	 */
     @Query("select a from ArticleReply a left join fetch a.replyer where a.article.id = ?1 and published = ?2 order by a.createdDate asc")
     List<ArticleReply> findReplyByArticleID(Long aid, boolean published);
+    
+    // 取得该文章全部评论数 aid 文章id
+    @Query("select count(*) from ArticleReply reply where reply.article.id = ?1 and reply.published = true")
+    Integer findByCountArticleUid(Long aid);
 }

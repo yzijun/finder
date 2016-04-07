@@ -31,12 +31,15 @@ import com.app.finder.common.util.PrettyTimeUtils;
 import com.app.finder.common.util.ThumbnailsUtils;
 import com.app.finder.domain.Article;
 import com.app.finder.domain.User;
+import com.app.finder.repository.ArticleFavoriteRepository;
+import com.app.finder.repository.ArticleReplyRepository;
 import com.app.finder.repository.ArticleRepository;
 import com.app.finder.repository.UserRepository;
 import com.app.finder.security.SecurityUtils;
 import com.app.finder.web.rest.dto.HomeDTO;
 import com.app.finder.web.rest.dto.HomePageDataDTO;
 import com.app.finder.web.rest.dto.HotAuthorDTO;
+import com.app.finder.web.rest.dto.PageArticleDataDTO;
 import com.app.finder.web.rest.dto.SlideDTO;
 import com.google.common.io.Files;
 
@@ -54,6 +57,12 @@ public class HomeService {
 
 	@Inject
 	private UserRepository userRepository;
+	
+	@Inject
+    private ArticleFavoriteRepository articleFavoriteRepository;
+	
+	@Inject
+    private ArticleReplyRepository articleReplyRepository;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -167,11 +176,20 @@ public class HomeService {
      * 转换文章分页数据为DTO，页面列表显示用
      */
     private List<HomePageDataDTO> transPageData(Page<Article> page) {
+    	List<PageArticleDataDTO> list = new ArrayList<>();
+    	for (Article article : page.getContent()) {
+    		// 取得 文章评论数和文章收获喜欢数  需要发多条sql
+    		Integer commentNum = articleReplyRepository.findByCountArticleUid(article.getId());
+    		Integer favoriteNum = articleFavoriteRepository.findByCountArticleFavoriteAid(article.getId());
+    		PageArticleDataDTO dto = new PageArticleDataDTO(article, commentNum, favoriteNum);
+    		list.add(dto);
+		}
     	// 转换DTOList
-		List<HomePageDataDTO> pageList = page.getContent().stream()
-		  .map(result -> new HomePageDataDTO(result, 
+		List<HomePageDataDTO> pageList = list.stream()
+		  .map(s -> new HomePageDataDTO(s.getArticle(), 
 				  // result.getCreatedDate().toInstant().toEpochMilli() 取得毫秒
-				  PrettyTimeUtils.timeAgo(System.currentTimeMillis() - result.getCreatedDate().toInstant().toEpochMilli()),12,23))
+				  PrettyTimeUtils.timeAgo(System.currentTimeMillis() - s.getArticle().getCreatedDate().toInstant().toEpochMilli()),
+				  s.getCommentNum(), s.getFavoriteNum()))
 		  .collect(Collectors.toList());
 		
 		return pageList;
