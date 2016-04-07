@@ -62,7 +62,8 @@ public class ArticleReplyDTO {
 	}
 
 	public String getPrettyTime() {
-		return prettyTime;
+		// 替换文字中的空格
+		return prettyTime.replaceAll(" ", "");
 	}
 
 	public void setPrettyTime(String prettyTime) {

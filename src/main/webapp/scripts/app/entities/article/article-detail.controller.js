@@ -13,7 +13,7 @@ angular.module('finderApp')
     	Article.get({id : $stateParams.id}, function(result) {
             $scope.article = result;
             // 添加页面title
-            $window.document.title = $scope.article.title + "-" + WEBSITENAME;
+            $window.document.title = $scope.article.title + " - " + WEBSITENAME;
             //angular对html转义,增加信任$sce.trustAsHtml
             $scope.article.content = $sce.trustAsHtml($scope.article.content);
             //文章作者

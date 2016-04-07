@@ -13,7 +13,7 @@ angular.module('finderApp')
         		$scope.articleAuthors = data;
         		
         		// 添加页面title
-                $window.document.title =  "的个人中心-" + WEBSITENAME;
+                $window.document.title =  "的个人中心 - " + WEBSITENAME;
         	});
         };
         $scope.loadArticleAuthors();
