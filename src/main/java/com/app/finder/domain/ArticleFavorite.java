@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  * A ArticleFavorite.
- * 文章收藏
+ * 文章收获喜欢
  */
 @Entity
 @Table(name = "fin_article_favorite")
