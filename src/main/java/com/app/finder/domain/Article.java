@@ -55,7 +55,7 @@ public class Article implements Serializable {
     
     // 保存缩小生成第一张图片的URL
     // 压缩传输图片数据  首页显示列表图片数据用
-    @Column(name = "minImgURL", length = 300)
+    @Column(name = "min_img_url", length = 300)
     private String minImgURL;
 
     @Column(name = "created_date")

@@ -3,6 +3,7 @@ package com.app.finder.service;
 import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,6 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import com.app.finder.common.util.PrettyTimeUtils;
+import com.app.finder.common.util.ThumbnailsUtils;
 import com.app.finder.domain.Article;
 import com.app.finder.domain.ArticleFavorite;
 import com.app.finder.domain.ArticleReply;
@@ -193,7 +195,34 @@ public class ArticleService {
     			}
             }
         }*/
-        
+        // 保存缩小生成文章内容前的图片和URL
+        if (article.getFirstImg() != null) {
+	        //取得当前日期作为文件夹
+	        String day = ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+			// imgType:image/png
+	        String fileName = day + "/" + System.currentTimeMillis() + "." + article.getFirstImgContentType().split("/")[1];
+        	// minfirstpic显示在文章前的图片文件夹
+	        String firstPicFolder = "minfirstimg/";
+        	String minFirstPicPath = savePicPath + firstPicFolder;
+        	//保存图片的完整路径和文件名
+        	minFirstPicPath += fileName;
+        	
+        	File f = new File(minFirstPicPath);
+ 	        //google IO 不存在时创建父文件夹
+ 	        Files.createParentDirs(f);
+ 	        
+        	//重新缩小上传图片的大小 220 * 124
+        	ByteArrayOutputStream out = new ByteArrayOutputStream();
+        	ThumbnailsUtils.resetPicture(220, 124, article.getFirstImg(), out);
+        	//保存缩小后的图片
+        	try (BufferedOutputStream bos = new BufferedOutputStream(
+        			new FileOutputStream(minFirstPicPath))) {
+        		bos.write(out.toByteArray());
+        		// 文章第一张图片的apache显示URL
+        		article.setMinImgURL(contentPicURL + firstPicFolder + fileName);
+        	}
+        }
+    	
         //保存图片的路径
         List<String> urlPics = new ArrayList<>();
         //文章内容中有上传图片时，需要缩放图片的大小
@@ -214,7 +243,9 @@ public class ArticleService {
 	        String fileName = day + "/" + System.currentTimeMillis() + "." + picType;
 	        
 	        // 临时保存图片路径，用savePicPath循环后会有字符串累加的情况导致图片路径不正确
-	        String tempPicPath = savePicPath;
+	        // contentpic文章内容图片文件夹
+	        String contentPicFolder = "contentimg/";
+	        String tempPicPath = savePicPath + contentPicFolder;
 	        //保存图片的完整路径和文件名
 	        tempPicPath += fileName;
 	        
@@ -223,7 +254,7 @@ public class ArticleService {
 	        Files.createParentDirs(f);
 	        
 	        //文章内容图片的apache显示URL
-	        urlPics.add(contentPicURL + fileName);
+	        urlPics.add(contentPicURL + contentPicFolder + fileName);
         	//保存缩小后的图片
         	try (BufferedOutputStream bos = new BufferedOutputStream(
         			new FileOutputStream(tempPicPath))) {

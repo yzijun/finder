@@ -34,7 +34,7 @@
             <column name="created_date" type="timestamp"/>
             <column name="user_id" type="bigint"/>
             <column name="article_category_id" type="bigint"/>
-            <column name="minImgURL" type="varchar(300)"/>
+            <column name="min_img_url" type="varchar(300)"/>
         </createTable>
         <dropDefaultValue tableName="fin_article" columnName="created_date" columnDataType="datetime"/>
 
