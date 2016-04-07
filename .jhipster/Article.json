@@ -32,7 +32,7 @@
                 "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "40"
+            "fieldValidateRulesMaxlength": "60"
         },
         {
             "fieldId": 2,
@@ -45,11 +45,31 @@
         },
         {
             "fieldId": 3,
-            "fieldName": "content",
+            "fieldName": "firstImgContentType",
             "fieldType": "String"
         },
         {
             "fieldId": 4,
+            "fieldName": "content",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "published",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "pageView",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "minImgURL",
+            "fieldType": "String"
+        }
+        {
+            "fieldId": 8,
             "fieldName": "createdDate",
             "fieldType": "ZonedDateTime"
         }

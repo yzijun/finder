@@ -17,12 +17,12 @@
                 "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "30"
+            "fieldValidateRulesMaxlength": "50"
         },
         {
             "fieldId": 2,
-            "fieldName": "description",
-            "fieldType": "String"
+            "fieldName": "parentId",
+            "fieldType": "Long"
         }
     ],
     "changelogDate": "20151221080415",
