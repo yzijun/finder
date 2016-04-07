@@ -1,32 +1,16 @@
 package com.app.finder.domain;
 
-import java.io.Serializable;
-import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import java.time.ZonedDateTime;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Objects;
 
 /**
  * 文章类.
@@ -92,17 +76,6 @@ public class Article implements Serializable {
     inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="ID"))
     private Set<Tag> tags = new HashSet<>();
 
-    // 文章评论
-    @OneToMany(mappedBy = "article")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ArticleReply> articleReplies = new HashSet<>();
-    
-    // 文章收获喜欢
-    @OneToMany(mappedBy = "article")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ArticleFavorite> articleFavorites = new HashSet<>();
     
     public Long getId() {
         return id;
@@ -198,22 +171,6 @@ public class Article implements Serializable {
 
 	public void setMinImgURL(String minImgURL) {
 		this.minImgURL = minImgURL;
-	}
-
-	public Set<ArticleReply> getArticleReplies() {
-		return articleReplies;
-	}
-
-	public void setArticleReplies(Set<ArticleReply> articleReplies) {
-		this.articleReplies = articleReplies;
-	}
-
-	public Set<ArticleFavorite> getArticleFavorites() {
-		return articleFavorites;
-	}
-
-	public void setArticleFavorites(Set<ArticleFavorite> articleFavorites) {
-		this.articleFavorites = articleFavorites;
 	}
 
 	@Override
