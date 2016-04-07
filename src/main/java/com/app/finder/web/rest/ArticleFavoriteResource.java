@@ -26,7 +26,7 @@ import com.codahale.metrics.annotation.Timed;
 
 /**
  * REST controller for managing ArticleFavorite.
- * 文章收藏
+ * 文章收获喜欢
  */
 @RestController
 @RequestMapping("/api")

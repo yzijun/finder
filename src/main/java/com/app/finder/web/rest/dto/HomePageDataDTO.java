@@ -42,7 +42,7 @@ public class HomePageDataDTO {
 	// 文章评论数
 	private Integer commentNum;
 
-	// 文章收藏数
+	// 文章收获喜欢数
 	private Integer favoriteNum;
 
 	public HomePageDataDTO(Article article, String prettyTime, Integer commentNum, Integer favoriteNum) {

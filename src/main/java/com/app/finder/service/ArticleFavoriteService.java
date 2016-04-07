@@ -25,7 +25,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing ArticleFavorite.
- * 文章收藏
+ * 文章收获喜欢
  */
 @Service
 @Transactional
