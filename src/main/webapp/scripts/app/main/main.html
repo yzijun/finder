@@ -31,7 +31,7 @@
 						<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
 							<img 
 								data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
-								alt="ori" ng-if="s.firstImg" class="page-view-box-img"/>
+								alt="{{s.title}}" ng-if="s.firstImg" class="page-view-box-img"/>
 						</a>
 					</span>
 					<!-- 非第一张图显示小图 -->
@@ -40,7 +40,7 @@
 							<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
 								<img 
 									data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
-									alt="ori" ng-if="s.firstImg" class="original-box-img"/>
+									alt="{{s.title}}" ng-if="s.firstImg" class="original-box-img"/>
 							</a>
 						</div>
 					</div>
@@ -82,11 +82,18 @@
 					<hr>
 					<div class="media" style="margin-top: 0px;" ng-repeat="s in pageDataDTO track by s.id">
 						<!-- 左侧图片部分 -->
-						<div class="media-left media-middle">
+						<!-- 去掉 显示在文章前的第一张图 字节数组  图片比较大网络传输慢影响性能 -->
+						<!-- <div class="media-left media-middle">
 							<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
 							<img 
 								data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
 								alt="info" ng-if="s.firstImg" class="media-object mob-img"/>
+							</a>
+						</div> -->
+						<div class="media-left media-middle">
+							<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
+								<!-- img angular 的方式赋值{{}} -->
+								<img src="{{s.minImgURL}}" alt="{{s.title}}" ng-if="s.minImgURL" class="media-object mob-img"/>
 							</a>
 						</div>
 						<div class="media-body" style="padding-left: 15px;">
@@ -100,7 +107,7 @@
 									<a ui-sref="articleAuthorDetail({uid:s.user.id})" title="{{s.user.nickName}}">
 									<img
 					                    data-ng-src="{{'data:' + s.user.pictureContentType + ';base64,' + s.user.picture}}"
-					                    class="img-circle profile-img-smaller" alt="profile" ng-if="s.user.picture"/>
+					                    class="img-circle profile-img-smaller" alt="{{s.user.nickName}}" ng-if="s.user.picture"/>
 									</a>
 								</div>
 								<!-- 用户昵称 -->
@@ -155,7 +162,7 @@
 			    <!-- center-block 让内容块居中 -->
                   <img
                     data-ng-src="{{'data:' + account.pictureContentType + ';base64,' + account.picture}}"
-                    class="img-circle profile-img-middle center-block" alt="profile" ng-if="account.picture"/>
+                    class="img-circle profile-img-middle center-block" alt="{{account.nickName}}" ng-if="account.picture"/>
                 </div>
                <!-- text-center 让文字居中 -->
 			    <p class="list-group-item-text text-center box-author-name">{{account.nickName}}</p>
@@ -195,7 +202,7 @@
 							<span class="pull-left">
 								<img
 				                    data-ng-src="{{'data:' + au.author.pictureContentType + ';base64,' + au.author.picture}}"
-				                    class="img-circle profile-img-smaller" alt="profile" ng-if="au.author.picture"/>
+				                    class="img-circle profile-img-smaller" alt="{{au.author.nickName}}" ng-if="au.author.picture"/>
 							</span>
 							<span class="main-hot-user-img">{{au.author.nickName}}</span>
 							<span class="badge pull-right" data-toggle="tooltip" data-placement="left" title="文章发表数">{{au.articleNum}}</span>

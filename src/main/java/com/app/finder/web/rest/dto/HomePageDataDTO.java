@@ -17,12 +17,6 @@ public class HomePageDataDTO {
 	// 文章标题
 	private String title;
 
-	// 显示在文章前的第一张图
-	private byte[] firstImg;
-
-	// 图片类型
-	private String firstImgContentType;
-
 	// 文章内容
 	private String content;
 
@@ -31,6 +25,10 @@ public class HomePageDataDTO {
 
 	// 文章浏览次数
 	private Integer pageView;
+	
+	// 保存缩小生成第一张图片的URL
+    // 压缩传输图片数据  首页显示列表图片数据用
+    private String minImgURL;
 
 	private ZonedDateTime createdDate;
 
@@ -48,19 +46,18 @@ public class HomePageDataDTO {
 	private Integer favoriteNum;
 
 	public HomePageDataDTO(Article article, String prettyTime, Integer commentNum, Integer favoriteNum) {
-		this(article.getId(), article.getTitle(), article.getFirstImg(), article.getFirstImgContentType(),
-				article.getContent(), article.isPublished(), article.getPageView(), article.getCreatedDate(),
+		this(article.getId(), article.getTitle(), article.getContent(), article.getMinImgURL(), 
+				article.isPublished(), article.getPageView(), article.getCreatedDate(),
 				article.getUser(), article.getArticleCategory(), prettyTime, commentNum, favoriteNum);
 	}
 
-	public HomePageDataDTO(Long id, String title, byte[] firstImg, String firstImgContentType, String content,
+	public HomePageDataDTO(Long id, String title, String content, String minImgURL, 
 			boolean published, Integer pageView, ZonedDateTime createdDate, User user, ArticleCategory articleCategory,
 			String prettyTime, Integer commentNum, Integer favoriteNum) {
 		this.id = id;
 		this.title = title;
-		this.firstImg = firstImg;
-		this.firstImgContentType = firstImgContentType;
 		this.content = content;
+		this.minImgURL = minImgURL;
 		this.published = published;
 		this.pageView = pageView;
 		this.createdDate = createdDate;
@@ -85,22 +82,6 @@ public class HomePageDataDTO {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public byte[] getFirstImg() {
-		return firstImg;
-	}
-
-	public void setFirstImg(byte[] firstImg) {
-		this.firstImg = firstImg;
-	}
-
-	public String getFirstImgContentType() {
-		return firstImgContentType;
-	}
-
-	public void setFirstImgContentType(String firstImgContentType) {
-		this.firstImgContentType = firstImgContentType;
 	}
 
 	public String getContent() {
@@ -152,7 +133,8 @@ public class HomePageDataDTO {
 	}
 
 	public String getPrettyTime() {
-		return prettyTime;
+		// 替换文字中的空格
+		return prettyTime.replaceAll(" ", "");
 	}
 
 	public void setPrettyTime(String prettyTime) {
@@ -175,4 +157,11 @@ public class HomePageDataDTO {
 		this.favoriteNum = favoriteNum;
 	}
 
+	public String getMinImgURL() {
+		return minImgURL;
+	}
+
+	public void setMinImgURL(String minImgURL) {
+		this.minImgURL = minImgURL;
+	}
 }
