@@ -37,24 +37,27 @@
 	 						<div ng-switch="isAuthenticated()">
 	 							<!-- 未登录 -->
 	 							<div ng-switch-when="false">
-		 							<p class="pull-right">
+	 								<!-- center-block 让内容块居中 -->
+		 							<p class="text-center center-block">
 			 							<!-- <a class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a> -->
-			 							<button class="btn btn-default" type="submit">
-											<i class="fa fa-user-plus"></i>
+			 							<button class="btn btn-default favorite" type="submit">
+											<i class="fa fa-heart"></i>
 												喜欢
+											<span class="favorite-num">{{articleFavoriteCount}}</span>
 										</button>
 									</p>
 	 							</div>
 	 							<!-- 已登录 -->
 	 							<div ng-switch-when="true">
-	 								<p class="pull-right">
+	 								<p class="text-center center-block">
 	 									<!-- 根据id是否存在显示不同标签  span是已喜欢  a是未喜欢 -->
 			 							<!-- <span ng-show="isArticleFavoriteCurrentUser" class="article-end-collect-fin"></span>
 			 							<a ng-show="!isArticleFavoriteCurrentUser" class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a> -->
-			 							<button id="fbtn" class="btn btn-default" ng-disabled="isFavoriteSaving" type="submit">
+			 							<button id="fbtn" class="btn btn-default favorite" ng-disabled="isFavoriteSaving" type="submit">
 											<i class="fa fa-heart"></i>
 											<!-- 根据状态写入 喜欢或已喜欢文字 -->
 											<span></span>
+											<span class="favorite-num">{{articleFavoriteCount}}</span>
 										</button>
 									</p>
 	 							</div>

@@ -39,10 +39,10 @@ angular.module('finderApp')
             if ($scope.isArticleFavoriteCurrentUser) {
             	// 设置文章喜欢ID点击取消或喜欢时用
             	$scope.articleFavorite.id = $scope.article.favoriteId;
-            	$("#fbtn").find("span").html("已喜欢");
+            	$("#fbtn").find("span:first").html("已喜欢");
             	$("#fbtn").attr("title","取消喜欢");
             } else {
-            	$("#fbtn").find("span").html("喜欢");
+            	$("#fbtn").find("span:first").html("喜欢");
             	$("#fbtn").attr("title","添加喜欢");
             }
             // 设定文章喜欢按钮为可用状态
@@ -193,7 +193,7 @@ angular.module('finderApp')
                 	// 未喜欢
                 	$scope.isArticleFavoriteCurrentUser = false;
                 	
-                	$("#fbtn").find("span").html("喜欢");
+                	$("#fbtn").find("span:first").html("喜欢");
                 	$("#fbtn").attr("title","添加喜欢");
                 	// 设定文章喜欢按钮为可用状态
             		$scope.isFavoriteSaving = false;
@@ -217,7 +217,7 @@ angular.module('finderApp')
         	// 已喜欢
         	$scope.isArticleFavoriteCurrentUser = true;
         	
-        	$("#fbtn").find("span").html("已喜欢");
+        	$("#fbtn").find("span:first").html("已喜欢");
         	$("#fbtn").attr("title","取消喜欢");
         	// 设定文章喜欢按钮为可用状态
     		$scope.isFavoriteSaving = false;

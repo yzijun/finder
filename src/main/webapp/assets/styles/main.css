@@ -611,6 +611,26 @@ a:hover, a:link {
     color: #ee6e50;
 }
 
+.article-content-wrap .favorite {
+    border: 1px solid #2e8be0;
+    border-radius: 40px;
+    font-size: 18px;
+    height: 50px;
+    line-height: 30px;
+    overflow: hidden;
+    width: 163px;
+    margin: 10px 0;
+}
+
+.article-content-wrap .favorite-num {
+    height: 20px;
+    padding-left: 10px;
+}
+
+.text-center {
+	text-align: center;
+}
+
 .user-nav .part {
     color: #808080;
     display: inline-block;
