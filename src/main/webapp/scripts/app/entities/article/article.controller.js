@@ -72,4 +72,11 @@ angular.module('finderApp')
         	}
         }
         
+        // 清空首页缓存数据
+        $scope.cleanHomeData = function () {
+        	 $http.get('api/home/reload').success(function () {
+        		 alert("清空首页缓存数据完成");
+        	 });
+        }
+        
     });

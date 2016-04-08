@@ -51,6 +51,22 @@ public class HomeResource {
     }
     
     /**
+     * 移除首页的全部缓存数据,重新取得数据
+     * @throws URISyntaxException 
+     */
+    @RequestMapping(value = "/home/reload",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<HomeDTO> removeCacheHomeData() 
+    			throws URISyntaxException {
+    	log.debug("REST request to get a page of removeCacheHomeData");
+        HomeDTO data = homeService.removeCacheHome(); 
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(data.getPageData(), "/api/home");
+        return new ResponseEntity<>(data, headers, HttpStatus.OK);
+    }
+    
+    /**
      * 取得登录用户的文章数量
      */
     @RequestMapping(value = "/home/articlesum",
