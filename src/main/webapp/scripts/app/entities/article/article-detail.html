@@ -11,7 +11,7 @@
 					<i class="icon icon-line"></i>
 					<!-- 格式化日期 2016-01-07 09:55 -->
 					<span class="article-time">{{article.createdDate | date:'yyyy-MM-dd HH:mm'}}</span>
-					<span class="article-share">收藏{{articleFavoriteCount}}</span>
+					<span class="article-share">喜欢{{articleFavoriteCount}}</span>
 					<!-- java中Array转换js数组用length -->
 					<span class="article-pl">评论{{replies.length}}</span>
 				</div>
@@ -29,11 +29,11 @@
                    		<!-- <p class="text-center">
 	                   		<a class="btn btn-primary btn-lg" href="#" style="width: 110px;">
 	                   			用的是 Font Awesome的图标
-	 							<i class="fa fa-bookmark-o fa-lg"></i> 收藏
+	 							<i class="fa fa-bookmark-o fa-lg"></i> 喜欢
 	 						</a>
  						</p> -->
  						<form name="updateForm" role="form" ng-submit="addFavorite(articleFavorite.id)">
-	 						<!-- 文章收藏 -->
+	 						<!-- 文章收获喜欢 -->
 	 						<div ng-switch="isAuthenticated()">
 	 							<!-- 未登录 -->
 	 							<div ng-switch-when="false">
@@ -41,19 +41,19 @@
 			 							<!-- <a class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a> -->
 			 							<button class="btn btn-default" type="submit">
 											<i class="fa fa-user-plus"></i>
-												收藏
+												喜欢
 										</button>
 									</p>
 	 							</div>
 	 							<!-- 已登录 -->
 	 							<div ng-switch-when="true">
 	 								<p class="pull-right">
-	 									<!-- 根据id是否存在显示不同标签  span是已收藏  a是未收藏 -->
+	 									<!-- 根据id是否存在显示不同标签  span是已喜欢  a是未喜欢 -->
 			 							<!-- <span ng-show="isArticleFavoriteCurrentUser" class="article-end-collect-fin"></span>
 			 							<a ng-show="!isArticleFavoriteCurrentUser" class="article-end-collect" ng-click="addFavorite(articleFavorite.id)"></a> -->
 			 							<button id="fbtn" class="btn btn-default" ng-disabled="isFavoriteSaving" type="submit">
 											<i class="fa fa-heart"></i>
-											<!-- 根据状态写入 收藏或已收藏文字 -->
+											<!-- 根据状态写入 喜欢或已喜欢文字 -->
 											<span></span>
 										</button>
 									</p>

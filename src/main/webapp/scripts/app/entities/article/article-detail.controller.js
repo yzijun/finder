@@ -30,22 +30,22 @@ angular.module('finderApp')
             $scope.nextPage = haveNextPage($scope.article.articleReplies);
             // 是否有评论数据
             $scope.hasReply = $scope.article.articleReplies.totalPages > 0;
-            // 文章的收藏数
+            // 文章的喜欢数
             $scope.articleFavoriteCount = $scope.article.countArticleSaveAid;
-            // 当前登录用户是否收藏过该文章
+            // 当前登录用户是否喜欢过该文章
             $scope.isArticleFavoriteCurrentUser = $scope.article.articleFavoriteCurrentUser;
             $scope.articleFavorite = {};
-            // 当前登录用户已经收藏过该文章
+            // 当前登录用户已经喜欢过该文章
             if ($scope.isArticleFavoriteCurrentUser) {
-            	// 设置文章收藏ID点击取消或收藏时用
+            	// 设置文章喜欢ID点击取消或喜欢时用
             	$scope.articleFavorite.id = $scope.article.favoriteId;
-            	$("#fbtn").find("span").html("已收藏");
-            	$("#fbtn").attr("title","取消收藏");
+            	$("#fbtn").find("span").html("已喜欢");
+            	$("#fbtn").attr("title","取消喜欢");
             } else {
-            	$("#fbtn").find("span").html("收藏");
-            	$("#fbtn").attr("title","添加收藏");
+            	$("#fbtn").find("span").html("喜欢");
+            	$("#fbtn").attr("title","添加喜欢");
             }
-            // 设定文章收藏按钮为可用状态
+            // 设定文章喜欢按钮为可用状态
     		$scope.isFavoriteSaving = false;
         }, function(response) {
         	// 可能有文章id不存在或是该文章不允许发布
@@ -172,15 +172,15 @@ angular.module('finderApp')
     	    }
     	}
         
-        // 文章收藏
+        // 文章喜欢
         $scope.addFavorite = function (fid) {
-        	// 设定文章收藏按钮为不可用状态
+        	// 设定文章喜欢按钮为不可用状态
     		$scope.isFavoriteSaving = true;
             // 设定所属的文章ID
             $scope.articleFavorite.article = {id:$scope.article.id};
-            // fid文章收藏ID
+            // fid文章喜欢ID
             if (fid != null) {
-            	// 取消收藏功能
+            	// 取消喜欢功能
             	// 用$http.get发请求
                 $http.get('api/delFavoriteWithCache?id='+fid+'&aid='+$scope.article.id).success(function (favoriteCount) {
 //                	$state.go('article.detail', {id:$scope.article.id});
@@ -188,20 +188,20 @@ angular.module('finderApp')
 //                	window.location.reload();
                 	
                 	$scope.articleFavorite.id = null;
-                	// 文章的收藏数
+                	// 文章的喜欢数
                     $scope.articleFavoriteCount = favoriteCount;
-                	// 未收藏
+                	// 未喜欢
                 	$scope.isArticleFavoriteCurrentUser = false;
                 	
-                	$("#fbtn").find("span").html("收藏");
-                	$("#fbtn").attr("title","添加收藏");
-                	// 设定文章收藏按钮为可用状态
+                	$("#fbtn").find("span").html("喜欢");
+                	$("#fbtn").attr("title","添加喜欢");
+                	// 设定文章喜欢按钮为可用状态
             		$scope.isFavoriteSaving = false;
                 });
             } else {
             	// 用户是否登录
             	if ($scope.isAuthenticated()) {
-            		// 保存文章收藏
+            		// 保存文章喜欢
             		ArticleFavorite.save($scope.articleFavorite, onAddSuccess, onAddError);
             	} else {
             		// 转到登录页面
@@ -209,21 +209,21 @@ angular.module('finderApp')
             	}
             }
         };
-        // 文章收藏成功
+        // 文章喜欢成功
         var onAddSuccess = function (result) {
         	$scope.articleFavorite = result;
-        	// 文章的收藏数
+        	// 文章的喜欢数
             $scope.articleFavoriteCount = result.countArticleSaveAid;
-        	// 已收藏
+        	// 已喜欢
         	$scope.isArticleFavoriteCurrentUser = true;
         	
-        	$("#fbtn").find("span").html("已收藏");
-        	$("#fbtn").attr("title","取消收藏");
-        	// 设定文章收藏按钮为可用状态
+        	$("#fbtn").find("span").html("已喜欢");
+        	$("#fbtn").attr("title","取消喜欢");
+        	// 设定文章喜欢按钮为可用状态
     		$scope.isFavoriteSaving = false;
         };
         
-        // 文章收藏错误
+        // 文章喜欢错误
         var onAddError = function (result) {
         	
         };
