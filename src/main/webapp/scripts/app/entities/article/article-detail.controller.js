@@ -204,6 +204,9 @@ angular.module('finderApp')
             		// 保存文章喜欢
             		ArticleFavorite.save($scope.articleFavorite, onAddSuccess, onAddError);
             	} else {
+            		// 登录后跳转到当前页面  设置前一个页面名和参数
+            		$rootScope.previousStateName = 'article.detail';
+            		$rootScope.previousStateParams = {id:$stateParams.id};
             		// 转到登录页面
                 	$state.go('login');
             	}
