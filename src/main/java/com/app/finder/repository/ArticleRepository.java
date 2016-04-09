@@ -26,9 +26,6 @@ public interface ArticleRepository extends JpaRepository<Article,Long> {
     @Query("select count(*) from Article article where article.user.id = ?1 and article.published = true")
     Integer findByCountArticleIsUid(Long uid);
     
-    //取得该用户全部评论数 uid = replyer_id
-    @Query("select count(*) from ArticleReply reply where reply.replyer.id = ?1 and reply.published = true")
-    Integer findByCountArticleReplyUid(Long uid);
     
 	//查询一篇可以发布的文章
     Article findByIdAndPublishedTrue(Long id);

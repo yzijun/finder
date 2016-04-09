@@ -7,15 +7,15 @@ angular.module('finderApp')
     	// 取得数据类型有文章、评论、收藏
     	$scope.type = "article";
 
-    	$scope.articleAuthors = [];
-        $scope.loadArticleAuthors = function() {
-        	$http.get('/someUrl').success(function(data) {
-        		$scope.articleAuthors = data;
-        		
+    	$scope.articleAuthorPageData = [];
+        $scope.loadArticleAuthor = function() {
+        	$http.get('api/author/detail/' + $stateParams.uid).success(function(data) {
         		// 添加页面title
-                $window.document.title =  "的个人中心 - " + WEBSITENAME;
+                $window.document.title =  data.user.nickName + " - " + WEBSITENAME;
+                
+                $scope.author = data;
         	});
         };
-        $scope.loadArticleAuthors();
+        $scope.loadArticleAuthor();
         
     });

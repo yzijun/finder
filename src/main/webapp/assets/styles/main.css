@@ -230,6 +230,7 @@ ul#strengthBar {
     background-color: #fff;
    	border-color: #2e8be0;
     color: #2e8be0;
+    outline: none;
 }
 
 /* ==========================================================================

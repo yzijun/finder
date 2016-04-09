@@ -334,7 +334,7 @@ public class ArticleService {
         // 取得该用户全部文章数
         Integer countArticleUid = articleRepository.findByCountArticleIsUid(article.getUser().getId());
  		// 取得该用户全部评论数
-        Integer countArticleReplyUid = articleRepository.findByCountArticleReplyUid(article.getUser().getId());
+        Integer countArticleReplyUid = articleReplyRepository.findByCountArticleReplyUid(article.getUser().getId());
         
         // 右边栏 热门文章
         List<Article> hotArticles = hotArticleDetail();

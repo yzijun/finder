@@ -21,4 +21,8 @@ public interface ArticleReplyRepository extends JpaRepository<ArticleReply,Long>
     // 取得该文章全部评论数 aid 文章id
     @Query("select count(*) from ArticleReply reply where reply.article.id = ?1 and reply.published = true")
     Integer findByCountArticleUid(Long aid);
+    
+    //取得该用户全部评论数 uid = replyer_id
+    @Query("select count(*) from ArticleReply reply where reply.replyer.id = ?1 and reply.published = true")
+    Integer findByCountArticleReplyUid(Long uid);
 }

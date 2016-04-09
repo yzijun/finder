@@ -21,11 +21,13 @@
 
 			<div class="mod-user-info">
 				<div class="profile-image">
-					<img class="img-circle profile-img-middle center-block" alt="王玄"
-						src="http://7xil86.com2.z0.glb.qiniucdn.com/uploads/thumb/8af59040f41254f74adcb78b62a4520b9e50803c_100_100.JPG">
+					<img
+	                    data-ng-src="{{'data:' + author.user.pictureContentType + ';base64,' + author.user.picture}}"
+	                    class="img-circle profile-img-middle center-block" alt="{{author.user.nickName}}" ng-if="author.user.picture"/>
+
 				</div>
-				<h1 class="name">王玄</h1>
-				<p class="bio">钛媒体编辑wangxuanxuan@btmedia.com</p>
+				<h1 class="name">{{author.user.nickName}}</h1>
+				<p class="bio">{{author.user.signature}}</p>
 				
 				<div class="options">
 					<button  class="btn btn-default" type="button">
@@ -36,11 +38,11 @@
 			</div>
 			<div class="user-nav">
 				<div class="parts">
-					<a class="part current" href="/user/295954">发表文章（74）</a>
+					<a class="part current" href="#">发表文章（{{author.articleNum}}）</a>
 					<span class="line"></span>
-					<a class="part " href="/user/295954/timeline">评论（0）</a>
+					<a class="part " href="#">评论（{{author.commentNum}}）</a>
 					<span class="line"></span>
-					<a class="part " href="/user/295954/timeline">收藏（12）</a>
+					<a class="part " href="#">收获喜欢（{{author.favoriteNum}}）</a>
 				</div>
 			</div>
 		</div>

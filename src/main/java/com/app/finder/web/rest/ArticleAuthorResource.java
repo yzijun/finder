@@ -2,6 +2,7 @@ package com.app.finder.web.rest;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -20,13 +21,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.finder.domain.Article;
+import com.app.finder.service.ArticleAuthorService;
 import com.app.finder.service.ArticleService;
+import com.app.finder.web.rest.dto.ArticleAuthorDTO;
 import com.app.finder.web.rest.util.PaginationUtil;
 import com.codahale.metrics.annotation.Timed;
 
 /**
- * REST controller for managing Article. 
- * 作者详细页面
+ * REST controller for managing ArticleAuthorResource. 
+ * 文章作者详细
  */
 @RestController
 @RequestMapping("/api")
@@ -35,25 +38,29 @@ public class ArticleAuthorResource {
 	private final Logger log = LoggerFactory.getLogger(ArticleAuthorResource.class);
 
 	@Inject
+    private ArticleAuthorService articleAuthorService;
+	
+	@Inject
 	private ArticleService articleService;
-
+	
 	/**
 	 * 取得作者详细页面默认初始化数据
 	 * 文章、评论、收藏
 	 * uid:用户ID
 	 */
-	@RequestMapping(value = "/articleAuthor/{uid}", 
-			method = RequestMethod.GET, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-	public ResponseEntity<List<Article>> getInitArticleAuthors(@PathVariable Long uid)
-					throws URISyntaxException {
-        log.debug("REST request to get a init of ArticleAuthors");
-        Pageable pageable = null;
-        Page<Article> page = articleService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/articles");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-	}
+    @RequestMapping(value = "/author/detail/{id}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<ArticleAuthorDTO> getArticleAuthorDetail(@PathVariable Long id) {
+        log.debug("REST request to get ArticleAuthorDetail");
+        ArticleAuthorDTO articleAuthorDetail = articleAuthorService.getAuthorDetail(id);
+        return Optional.ofNullable(articleAuthorDetail)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
 	/**
 	 * 取得作者详细页面分页数据
@@ -61,7 +68,7 @@ public class ArticleAuthorResource {
 	 * uid:用户ID
 	 * type:文章、评论、收藏
 	 */
-	@RequestMapping(value = "/articleAuthor/{uid}", 
+	@RequestMapping(value = "/author/detailpage/{uid}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, 
 			params = {"type"})

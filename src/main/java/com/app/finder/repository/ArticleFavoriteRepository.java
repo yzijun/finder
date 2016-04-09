@@ -18,6 +18,10 @@ public interface ArticleFavoriteRepository extends JpaRepository<ArticleFavorite
     @Query("select count(*) from ArticleFavorite af where af.article.id = ?1")
     Integer findByCountArticleFavoriteAid(Long aid);
     
+    // 取得该用户收获喜欢数 uid = userId
+    @Query("select count(*) from ArticleFavorite af where af.user.id = ?1")
+    Integer findByCountArticleFavoriteUid(Long uid);
+    
     // 根据用户id和文章id查询文章收获喜欢
     ArticleFavorite findByUserIdAndArticleId(Long uid, Long aid);
     
