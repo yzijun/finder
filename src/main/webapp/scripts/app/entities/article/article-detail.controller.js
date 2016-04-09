@@ -101,7 +101,7 @@ angular.module('finderApp')
             // 替换空格或Tab键生成的html
             var articleContent = $scope.articleReply.content.replace(/&nbsp;/g,'');
             // 替换html<br>
-            articleContent = articleContent.replace(/<br>/g,'');
+            articleContent = articleContent.replace(/<br>/g,'').replace(/<br \/>/g,'').replace(/<br\/>/g,'');
             articleContent = $.trim(articleContent);
             
             // 没有输入评论内容的验证
