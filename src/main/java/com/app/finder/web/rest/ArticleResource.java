@@ -65,7 +65,8 @@ public class ArticleResource {
         }
         Article result = articleService.save(article);
         return ResponseEntity.created(new URI("/api/articles/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("article", result.getId().toString()))
+        		// 不设置headers的alert的内容文章详细页面会显示
+//            .headers(HeaderUtil.createEntityCreationAlert("article", result.getId().toString()))
             .body(result);
     }
 
