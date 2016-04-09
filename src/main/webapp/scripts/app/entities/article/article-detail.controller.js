@@ -5,6 +5,8 @@ angular.module('finderApp')
     		DataUtils, entity, Article, User, ArticleCategory, Tag, 
     		Principal, ArticleFavorite, AlertService, WEBSITENAME) {
     	 Principal.identity().then(function(account) {
+    		// 取得当前登录用户
+             $scope.loginUser = account;
              $scope.isAuthenticated = Principal.isAuthenticated;
          });
     	 
@@ -86,6 +88,9 @@ angular.module('finderApp')
         $scope.replySave = function () {
         	// 设置文章评论对应的文章ID(文章和评论的关联关系)
             $scope.articleReply.article = {id:$scope.article.id};
+            // 设置当前userId 
+            // 暂时不用保存成功后显示评论会有问题
+//        	$scope.articleReply.replyer = {id:$scope.loginUser.id};
             // 目的是把json对象转换成字符串
 //            JSON.stringify(data)
             // 取得kindeditor文本编辑器的内容

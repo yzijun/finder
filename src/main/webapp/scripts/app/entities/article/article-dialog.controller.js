@@ -1,9 +1,14 @@
 'use strict';
 
 angular.module('finderApp').controller('ArticleDialogController',
-    ['$scope', '$state','DataUtils', 'entity', 'Article', 'User', 'ArticleCategory', 'Tag',
-        function($scope, $state, DataUtils, entity, Article, User, ArticleCategory, Tag) {
+    ['$scope', '$state','DataUtils', 'entity', 'Article', 'User', 'ArticleCategory', 'Tag', 'Principal',
+        function($scope, $state, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal) {
 
+    	Principal.identity().then(function(account) {
+    		// 取得当前登录用户
+            $scope.account = account;
+        });
+    	
         $scope.article = entity;
         //注释不用,会查询全部的用户
 //        $scope.users = User.query();
@@ -36,6 +41,8 @@ angular.module('finderApp').controller('ArticleDialogController',
             if ($scope.article.id != null) {
                 Article.update($scope.article, onSaveSuccess, onSaveError);
             } else {
+            	// 设置当前userId
+            	$scope.article.user = {id:$scope.account.id};
                 Article.save($scope.article, onSaveSuccess, onSaveError);
             }
         };

@@ -114,10 +114,12 @@ public class ArticleService {
         article.setPageView(0);
         article.setCreatedDate(ZonedDateTime.now());
         //页面参数传不过来,重新查找User
-        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+       /* User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         User u = new User();
         u.setId(user.getId());
-        article.setUser(user);
+        article.setUser(user);*/
+        // userId可以从页面参数传过来了
+        
         //注释服务端缩小上传图片的代码，改为localResizeIMG客户端浏览器缩小图片
         /*//取得上传图片的宽和高
         InputStream is = new ByteArrayInputStream(article.getFirstImg());
@@ -457,7 +459,7 @@ public class ArticleService {
     	log.debug("文章详细页面，新建文章评论 : {}", articleReply);
     	// 父评论人
     	articleReply.setParentReplyer(null);
-    	// 页面参数传不过来,重新查找User
+    	// 不需要从页面传参数显示评论有问题,重新查找User
     	User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
     	articleReply.setReplyer(user);
     	
@@ -469,7 +471,7 @@ public class ArticleService {
         	articleReply.setContent(repContent);
         });
     	// 保存评论
-    	articleReplyRepository.saveAndFlush(articleReply);
+    	articleReplyRepository.save(articleReply);
     	
     	// 查询文章对应的全部评论
 //    	List<ArticleReply> articleReplies =  articleReplyRepository.findReplyByArticleID(articleReply.getArticle().getId(), true);
