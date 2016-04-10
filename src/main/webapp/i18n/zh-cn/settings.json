@@ -9,7 +9,7 @@
             "picture": "头像",
             "upload": "上传头像",
             "gender": "性别",
-            "signature": "个性签名"
+            "signature": "个人简介"
         },
         "messages": {
             "error": {

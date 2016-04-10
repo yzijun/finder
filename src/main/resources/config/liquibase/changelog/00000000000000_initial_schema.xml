@@ -37,7 +37,7 @@
             <column name="picture" type="blob"/>
       		<column name="picture_content_type" type="varchar(50)"/>
       		<column name="gender" type="char(1)" defaultValue=""/>
-      		<column name="signature" type="varchar(50)" defaultValue=""/>
+      		<column name="signature" type="varchar(200)" defaultValue=""/>
             <column name="lang_key" type="varchar(5)"/>
             <column name="activation_key" type="varchar(20)"/>
             <column name="reset_key" type="varchar(20)"/>

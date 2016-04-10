@@ -79,8 +79,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "gender", length = 1)
     private String gender;
     
-    //个性签名
-    @Column(name = "signature", length = 50)
+    // 个人简介
+    @Column(name = "signature", length = 200)
     private String signature;
 
     @JsonIgnore

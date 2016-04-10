@@ -162,12 +162,12 @@
 			    <!-- center-block 让内容块居中 -->
                   <img
                     data-ng-src="{{'data:' + account.pictureContentType + ';base64,' + account.picture}}"
-                    class="img-circle profile-img-middle center-block" alt="{{account.nickName}}" ng-if="account.picture"/>
+                    class="img-circle profile-img-middle center-block" alt="{{account.nickName}}" title="{{account.nickName}}" ng-if="account.picture"/>
                 </div>
                <!-- text-center 让文字居中 -->
 			    <p class="list-group-item-text text-center box-author-name">{{account.nickName}}</p>
-			    <!-- 个性签名 过滤器  characters:3 显示3个字符-->
-			    <p class="list-group-item-text text-center box-author-one">{{account.signature | characters:28 }}</p>
+			    <!-- 个人简介 过滤器  characters:3 显示3个字符-->
+			    <p class="list-group-item-text text-center box-author-one" title="{{account.signature}}">{{account.signature | characters:28 }}</p>
 			    <p class="text-center">
                  	<a class="btn btn-default" ui-sref="article.new">
 						<!-- <i class="fa fa-file-o fa-lg"></i> -->  发布文章
