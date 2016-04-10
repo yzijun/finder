@@ -697,3 +697,13 @@ a:hover {
     font-size: 14px;
     line-height: 24px;
 }
+
+.media-body .title {
+    display: inherit;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-top: 0;
+}
