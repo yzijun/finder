@@ -4,7 +4,7 @@
         "form": {
             "password": "密码",
             "password.placeholder": "您的密码",
-            "rememberme": "自动登录(一个月有效)",
+            "rememberme": "自动登录(一个月有效、网吧或别人的电脑请不要勾选)",
             "button": "登录"
         },
         "messages": {
