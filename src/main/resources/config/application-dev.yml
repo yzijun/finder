@@ -67,7 +67,7 @@ jhipster:
         ehcache:
             maxBytesLocalHeap: 16M
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: finder@localhost
+        from: system@kepinzhe.com
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         spark:

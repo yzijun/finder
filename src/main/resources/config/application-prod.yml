@@ -80,7 +80,7 @@ jhipster:
         ehcache:
             maxBytesLocalHeap: 512M
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: kpz@kepinzhe.com
+        from: system@kepinzhe.com
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         spark:
