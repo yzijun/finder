@@ -23,6 +23,8 @@ public class PaginationUtil {
         headers.add("X-Total-Count", "" + page.getTotalElements());
         // 向HttpHeaders中新增加当前页的设定值
         headers.add("X-Page-Number", "" + page.getNumber());
+        // 向HttpHeaders中新增加总页数的设定值
+        headers.add("X-Page-TotalPages", "" + page.getTotalPages());
         String link = "";
         if ((page.getNumber() + 1) < page.getTotalPages()) {
             link = "<" + (new URI(baseUrl +"?page=" + (page.getNumber() + 1) + "&size=" + page.getSize())).toString() + ">; rel=\"next\",";
