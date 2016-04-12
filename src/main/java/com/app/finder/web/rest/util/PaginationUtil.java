@@ -21,6 +21,8 @@ public class PaginationUtil {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Total-Count", "" + page.getTotalElements());
+        // 向HttpHeaders中新增加当前页的设定值
+        headers.add("X-Page-Number", "" + page.getNumber());
         String link = "";
         if ((page.getNumber() + 1) < page.getTotalPages()) {
             link = "<" + (new URI(baseUrl +"?page=" + (page.getNumber() + 1) + "&size=" + page.getSize())).toString() + ">; rel=\"next\",";
