@@ -707,3 +707,22 @@ a:hover {
     margin-left: 0;
     margin-top: 0;
 }
+
+.get-mod-more {
+    border: 1px solid #f0f0f0;
+    display: inline-block;
+    margin-bottom: 60px;
+    margin-top: -6px;
+    color: #bbb;
+    font-size: 16px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    width: 100%;
+}
+
+.get-mod-more:hover {
+    background-color: #fafafa;
+    border-color: #fafafa;
+    color: #999;
+}

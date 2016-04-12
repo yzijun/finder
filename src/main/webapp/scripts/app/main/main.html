@@ -80,7 +80,7 @@
 				<!-- 最新的内容 -->
 				<div class="col-md-12 col-padding-over-bs">
 					<hr>
-					<div class="media" style="margin-top: 0px;" ng-repeat="s in pageDataDTO track by s.id">
+					<div class="media" style="margin-top: 0px;" ng-repeat="s in pageDataDTOs track by s.id">
 						<!-- 左侧图片部分 -->
 						<!-- 去掉 显示在文章前的第一张图 字节数组  图片比较大网络传输慢影响性能 -->
 						<!-- <div class="media-left media-middle">
@@ -146,6 +146,8 @@
 						</div>
 						<hr>
 					</div>
+					<!-- 点击加载更多 -->
+					<a class="get-mod-more" ng-show="!nextPage" ng-click="loadPageArticle()">点击加载更多 </a>
 				</div>
 			<!-- </div> -->
 		</div>
@@ -155,7 +157,7 @@
 			  <!-- 列表组 list-group 列表中的条目添加颜色样式 -->
 			  <li class="list-group-item list-group-item-success">
 			    <h4 class="list-group-item-heading">科品者</h4>
-			    <p class="list-group-item-text">拥抱科技改变生活、关注科技热点话题、交流科技前沿内容。</p>
+			    <p class="list-group-item-text">科技改变生活、关注科技热点话题、交流科技前沿内容。</p>
 			  </li>
 			</ul>
 		</div>

@@ -99,9 +99,9 @@ public class HomeService {
 		// 新技术文章数据
 //		List<Article> techData = technologies();
 		// 文章分页数据  默认第一页显示10条
-	    Pageable pageable = new PageRequest(0, 10);
+	    Pageable pageable = new PageRequest(0, 2);
 		Page<Article> pageData = pageArticleData(pageable);
-		List<HomePageDataDTO> pageDataDTO = transPageData(pageData) ;
+		List<HomePageDataDTO> pageDataDTO = transPageData(pageData);
 		// 活跃作者(文章数最多)
 		List<HotAuthorDTO> authorData = authors();
 		// 热门文章(访问最多的数据)
@@ -172,10 +172,10 @@ public class HomeService {
 		return page;
 	}
     
-    /*
+    /**
      * 转换文章分页数据为DTO，页面列表显示用
      */
-    private List<HomePageDataDTO> transPageData(Page<Article> page) {
+    public List<HomePageDataDTO> transPageData(Page<Article> page) {
     	List<PageArticleDataDTO> list = new ArrayList<>();
     	for (Article article : page.getContent()) {
     		// 取得 文章评论数和文章收获喜欢数  需要发多条sql
