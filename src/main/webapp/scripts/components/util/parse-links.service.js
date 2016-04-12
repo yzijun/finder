@@ -32,4 +32,19 @@ angular.module('finderApp')
 
             return links;
         }
+        // 增加新方法，从HttpHeaders取得下一页的URL
+        this.linkURL = function (header) {
+            if (header.length == 0) {
+                throw new Error("input must not be of zero length");
+            }
+            // Split parts by comma
+            var parts = header.split(',')[0];
+            // Parse each part into a named link
+            var section = parts.split(';');
+            if (section.length != 2) {
+                throw new Error("section could not be split on ';'");
+            }
+            var linkURL = section[0].replace(/<(.*)>/, '$1').trim();
+            return linkURL;
+        }
     });
