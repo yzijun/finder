@@ -113,7 +113,7 @@ angular.module('finderApp')
     	 	// 下一页页数
         	var page = $scope.pageNumber + 1;
         	// 每页多少条数据
-        	var size = 2;
+        	var size = 10;
     	 	$scope.linkURL = 'api/home/page?page='+page+'&size='+size;
             $http.get($scope.linkURL).success(function (data) {
                 // 文章当前是第几页

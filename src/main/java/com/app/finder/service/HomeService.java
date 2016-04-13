@@ -99,7 +99,7 @@ public class HomeService {
 		// 新技术文章数据
 //		List<Article> techData = technologies();
 		// 文章分页数据  默认第一页显示10条
-	    Pageable pageable = new PageRequest(0, 2);
+	    Pageable pageable = new PageRequest(0, 10);
 		Page<Article> pageData = pageArticleData(pageable);
 		List<HomePageDataDTO> pageDataDTO = transPageData(pageData);
 		// 活跃作者(文章数最多)
