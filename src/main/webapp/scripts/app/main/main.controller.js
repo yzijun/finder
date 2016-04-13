@@ -108,7 +108,7 @@ angular.module('finderApp')
         	// 数据加载效果
         	var l = Ladda.create($('.ladda-button')[0]);
     	 	l.start();
-    	 	$('.ladda-button').find(".ladda-label").html('加载中...');
+//    	 	$('.ladda-button').find(".ladda-label").html('加载中...');
         	// 用$http.get发请求
     	 	// 下一页页数
         	var page = $scope.pageNumber + 1;
@@ -127,7 +127,7 @@ angular.module('finderApp')
                 	$scope.pageDataDTOs.push(data.pageDataDTO[i]);
 				}
                 
-                $('.ladda-button').find(".ladda-label").html('点击加载更多');
+//                $('.ladda-button').find(".ladda-label").html('点击加载更多');
                 // 停止数据加载效果
                 l.stop();
             });
