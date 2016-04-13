@@ -106,7 +106,16 @@ public class HomeService {
 		List<HotAuthorDTO> authorData = authors();
 		// 热门文章(访问最多的数据)
 		List<Article> hotData = hotArticles();
-		return new HomeDTO(pageViewData, null, authorData, hotData,
+		// 热门文章 不显示文章首图图片，不需要传输数据占用带宽
+		List<Article> transHotData = new ArrayList<>();
+		for (Article article : hotData) {
+			Article a = new Article();
+			a.setId(article.getId());
+			a.setTitle(article.getTitle());
+			a.setPageView(article.getPageView());
+			transHotData.add(a);
+		}
+		return new HomeDTO(pageViewData, null, authorData, transHotData,
 				 pageDataDTO, pageData.getNumber(), pageData.getTotalPages());
 	}
 	
