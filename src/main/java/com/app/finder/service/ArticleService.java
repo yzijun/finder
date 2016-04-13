@@ -338,7 +338,13 @@ public class ArticleService {
         
         // 右边栏 热门文章
         List<Article> hotArticles = hotArticleDetail();
-    	
+        // 右边栏 热门文章 不显示文章首图图片，不需要传输FirstImg数据占用带宽
+ 		List<Article> transHotData = new ArrayList<>();
+ 		for (Article ar : hotArticles) {
+ 			Article a = ar;
+ 			ar.setFirstImg(new byte[0]);
+ 			transHotData.add(a);
+ 		}
         // 查询文章对应的全部评论
 //        List<ArticleReply> articleReplies = articleReplyRepository.findReplyByArticleID(id, true);
 //        List<ArticleReplyDTO> articleRepliesDTO = transArticleReplyDTO(articleReplies);
@@ -368,7 +374,7 @@ public class ArticleService {
 		Integer countArticleReplyAid = 0;
 		return new ArticleDTO(article, countArticleUid, 
 				countArticleReplyUid, countArticleSaveAid, 
-				countArticleReplyAid, hotArticles,
+				countArticleReplyAid, transHotData,
 				articleRepliesDTO, isArticleFavoriteCurrentUser,
 				favoriteId);
     }
