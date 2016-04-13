@@ -108,14 +108,13 @@ angular.module('finderApp')
         	// 数据加载效果
         	var l = Ladda.create($('.ladda-button')[0]);
     	 	l.start();
-//    	 	$('.ladda-button').find(".ladda-label").html('加载中...');
         	// 用$http.get发请求
     	 	// 下一页页数
         	var page = $scope.pageNumber + 1;
         	// 每页多少条数据
         	var size = 10;
-    	 	$scope.linkURL = 'api/home/page?page='+page+'&size='+size;
-            $http.get($scope.linkURL).success(function (data) {
+    	 	var linkURL = 'api/home/page?page='+page+'&size='+size;
+            $http.get(linkURL).success(function (data) {
                 // 文章当前是第几页
             	 $scope.pageNumber = data.pageNumber;
                 // 文章总页数
@@ -127,7 +126,6 @@ angular.module('finderApp')
                 	$scope.pageDataDTOs.push(data.pageDataDTO[i]);
 				}
                 
-//                $('.ladda-button').find(".ladda-label").html('点击加载更多');
                 // 停止数据加载效果
                 l.stop();
             });
