@@ -106,7 +106,8 @@ public class HomeService {
 		List<HotAuthorDTO> authorData = authors();
 		// 热门文章(访问最多的数据)
 		List<Article> hotData = hotArticles();
-		return new HomeDTO(pageViewData, null, pageData, authorData, hotData, pageDataDTO);
+		return new HomeDTO(pageViewData, null, authorData, hotData,
+				 pageDataDTO, pageData.getNumber(), pageData.getTotalPages());
 	}
 	
 	 /*

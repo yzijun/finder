@@ -2,8 +2,6 @@ package com.app.finder.web.rest.dto;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-
 import com.app.finder.domain.Article;
 
 /**
@@ -17,9 +15,18 @@ public class HomeDTO {
 	
 	// 新技术文章数据
 	private List<Article> techData;
-
-	// 列表分页数据
-	private Page<Article> pageData;
+	
+	/*
+	 * 列表分页数据用到的分页参数
+	 * 当前页数
+	 */
+	private Integer pageNumber;
+	
+	/*
+	 * 列表分页数据用到的分页参数
+	 * 总页数
+	 */
+	private Integer totalPages;
 	
 	// 列表分页数据DTO数据显示用
 	List<HomePageDataDTO> pageDataDTO;
@@ -30,14 +37,23 @@ public class HomeDTO {
 	// 热门文章(访问最多的数据)
 	private List<Article> hotArticles;
 	
-	public HomeDTO(List<Article> pageViewData, List<Article> techData, Page<Article> pageData,
-			List<HotAuthorDTO> authors, List<Article> hotArticles, List<HomePageDataDTO> pageDataDTO) {
+	public HomeDTO(List<Article> pageViewData, List<Article> techData,
+			List<HotAuthorDTO> authors, List<Article> hotArticles, 
+			List<HomePageDataDTO> pageDataDTO, Integer pageNumber, Integer totalPages) {
 		this.pageViewData = pageViewData;
 		this.techData = techData;
-		this.pageData = pageData;
 		this.authors = authors;
 		this.hotArticles = hotArticles;
 		this.pageDataDTO = pageDataDTO;
+		this.pageNumber = pageNumber;
+		this.totalPages = totalPages;
+	}
+
+	public HomeDTO(List<HomePageDataDTO> pageDataDTO, 
+			Integer pageNumber, Integer totalPages) {
+		this.pageDataDTO = pageDataDTO;
+		this.pageNumber = pageNumber;
+		this.totalPages = totalPages;
 	}
 
 	public List<Article> getPageViewData() {
@@ -54,14 +70,6 @@ public class HomeDTO {
 
 	public void setTechData(List<Article> techData) {
 		this.techData = techData;
-	}
-
-	public Page<Article> getPageData() {
-		return pageData;
-	}
-
-	public void setPageData(Page<Article> pageData) {
-		this.pageData = pageData;
 	}
 
 	public List<HotAuthorDTO> getAuthors() {
@@ -87,5 +95,20 @@ public class HomeDTO {
 	public void setPageDataDTO(List<HomePageDataDTO> pageDataDTO) {
 		this.pageDataDTO = pageDataDTO;
 	}
-	
+
+	public Integer getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(Integer pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
+	public Integer getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(Integer totalPages) {
+		this.totalPages = totalPages;
+	}
 }

@@ -14,7 +14,7 @@ angular.module('finderApp')
             }
         });
         // 添加页面title
-        $window.document.title = "科技改变生活-" + WEBSITENAME;
+        $window.document.title = "科技改变生活 - " + WEBSITENAME;
         
         // DOM加载完成时  绑定tooltip 页面用指令data-ng-init
        /* $scope.loadInitArticle = function() {  
@@ -49,14 +49,16 @@ angular.module('finderApp')
             	// 文章分页数据  默认第一页显示10条
             	$scope.pageDataDTOs = data.pageDataDTO;
             	// 文章分页数据当前是第几页
-                $scope.pageNumber = parseInt(headers('X-Page-Number'));
+//                $scope.pageNumber = parseInt(headers('X-Page-Number'));
+                $scope.pageNumber = data.pageNumber;
                 // 文章总页数  通过Headers传递的总页数
-                $scope.totalPages = parseInt(headers('X-Page-TotalPages'));
+//                $scope.totalPages = parseInt(headers('X-Page-TotalPages'));
+                $scope.totalPages = data.totalPages;
                 // 文章是否有下一页
                 $scope.nextPage = haveNextPage();
                 // links是对象  Object { next=1,  last=1,  first=0}
 //                $scope.links = ParseLinks.parse(headers('link'));
-                $scope.linkURL = ParseLinks.linkURL(headers('link'));
+//                $scope.linkURL = ParseLinks.linkURL(headers('link'));
                 // 请求下一页的URL 通过Headers传递的分页URL
                 // <api/home/page?page=1&size=2>; rel="next",<api/home/page?page=1&size=2>; rel="last",<api/home/page?page=0&size=2>; rel="first"
 //                $scope.linkURL = headers('link');
@@ -107,18 +109,22 @@ angular.module('finderApp')
         	var l = Ladda.create($('.ladda-button')[0]);
     	 	l.start();
     	 	$('.ladda-button').find(".ladda-label").html('加载中...');
-        	// 用HttpHeaders中的分页URL(下一页和每页多少条都包含在URL中)
         	// 用$http.get发请求
-            $http.get($scope.linkURL).success(function (data, status, headers) {
+    	 	// 下一页页数
+        	var page = $scope.pageNumber + 1;
+        	// 每页多少条数据
+        	var size = 2;
+    	 	$scope.linkURL = 'api/home/page?page='+page+'&size='+size;
+            $http.get($scope.linkURL).success(function (data) {
                 // 文章当前是第几页
-                $scope.pageNumber = parseInt(headers('X-Page-Number'));
+            	 $scope.pageNumber = data.pageNumber;
                 // 文章总页数
-                $scope.totalPages = parseInt(headers('X-Page-TotalPages'));
+            	 $scope.totalPages = data.totalPages;
                 // 文章是否有下一页
                 $scope.nextPage = haveNextPage();
-                for (var i = 0; i < data.length; i++) {
+                for (var i = 0; i < data.pageDataDTO.length; i++) {
                 	// 下一页的数据加到原来的文章列表下
-                	$scope.pageDataDTOs.push(data[i]);
+                	$scope.pageDataDTOs.push(data.pageDataDTO[i]);
 				}
                 
                 $('.ladda-button').find(".ladda-label").html('点击加载更多');
