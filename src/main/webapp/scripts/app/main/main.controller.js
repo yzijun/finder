@@ -103,6 +103,10 @@ angular.module('finderApp')
         
         // 取得文章分页数据
         $scope.loadPageArticle = function() {
+        	// 数据加载效果
+        	var l = Ladda.create($('.ladda-button')[0]);
+    	 	l.start();
+    	 	$('.ladda-button').find(".ladda-label").html('加载中...');
         	// 用HttpHeaders中的分页URL(下一页和每页多少条都包含在URL中)
         	// 用$http.get发请求
             $http.get($scope.linkURL).success(function (data, status, headers) {
@@ -116,6 +120,10 @@ angular.module('finderApp')
                 	// 下一页的数据加到原来的文章列表下
                 	$scope.pageDataDTOs.push(data[i]);
 				}
+                
+                $('.ladda-button').find(".ladda-label").html('点击加载更多');
+                // 停止数据加载效果
+                l.stop();
             });
         }
         
