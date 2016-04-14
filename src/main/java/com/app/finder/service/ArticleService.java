@@ -340,9 +340,11 @@ public class ArticleService {
         List<Article> hotArticles = hotArticleDetail();
         // 右边栏 热门文章 不显示文章首图图片，不需要传输FirstImg数据占用带宽
  		List<Article> transHotData = new ArrayList<>();
- 		for (Article ar : hotArticles) {
- 			Article a = ar;
- 			ar.setFirstImg(new byte[0]);
+ 		for (Article hot : hotArticles) {
+ 			Article a = new Article();
+ 			a.setId(hot.getId());
+ 			a.setTitle(hot.getTitle());
+ 			a.setMinImgURL(hot.getMinImgURL());
  			transHotData.add(a);
  		}
         // 查询文章对应的全部评论
