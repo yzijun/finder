@@ -60,7 +60,7 @@ public class ArticleAuthorService {
 		// 评论数
 		Integer commentNum = articleReplyRepository.findByCountArticleReplyUid(id);
 		// 收获喜欢数
-		Integer favoriteNum = articleFavoriteRepository.findByCountArticleFavoriteUid(id);
+		Integer favoriteNum = articleFavoriteRepository.getCountArticleFavoriteByUser(id);
 		return new ArticleAuthorDTO(user, articleNum, commentNum, favoriteNum);
 	}
 
