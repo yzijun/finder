@@ -33,16 +33,20 @@ public class HomeDTO {
 
 	// 活跃作者(文章数最多)
 	private List<HotAuthorDTO> authors;
+	
+	// 用户收获喜欢数(最多)
+	List<HotFavoriteDTO> favorites;
 
 	// 热门文章(访问最多的数据)
 	private List<Article> hotArticles;
 	
 	public HomeDTO(List<Article> pageViewData, List<Article> techData,
-			List<HotAuthorDTO> authors, List<Article> hotArticles, 
+			List<HotAuthorDTO> authors, List<HotFavoriteDTO> favorites, List<Article> hotArticles, 
 			List<HomePageDataDTO> pageDataDTO, Integer pageNumber, Integer totalPages) {
 		this.pageViewData = pageViewData;
 		this.techData = techData;
 		this.authors = authors;
+		this.favorites = favorites;
 		this.hotArticles = hotArticles;
 		this.pageDataDTO = pageDataDTO;
 		this.pageNumber = pageNumber;
@@ -111,4 +115,13 @@ public class HomeDTO {
 	public void setTotalPages(Integer totalPages) {
 		this.totalPages = totalPages;
 	}
+
+	public List<HotFavoriteDTO> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<HotFavoriteDTO> favorites) {
+		this.favorites = favorites;
+	}
+	
 }

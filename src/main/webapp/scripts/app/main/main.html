@@ -220,6 +220,30 @@
 				</ul>
 			</div>
 		</div>
+		<!-- 右边栏 用户收获喜欢数 -->
+		<div class="col-md-3 col-padding-left-over-bs">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-heart"></i>收获喜欢</h3>
+				</div>
+				<!-- <div class="panel-body">Panel content</div> -->
+				<!-- List group 面板列表组-->
+				<ul class="list-group">
+					<!-- pull-right css 向左或向右浮动 -->
+					<li class="list-group-item" ng-repeat="au in favorites track by au.author.id">
+						<a ui-sref="articleAuthorDetail({uid:au.author.id})" title="{{au.author.nickName}}">
+							<span class="pull-left">
+								<img
+				                    data-ng-src="{{'data:' + au.author.pictureContentType + ';base64,' + au.author.picture}}"
+				                    class="img-circle profile-img-smaller" alt="{{au.author.nickName}}" ng-if="au.author.picture"/>
+							</span>
+							<span class="main-hot-user-img">{{au.author.nickName}}</span>
+							<span class="badge pull-right" data-toggle="tooltip" data-placement="left" title="作者收获喜欢数">{{au.favoriteNum}}</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 		<!-- 右边栏 热门文章 -->
 		<div class="col-md-3 col-padding-left-over-bs">
 			<div class="panel panel-info">

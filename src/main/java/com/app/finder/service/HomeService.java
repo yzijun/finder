@@ -1,12 +1,7 @@
 package com.app.finder.service;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.finder.common.util.PrettyTimeUtils;
-import com.app.finder.common.util.ThumbnailsUtils;
 import com.app.finder.domain.Article;
 import com.app.finder.domain.User;
 import com.app.finder.repository.ArticleFavoriteRepository;
@@ -39,9 +33,8 @@ import com.app.finder.security.SecurityUtils;
 import com.app.finder.web.rest.dto.HomeDTO;
 import com.app.finder.web.rest.dto.HomePageDataDTO;
 import com.app.finder.web.rest.dto.HotAuthorDTO;
+import com.app.finder.web.rest.dto.HotFavoriteDTO;
 import com.app.finder.web.rest.dto.PageArticleDataDTO;
-import com.app.finder.web.rest.dto.SlideDTO;
-import com.google.common.io.Files;
 
 /**
  * 首页service
@@ -104,6 +97,8 @@ public class HomeService {
 		List<HomePageDataDTO> pageDataDTO = transPageData(pageData);
 		// 活跃作者(文章数最多)
 		List<HotAuthorDTO> authorData = authors();
+		// 用户收获喜欢数 
+		List<HotFavoriteDTO> favoritesData = favorites();
 		// 热门文章(访问最多的数据)
 		List<Article> hotData = hotArticles();
 		// 热门文章 不显示文章首图图片，不需要传输数据占用带宽
@@ -115,7 +110,7 @@ public class HomeService {
 			a.setPageView(article.getPageView());
 			transHotData.add(a);
 		}
-		return new HomeDTO(pageViewData, null, authorData, transHotData,
+		return new HomeDTO(pageViewData, null, authorData, favoritesData, transHotData,
 				 pageDataDTO, pageData.getNumber(), pageData.getTotalPages());
 	}
 	
@@ -222,6 +217,41 @@ public class HomeService {
     	return hotAuthors;
  	}
     
+    // 用户收获喜欢数 (收获喜欢数最多的数据)
+    @SuppressWarnings("unchecked")
+    private List<HotFavoriteDTO> favorites() {
+    	// 发送多条取得User的SQL,
+    	// 先这样以后再有好的方式在修改
+    	// createNativeQuery该方法是针对原生SQL语句
+    	String sql = "SELECT SUM(af.num) AS favoriteNum,a.user_id AS uid FROM fin_article a, "
+    				+ "(SELECT COUNT(*) AS num,article_id AS aid FROM fin_article_favorite GROUP BY article_id) af "
+    				+ "WHERE a.id = af.aid GROUP BY a.user_id ORDER BY favoriteNum DESC";
+    	Query query = entityManager.createNativeQuery(sql);
+    	// 默认显示的数量
+    	int pageSize = 5;
+    	// 取得分页数据
+    	List<Object[]> fas = query.setFirstResult(0)
+    							  .setMaxResults(pageSize)
+    							  .getResultList();
+    	log.debug("get home data favorites query favoriteNum list size:" + fas.size());
+    	
+    	List<HotFavoriteDTO> result = new ArrayList<>();
+    	for(Object[] obj: fas) {
+    		// 收获喜欢数
+    		Integer favoriteNum = ((BigDecimal) obj[0]).intValue();
+    		// 用户ID
+    		Long userId = ((BigInteger) obj[1]).longValue();
+    		// 取得对应的作者信息
+    		User user = userRepository.findOneById(userId).get();
+    		
+    		HotFavoriteDTO dto = new HotFavoriteDTO(user, favoriteNum);
+    		result.add(dto);
+		}
+    	log.debug("get home data favorites result:" + result.toString());
+    	
+    	return result;
+    }
+    
     // 热门文章(访问最多的数据)
     @SuppressWarnings("unchecked")
  	private List<Article> hotArticles() {
@@ -260,7 +290,7 @@ public class HomeService {
 	 * 需要把文章的firstImg字节生成图片保存到服务器中。
 	 * 图片的缩放比例是：宽=830  高=300
 	 */
-	private List<SlideDTO> makePicForSlide(List<Article> slidesData) 
+	/*private List<SlideDTO> makePicForSlide(List<Article> slidesData) 
 			throws IOException{
 		List<SlideDTO> slides = new ArrayList<>();
 		
@@ -305,5 +335,5 @@ public class HomeService {
 		}
 		
 		return slides;
-	}
+	}*/
 }

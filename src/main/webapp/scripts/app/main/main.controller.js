@@ -65,6 +65,8 @@ angular.module('finderApp')
                 
             	// 活跃作者(文章数最多)
             	$scope.authors = data.authors;
+            	// 用户收获喜欢数 (收获喜欢数最多的数据)
+            	$scope.favorites = data.favorites;
             	// 热门文章(访问最多的数据)
             	$scope.hotArticles = data.hotArticles;
             	
