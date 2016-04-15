@@ -96,4 +96,4 @@ jhipster:
 apacheset:
     articleContent: 
         picturePath: /srv/finderwar/wwwpicture/
-        contentPicURL: http://139.196.213.231:8089/ #先设定为ip等域名可用时改成域名
+        contentPicURL: http://kepinzhe.com:8089/
