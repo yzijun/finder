@@ -32,7 +32,7 @@
 	 							<i class="fa fa-bookmark-o fa-lg"></i> 喜欢
 	 						</a>
  						</p> -->
- 						<form name="updateForm" role="form" ng-submit="addFavorite(articleFavorite.id)">
+ 						<form name="favoriteForm" role="form" ng-submit="addFavorite(articleFavorite.id)">
 	 						<!-- 文章收获喜欢 -->
 	 						<div ng-switch="isAuthenticated()">
 	 							<!-- 未登录 -->
@@ -82,7 +82,7 @@
 					<div class="pl-form-wrap" ng-switch="isAuthenticated()">
 						<div class="no-login-box" ng-switch-when="false">
 							<p class="text-center">
-								<a ui-sref="login">登录</a>
+								<a ng-click="loginComment()">登录</a>
 								后参与评论
 							</p>
 						</div>
