@@ -2,7 +2,7 @@
 
 angular.module('finderApp')
     .controller('ArticleDetailController', function ($scope, $rootScope, $window, $stateParams, $sce, $http, $state, $timeout, 
-    		DataUtils, entity, Article, User, ArticleCategory, Tag, 
+    		DataUtils, CommonTools, entity, Article, User, ArticleCategory, Tag, 
     		Principal, ArticleFavorite, AlertService, WEBSITENAME) {
     	 Principal.identity().then(function(account) {
     		// 取得当前登录用户
@@ -71,15 +71,12 @@ angular.module('finderApp')
         $scope.abbreviate = DataUtils.abbreviate;
         
         // 是否显示回到顶部按钮
-        $(window).scroll(
-		function() {
-			$(this).scrollTop() > 400 ? $("#go-top-btn").css(
-					"display", "block") : $("#go-top-btn").hide()
-		});
+        CommonTools.showToTop();
         // 点击回到顶部按钮
         $("#go-top-btn").click(function(){
 //        	document.body.scrollTop=0;document.documentElement.scrollTop=0;
-        	scrollTo();
+        	// 回到顶部按钮实现函数
+        	CommonTools.scrollTo();
         });
         // 文章评论
         $scope.articleReply = {content:null};
@@ -160,22 +157,6 @@ angular.module('finderApp')
             f.position = 'top center';
             return false;
         }
-        
-        // 回到顶部按钮实现函数
-        function scrollTo(name, add, speed) {
-    	    if (!speed) speed = 300
-    	    if (!name) {
-    	        $('html,body').animate({
-    	            scrollTop: 0
-    	        }, speed)
-    	    } else {
-    	        if ($(name).length > 0) {
-    	            $('html,body').animate({
-    	                scrollTop: $(name).offset().top + (add || 0)
-    	            }, speed)
-    	        }
-    	    }
-    	}
         
         // 文章喜欢
         $scope.addFavorite = function (fid) {
