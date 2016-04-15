@@ -48,8 +48,8 @@ public class ArticleDTO {
 	// 该用户全部文章数
 	private Integer countArticleUid;
 
-	// 该用户全部评论数
-	private Integer countArticleReplyUid;
+	// 该用户收获喜欢数
+    private Integer countFavorite;
 
 	// 该文章的收藏数
 	private Integer countArticleSaveAid;
@@ -69,21 +69,21 @@ public class ArticleDTO {
 	//文章对应的分页评论
 	Page<ArticleReplyDTO> articleReplies;
 
-	public ArticleDTO(Article article, Integer countArticleUid, Integer countArticleReplyUid,
+	public ArticleDTO(Article article, Integer countArticleUid, Integer countFavorite,
 			Integer countArticleSaveAid, Integer countArticleReplyAid,List<Article> hotArticles,
 			Page<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser, Long favoriteId) {
 		this(article.getId(), article.getTitle(), article.getFirstImg(),
 				article.getFirstImgContentType(), article.getContent(), article.isPublished(),
 				article.getPageView(), article.getCreatedDate(), article.getUser(),
 				article.getArticleCategory(), article.getTags(), countArticleUid,
-				countArticleReplyUid, countArticleSaveAid, countArticleReplyAid, hotArticles,
+				countFavorite, countArticleSaveAid, countArticleReplyAid, hotArticles,
 				articleReplies, articleFavoriteCurrentUser, favoriteId);
 	}
 
 	public ArticleDTO(Long id, String title, byte[] firstImg, String firstImgContentType,
 			String content, boolean published, Integer pageView, ZonedDateTime createdDate,
 			User user, ArticleCategory articleCategory, Set<Tag> tags, Integer countArticleUid,
-			Integer countArticleReplyUid, Integer countArticleSaveAid,
+			Integer countFavorite, Integer countArticleSaveAid,
 			Integer countArticleReplyAid, List<Article> hotArticles, 
 			Page<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser,
 			Long favoriteId) {
@@ -99,7 +99,7 @@ public class ArticleDTO {
 		this.articleCategory = articleCategory;
 		this.tags = tags;
 		this.countArticleUid = countArticleUid;
-		this.countArticleReplyUid = countArticleReplyUid;
+		this.countFavorite = countFavorite;
 		this.countArticleSaveAid = countArticleSaveAid;
 		this.countArticleReplyAid = countArticleReplyAid;
 		this.hotArticles = hotArticles;
@@ -204,12 +204,12 @@ public class ArticleDTO {
 		this.countArticleUid = countArticleUid;
 	}
 
-	public Integer getCountArticleReplyUid() {
-		return countArticleReplyUid;
+	public Integer getCountFavorite() {
+		return countFavorite;
 	}
 
-	public void setCountArticleReplyUid(Integer countArticleReplyUid) {
-		this.countArticleReplyUid = countArticleReplyUid;
+	public void setCountFavorite(Integer countFavorite) {
+		this.countFavorite = countFavorite;
 	}
 
 	public Integer getCountArticleSaveAid() {
