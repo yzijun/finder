@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('MainController', function ($scope, Principal, $http, $timeout, $window, WEBSITENAME, ParseLinks) {
+    .controller('MainController', function ($scope, Principal, $http, $timeout, $window, WEBSITENAME, ParseLinks, CommonTools) {
         Principal.identity().then(function(account) {
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
@@ -16,6 +16,13 @@ angular.module('finderApp')
         // 添加页面title
         $window.document.title = "科技改变生活 - " + WEBSITENAME;
         
+        // 是否显示回到顶部按钮
+        CommonTools.showToTop();
+        // 点击回到顶部按钮
+        $("#go-top-btn").click(function(){
+        	// 回到顶部按钮实现函数
+        	CommonTools.scrollTo();
+        });
         // DOM加载完成时  绑定tooltip 页面用指令data-ng-init
        /* $scope.loadInitArticle = function() {  
         	$('[data-toggle="tooltip"]').tooltip();
