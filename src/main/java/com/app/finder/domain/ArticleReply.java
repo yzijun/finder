@@ -32,6 +32,10 @@ public class ArticleReply implements Serializable {
 
     @Column(name = "created_date")
     private ZonedDateTime createdDate;
+    
+    //评论赞同次数
+    @Column(name = "agree_times")
+    private Integer agreeTimes;
 
     //属于哪个文章
     @ManyToOne
@@ -105,7 +109,15 @@ public class ArticleReply implements Serializable {
         this.parentReplyer = user;
     }
 
-    @Override
+    public Integer getAgreeTimes() {
+		return agreeTimes;
+	}
+
+	public void setAgreeTimes(Integer agreeTimes) {
+		this.agreeTimes = agreeTimes;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -129,6 +141,7 @@ public class ArticleReply implements Serializable {
             ", content='" + content + "'" +
             ", published='" + published + "'" +
             ", createdDate='" + createdDate + "'" +
+            ", agreeTimes='" + agreeTimes + "'" +
             '}';
     }
 }
