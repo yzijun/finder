@@ -726,3 +726,12 @@ a:hover {
     border-color: #fafafa;
     color: #999;
 }
+/*首页 页脚*/
+.common-footer-wrap {
+    background: #efefef none repeat scroll 0 0;
+    height: 100px;
+}
+
+.common-footer-wrap p {
+	padding-top: 30px;
+}
