@@ -713,7 +713,9 @@ a:hover {
     display: inline-block;
     margin-bottom: 60px;
     margin-top: -6px;
-    color: #bbb;
+    background-color: #fafafa;
+    border-color: #fafafa;
+    color: #999;
     font-size: 16px;
     height: 60px;
     line-height: 60px;
@@ -722,9 +724,8 @@ a:hover {
 }
 
 .get-mod-more:hover {
-    background-color: #fafafa;
-    border-color: #fafafa;
-    color: #999;
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
 }
 /*首页 页脚*/
 .common-footer-wrap {
