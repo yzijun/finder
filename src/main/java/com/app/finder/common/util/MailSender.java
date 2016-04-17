@@ -3,7 +3,6 @@ package com.app.finder.common.util;
 
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -344,28 +343,5 @@ public class MailSender {
     public String getMailHost() {
         return mailHost;
     }
-
-    /*public static void main(String[] args) {
-        MailSender mailSender1 = new MailSender("smtp.kepinzhe.com");
-        try {
-            mailSender1.setUsername("system@kepinzhe.com");
-            mailSender1.setPassword("KePinZhe1234!@#");
-            String from = "system@kepinzhe.com";
-            String to = "yzijun@126.com";
-            String fromName = "科品者";
-            String subject = "这次测试html";
-
-            String content = "<html><head><title>账号激活</title><meta http-equiv='Content-Type' content='text/html; charset=UTF-8' /></head>";
-            content+="<body><h1>这是h1</h1><p>测试激活</p> </body></html>";
-
-            String cc = null;
-            String bcc = null;
-
-            mailSender1.sendHtmlMail(to, from, fromName, subject, content, cc,bcc);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
 }
