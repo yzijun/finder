@@ -80,6 +80,8 @@ angular.module('finderApp')
             	// 增加文章描述，去除html标签截取字符用
             	$.each(data.pageDataDTO,function(i,item){
             		item.describle = delHtmlTag(item.content);
+            		// 去除空格,可能有空格的情况
+            		item.describle = $.trim(item.describle);
     			});
             	
             	// 延迟调用等待幻灯片图片加载完成
