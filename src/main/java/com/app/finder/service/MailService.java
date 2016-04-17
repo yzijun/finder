@@ -65,16 +65,7 @@ public class MailService {
             message.setText(content, isHtml);
             javaMailSender.send(mimeMessage);*/
         	
-        	MailSender mailSender = new MailSender("smtp.kepinzhe.com");
-        	mailSender.setUsername("system@kepinzhe.com");
-            mailSender.setPassword("KePinZhe1234!@#");
-            String from = "system@kepinzhe.com";
-            String fromName = "科品者";
-            String cc = null;
-            String bcc = null;
-            mailSender.sendHtmlMail(to, from, fromName, subject, content, cc,bcc);
-            
-            log.debug("Sent e-mail to User '{}'", to);
+        	
         } catch (Exception e) {
             log.warn("E-mail could not be sent to user '{}', exception is: {}", to, e.getMessage());
         }
