@@ -1,7 +1,5 @@
 package com.app.finder.common.util;
 
-
-
 import java.io.File;
 import java.util.Date;
 import java.util.List;
