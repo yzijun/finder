@@ -40,10 +40,7 @@ spring:
             properties:
                 path:
                   logs: elasticsearch/log
-                  data: elasticsearch/data
-# =============================原来用的配置=============================
-#            cluster-nodes: localhost:9300     
-# ==================================================================                          
+                  data: elasticsearch/data                        
     thymeleaf:
         cache: true
 
