@@ -56,15 +56,12 @@ public class MailService {
 //        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
         	
-        	//由于用spring自带的代码发送邮件不好用。替换spring发送邮件的代码
-        	
            /* MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, CharEncoding.UTF_8);
             message.setTo(to);
             message.setFrom(jHipsterProperties.getMail().getFrom());
             message.setSubject(subject);
             message.setText(content, isHtml);
             javaMailSender.send(mimeMessage);*/
-        	
         	
         } catch (Exception e) {
             log.warn("E-mail could not be sent to user '{}', exception is: {}", to, e.getMessage());
