@@ -26,24 +26,27 @@
 			    </div> -->
 			    <!-- 浏览数最多 -->
 			    <div class="col-md-12 col-padding-over-bs" style="padding-top: 15px;">
-			    	<!-- 第一张图显示大图 -->
-			    	<span ng-repeat="s in pageViewFirst track by s.id">
-						<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
-							<img 
-								data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
-								alt="{{s.title}}" ng-if="s.firstImg" class="page-view-box-img"/>
-						</a>
+			    	<!-- bootstrap大图片自适应 class=carousel-inner img-responsive img-rounded -->
+			    	<span class="col-md-8 col-padding-over-bs">
+				    	<!-- 第一张图显示大图 -->
+				    	<span ng-repeat="s in pageViewFirst track by s.id">
+							<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
+								<img 
+									data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
+									alt="{{s.title}}" ng-if="s.firstImg" class="carousel-inner img-responsive page-view-box-img"/>
+							</a>
+						</span>
 					</span>
-					<!-- 非第一张图显示小图 -->
-					<div style="float: right;">
+					<span class="col-md-4" style="padding-right: 0;">
+						<!-- 非第一张图显示小图 -->
 						<div ng-repeat="s in pageViewOther track by s.id">
 							<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
 								<img 
 									data-ng-src="{{'data:' + s.firstImgContentType + ';base64,' + s.firstImg}}"
-									alt="{{s.title}}" ng-if="s.firstImg" class="original-box-img"/>
+									alt="{{s.title}}" ng-if="s.firstImg" class="carousel-inner img-responsive original-box-img"/>
 							</a>
 						</div>
-					</div>
+					</span>
 			    </div>
 				<!-- 新技术内容 -->
 				<!-- <div class="col-md-4 col-padding-over-bs" style="padding-top: 15px;padding-left: 0px;">

@@ -660,14 +660,11 @@ a:hover {
 }
 /*浏览数最大*/
 .page-view-box-img {
-	width: 600px;
 	height: 360px;
 }
 
 .original-box-img {
-	width: 240px;
 	height: 180px;
-	padding-left: 5px;
 }
 .mob-img {
 	width: 220px;
