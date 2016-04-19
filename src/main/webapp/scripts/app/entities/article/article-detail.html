@@ -194,7 +194,8 @@
 					<a target="_blank" ui-sref="article.detail({id:hotArticle.id})" title="{{hotArticle.title}}">
 						<!-- 不用这个方式由于图片比较大影响速度 -->
 						<!-- <img data-ng-src="{{'data:' + hotArticle.firstImgContentType + ';base64,' + hotArticle.firstImg}}"/> -->
-						<img src="{{hotArticle.minImgURL}}" alt="{{hotArticle.title}}" ng-if="hotArticle.minImgURL" class="media-object mob-img"/>
+						<!-- 图片延迟加载lazy-src指令 -->
+						<img lazy-src="{{hotArticle.minImgURL}}" alt="{{hotArticle.title}}" ng-if="hotArticle.minImgURL" class="media-object mob-img"/>
 					</a>
 					<!-- 文章标题 -->
 					<div class="caption">
