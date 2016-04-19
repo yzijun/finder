@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('finderApp').controller('ArticleDialogController',
-    ['$scope', '$state','DataUtils', 'entity', 'Article', 'User', 'ArticleCategory', 'Tag', 'Principal',
-        function($scope, $state, DataUtils, entity, Article, User, ArticleCategory, Tag, Principal) {
+    ['$scope', '$state','DataUtils', 'entity', 'Article', 'User', 'ArticleCategory', 'Principal',
+        function($scope, $state, DataUtils, entity, Article, User, ArticleCategory, Principal) {
 
     	Principal.identity().then(function(account) {
     		// 取得当前登录用户

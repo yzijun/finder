@@ -2,7 +2,7 @@
 
 angular.module('finderApp')
     .controller('ArticleDetailController', function ($scope, $rootScope, $window, $stateParams, $sce, $http, $state, $timeout, 
-    		DataUtils, CommonTools, entity, Article, User, ArticleCategory, Tag, 
+    		DataUtils, CommonTools, entity, Article, User, ArticleCategory, 
     		Principal, ArticleFavorite, AlertService, WEBSITENAME) {
     	 Principal.identity().then(function(account) {
     		// 取得当前登录用户
