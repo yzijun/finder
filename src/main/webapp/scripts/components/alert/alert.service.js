@@ -23,7 +23,7 @@ angular.module('finderApp')
             toast = this.toast,
             alertId = 0, // unique id for each alert. Starts from 0.
             alerts = [],
-            timeout = 5000; // default timeout
+            timeout = 2000; // default timeout 5000
 
             function isToast() {
                 return toast;
