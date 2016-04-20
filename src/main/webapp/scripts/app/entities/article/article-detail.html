@@ -124,13 +124,13 @@
 								</div>
 								<div class="author-info">
 									<div class="author-face avatar">
-										<a href="">
+										<a ui-sref="articleAuthorDetail({uid:reply.replyer.id})">
 											<img data-ng-src="{{'data:' + reply.replyer.pictureContentType + ';base64,' + reply.replyer.picture}}"
 							                    class="img-circle profile-img-small center-block" alt="头像" ng-if="reply.replyer.picture"/>
 						                </a>
 									</div>
 									<span class="author-name">
-										<a href="">{{reply.replyer.nickName}}</a>
+										<a ui-sref="articleAuthorDetail({uid:reply.replyer.id})">{{reply.replyer.nickName}}</a>
 									</span>
 									<!-- <span class="time">{{reply.createdDate | date:'yyyy-MM-dd HH:mm'}}</span> -->
 								</div>
