@@ -13,7 +13,7 @@
 					<span class="article-time">{{article.createdDate | date:'yyyy-MM-dd HH:mm'}}</span>
 					<span class="article-share">喜欢{{articleFavoriteCount}}</span>
 					<!-- java中Array转换js数组用length -->
-					<span class="article-pl">评论{{replies.length}}</span>
+					<span class="article-pl">评论{{totalElements}}</span>
 				</div>
 				<!-- 文章内容前的图片 -->
 				<div class="text-center">
@@ -114,7 +114,7 @@
 					</div>
 					
 					<div class="article-comment-label reply-title" ng-show="hasReply">
-						<i class="fa fa-comments"></i>文章评论</div>
+						<i class="fa fa-comments"></i>文章评论（{{totalElements}}）</div>
 					<!-- 评论列表 -->
 					<div>
 						<div class="pl-box-wrap" ng-repeat="reply in replies track by reply.id">

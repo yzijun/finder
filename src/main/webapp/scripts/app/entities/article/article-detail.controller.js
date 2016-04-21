@@ -28,6 +28,8 @@ angular.module('finderApp')
             $scope.pageNumber = $scope.article.articleReplies.number;
             // 文章评论总页数
             $scope.totalPages = $scope.article.articleReplies.totalPages;
+            // 文章评论总记录数
+            $scope.totalElements = $scope.article.articleReplies.totalElements;
             // 文章评论是否有下一页
             $scope.nextPage = haveNextPage($scope.article.articleReplies);
             // 是否有评论数据

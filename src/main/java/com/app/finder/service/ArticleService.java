@@ -375,10 +375,8 @@ public class ArticleService {
 			}
 		}
 		
-		Integer countArticleReplyAid = 0;
 		return new ArticleDTO(article, countArticleUid, 
-				countFavorite, countArticleSaveAid, 
-				countArticleReplyAid, transHotData,
+				countFavorite, countArticleSaveAid, transHotData,
 				articleRepliesDTO, isArticleFavoriteCurrentUser,
 				favoriteId);
     }
