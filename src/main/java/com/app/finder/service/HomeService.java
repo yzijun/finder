@@ -83,8 +83,18 @@ public class HomeService {
 	
 	// 取得首页全部数据
 	private HomeDTO getAllData() {
-		// 浏览数最多数据 
-		List<Article> pageViewData = pageViews();
+		// 浏览数最多一条数据 
+		Article pageViewData = pageViewOne().get(0);
+		// 收获喜欢最多的一条文章数据
+		Article favoriteData = favoriteOne();
+		if (favoriteData == null) {
+			favoriteData = pageViewOne().get(1);
+		}
+		// 收获喜欢最多的一条文章数据
+		Article commentData = commentOne();
+		if (commentData == null) {
+			commentData = pageViewOne().get(2);
+		}
 		/*List<SlideDTO> slidesDTOData = new ArrayList<>();
 		try {
 			slidesDTOData = makePicForSlide(slidesData);
@@ -110,15 +120,17 @@ public class HomeService {
 			a.setPageView(article.getPageView());
 			transHotData.add(a);
 		}
-		return new HomeDTO(pageViewData, null, authorData, favoritesData, transHotData,
+		return new HomeDTO(favoriteData, pageViewData, commentData, authorData, favoritesData, transHotData,
 				 pageDataDTO, pageData.getNumber(), pageData.getTotalPages());
 	}
 	
 	 /*
-     * 浏览数最多的文章数据
+     * 浏览数最多的一条文章数据
+     * 取得3条数据的原因是
+     * 可能有favoriteOne()和commentOne()取不到数据的情况
      */
     @SuppressWarnings("unchecked")
-	private List<Article> pageViews() {
+	private List<Article> pageViewOne() {
         // 使用entityManager查询分页数据
 		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
 		Query query = entityManager.createQuery("select a from Article a left join fetch a.user left join fetch a.articleCategory where a.published = ?1 order by a.pageView desc");
@@ -127,32 +139,71 @@ public class HomeService {
 		// 默认显示的数量
         int pageSize = 3;
 		// 取得分页数据
-        List<Article> articles = query.setFirstResult(0)
-        							  .setMaxResults(pageSize)
-        							  .getResultList();
-		log.debug("get home data slides size:" + articles.size());
-	 	return articles;
+        List<Article> article = query.setFirstResult(0)
+        					   .setMaxResults(pageSize)
+        					   .getResultList();
+	 	return article;
 	}
     
-    /*
-     * 新技术文章数据
-     */
+
+    // 收获喜欢最多的一条文章数据
     @SuppressWarnings("unchecked")
-	private List<Article> technologies() {
-    	// 使用entityManager查询分页数据
-		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
-		Query query = entityManager.createQuery("select a from Article a left join fetch a.user left join fetch a.articleCategory where a.articleCategory.id = ?1 and a.published = ?2 order by a.pageView desc");
-		// 设置查询参数(参数索引值从1开始)
-		query.setParameter(1, Long.valueOf(2));
-		query.setParameter(2, true);
-		// 默认显示的数量
+    private Article favoriteOne() {
+    	// createNativeQuery该方法是针对原生SQL语句
+    	String sql = "SELECT COUNT(*) AS c,article_id FROM fin_article_favorite GROUP BY article_id ORDER BY c DESC";
+    	Query query = entityManager.createNativeQuery(sql);
+    	// 默认显示的数量
+    	// 取得2个的原因是可能有文章是不可发布状态，可以取得第二条
     	int pageSize = 2;
-		// 取得分页数据
-		List<Article> articles = query.setFirstResult(0)
-									  .setMaxResults(pageSize)
-									  .getResultList();
-		log.debug("get home data originality size:" + articles.size());
-    	return articles;
+    	// 取得分页数据
+    	List<Object[]> fas = query.setFirstResult(0)
+    							  .setMaxResults(pageSize)
+    							  .getResultList();
+    	log.debug("get home data favorites query favoriteOne list size:" + fas.size());
+    	
+    	Article article = null;
+    	
+    	for(Object[] obj: fas) {
+    		// 文章ID
+    		Long articleId = ((BigInteger) obj[1]).longValue();
+    		// 取得文章数据
+    		article = articleRepository.findByIdAndPublishedTrue(articleId);
+    		if (article != null) {
+    			break;
+    		}
+		}
+    	
+    	return article;
+    }
+    
+    // 评论最多的一条文章数据
+    @SuppressWarnings("unchecked")
+    private Article commentOne() {
+    	// createNativeQuery该方法是针对原生SQL语句
+    	String sql = "SELECT COUNT(*) AS c ,article_id FROM fin_article_reply WHERE published = TRUE GROUP BY article_id ORDER BY c DESC";
+    	Query query = entityManager.createNativeQuery(sql);
+    	// 默认显示的数量
+    	// 取得2个的原因是可能有文章是不可发布状态，可以取得第二条
+    	int pageSize = 2;
+    	// 取得分页数据
+    	List<Object[]> fas = query.setFirstResult(0)
+    							  .setMaxResults(pageSize)
+    							  .getResultList();
+    	log.debug("get home data favorites query commentOne list size:" + fas.size());
+    	
+    	Article article = null;
+    	
+    	for(Object[] obj: fas) {
+    		// 文章ID
+    		Long articleId = ((BigInteger) obj[1]).longValue();
+    		// 取得文章数据
+    		article = articleRepository.findByIdAndPublishedTrue(articleId);
+    		if (article != null) {
+    			break;
+    		}
+		}
+    	
+    	return article;
     }
     
     /*

@@ -10,11 +10,14 @@ import com.app.finder.domain.Article;
  */
 public class HomeDTO {
 
-	// 浏览数最多数据
-	private List<Article> pageViewData;
+	// 收获喜欢最多的一条文章数据  顶部图片用
+	private Article favoriteData;
+		
+	// 浏览数最多的一条文章数据  顶部图片用
+	private Article pageViewData;
 	
-	// 新技术文章数据
-	private List<Article> techData;
+	// 评论最多的一条文章数据  顶部图片用
+	private Article commentData;
 	
 	/*
 	 * 列表分页数据用到的分页参数
@@ -40,11 +43,12 @@ public class HomeDTO {
 	// 热门文章(访问最多的数据)
 	private List<Article> hotArticles;
 	
-	public HomeDTO(List<Article> pageViewData, List<Article> techData,
+	public HomeDTO(Article favoriteData, Article pageViewData, Article commentData,
 			List<HotAuthorDTO> authors, List<HotFavoriteDTO> favorites, List<Article> hotArticles, 
 			List<HomePageDataDTO> pageDataDTO, Integer pageNumber, Integer totalPages) {
+		this.favoriteData = favoriteData;
 		this.pageViewData = pageViewData;
-		this.techData = techData;
+		this.commentData = commentData;
 		this.authors = authors;
 		this.favorites = favorites;
 		this.hotArticles = hotArticles;
@@ -60,20 +64,20 @@ public class HomeDTO {
 		this.totalPages = totalPages;
 	}
 
-	public List<Article> getPageViewData() {
+	public Article getPageViewData() {
 		return pageViewData;
 	}
 
-	public void setPageViewData(List<Article> pageViewData) {
+	public void setPageViewData(Article pageViewData) {
 		this.pageViewData = pageViewData;
 	}
-
-	public List<Article> getTechData() {
-		return techData;
+	
+	public Article getFavoriteData() {
+		return favoriteData;
 	}
 
-	public void setTechData(List<Article> techData) {
-		this.techData = techData;
+	public void setFavoriteData(Article favoriteData) {
+		this.favoriteData = favoriteData;
 	}
 
 	public List<HotAuthorDTO> getAuthors() {
@@ -122,6 +126,14 @@ public class HomeDTO {
 
 	public void setFavorites(List<HotFavoriteDTO> favorites) {
 		this.favorites = favorites;
+	}
+
+	public Article getCommentData() {
+		return commentData;
+	}
+
+	public void setCommentData(Article commentData) {
+		this.commentData = commentData;
 	}
 	
 }

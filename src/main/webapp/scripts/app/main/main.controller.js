@@ -49,10 +49,15 @@ angular.module('finderApp')
         	// 用$http.get发请求
             $http.get('api/home/all').success(function (data, status, headers) {
             	// 浏览数最多数据  slice 取得sublist
-            	$scope.pageViewFirst = data.pageViewData.slice(0, 1);
-            	$scope.pageViewOther = data.pageViewData.slice(1);
-            	// 新技术文章数据
-//            	$scope.techData = data.techData;
+//            	$scope.pageViewFirst = data.pageViewData.slice(0, 1);
+//            	$scope.pageViewOther = data.pageViewData.slice(1);
+            	// 收获喜欢最多的一条文章数据  顶部图片用
+            	$scope.favoriteData = data.favoriteData;
+            	// 浏览数最多的一条文章数据  顶部图片用
+            	$scope.pageViewData = data.pageViewData;
+            	// 评论最多的一条文章数据  顶部图片用
+            	$scope.commentData = data.commentData;
+            	
             	// 文章分页数据  默认第一页显示10条
             	$scope.pageDataDTOs = data.pageDataDTO;
             	// 文章分页数据当前是第几页
