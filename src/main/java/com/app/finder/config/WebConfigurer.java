@@ -49,11 +49,12 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         if (!env.acceptsProfiles(Constants.SPRING_PROFILE_FAST)) {
             initMetrics(servletContext, disps);
         }
-        // 正式产品环境时不好用暂时注释
-        /*if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
+        // 正式产品环境时不好用暂时注释(已经找到问题的原因initStaticResourcesProductionFilter)
+        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps);
-            initStaticResourcesProductionFilter(servletContext, disps);
-        }*/
+            // 需要由grunt build生成文件后可以使用
+//            initStaticResourcesProductionFilter(servletContext, disps);
+        }
         log.info("Web application fully configured");
     }
 
