@@ -30,7 +30,7 @@
 			    	<span class="col-md-8 col-padding-over-bs">
 				    	<!-- 第一张图显示大图 -->
 				    	<span>
-							<a ui-sref="article.detail({id:favoriteData.id})" title="{{favoriteData.title}}">
+							<a ui-sref="article.detail({id:favoriteData.id})">
 								<img 
 									data-ng-src="{{'data:' + favoriteData.firstImgContentType + ';base64,' + favoriteData.firstImg}}"
 									alt="{{favoriteData.title}}" ng-if="favoriteData.firstImg" class="carousel-inner img-responsive page-view-box-img"/>
@@ -45,19 +45,31 @@
 					</span>
 					<span class="col-md-4" style="padding-right: 0;">
 						<!-- 浏览数最多的一条文章数据 -->
-						<div>
-							<a ui-sref="article.detail({id:pageViewData.id})" title="{{pageViewData.title}}">
+						<div class="col-md-12 col-padding-over-bs">
+							<a ui-sref="article.detail({id:pageViewData.id})">
 								<img 
 									data-ng-src="{{'data:' + pageViewData.firstImgContentType + ';base64,' + pageViewData.firstImg}}"
 									alt="{{pageViewData.title}}" ng-if="pageViewData.firstImg" class="carousel-inner img-responsive original-box-img"/>
+								<!-- 图片上显示的文章标题 -->
+								<div class="pic-layer">
+									<div class="pic-intro">
+										<h3 class="title-sub">{{pageViewData.title}}</h3>
+									</div>
+								</div>
 							</a>
 						</div>
 						<!-- 评论最多的一条文章数据 -->
-						<div>
-							<a ui-sref="article.detail({id:commentData.id})" title="{{commentData.title}}">
+						<div class="col-md-12 col-padding-over-bs">
+							<a ui-sref="article.detail({id:commentData.id})">
 								<img 
 									data-ng-src="{{'data:' + commentData.firstImgContentType + ';base64,' + commentData.firstImg}}"
 									alt="{{commentData.title}}" ng-if="commentData.firstImg" class="carousel-inner img-responsive original-box-img"/>
+								<!-- 图片上显示的文章标题 -->
+								<div class="pic-layer">
+									<div class="pic-intro">
+										<h3 class="title-sub">{{commentData.title}}</h3>
+									</div>
+								</div>
 							</a>
 						</div>
 					</span>

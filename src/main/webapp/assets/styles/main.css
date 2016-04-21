@@ -751,6 +751,11 @@ a:hover {
     font-weight: 600;
 }
 
+.pic-intro .title-sub {
+    font-size: 17px;
+    font-weight: 600;
+}
+
 a:hover .pic-layer {
     background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0 padding-box content-box;
 }
