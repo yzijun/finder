@@ -140,6 +140,8 @@ angular.module('finderApp')
                 $scope.nextPage = haveNextPage(response);
                 // 是否有评论数据
                 $scope.hasReply = true;
+                // 文章评论总记录数
+                $scope.totalElements = response.totalElements;
             });
         };
         
