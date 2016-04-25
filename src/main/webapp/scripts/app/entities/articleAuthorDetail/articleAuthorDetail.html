@@ -39,13 +39,72 @@
 			</div>
 			<div class="user-nav">
 				<div class="parts">
-					<a class="part current" href="#">发表文章（{{author.articleNum}}）</a>
+					<a class="part current" ng-click="loadArticleAuthor()">发表文章（{{author.articleNum}}）</a>
 					<span class="line"></span>
-					<a class="part " href="#">评论（{{author.commentNum}}）</a>
+					<a class="part" href="#">评论（{{author.commentNum}}）</a>
 					<span class="line"></span>
-					<a class="part " href="#">收获喜欢（{{author.favoriteNum}}）</a>
+					<a class="part" href="#">收获喜欢（{{author.favoriteNum}}）</a>
 				</div>
 			</div>
+			
+			<!-- 分页文章数据 -->
+			<div class="col-md-10 col-md-offset-1 col-padding-over-bs">
+				<hr>
+				<div class="media" style="margin-top: 0px;" ng-repeat="s in pageDataDTOs track by s.id">
+					<!-- 左侧图片部分 -->
+					<div class="media-left media-middle">
+						<a ui-sref="article.detail({id:s.id})" title="{{s.title}}">
+							<!-- img angular 的方式赋值{{}} -->
+							<!-- <img src="{{s.minImgURL}}" alt="{{s.title}}" ng-if="s.minImgURL" class="media-object mob-img"/> -->
+							<!-- 图片延迟加载lazy-src指令 -->
+							<img lazy-src="{{s.minImgURL}}" animate-visible="true" alt="{{s.title}}" ng-if="s.minImgURL" class="media-object mob-img"/>
+						</a>
+					</div>
+					<div class="media-body" style="padding-left: 15px;">
+						<!-- 文章标题 -->
+						<h4 class="title">
+							<a ui-sref="article.detail({id:s.id})">{{s.title}}</a>
+						</h4>
+						<div class="mob-author">
+							<!-- 发表时间 -->
+							<span class="time" title="{{s.createdDate | date:'yyyy-MM-dd HH:mm'}}">
+								{{s.prettyTime}}
+							</span>
+							<!-- 文章浏览次数 -->
+							<span class="time" title="浏览数">
+								<i class="fa fa-eye"></i>
+								<em>{{s.pageView}}</em>
+							</span>
+							<!-- 评论数 -->
+							<span class="time" title="评论数">
+								<i class="fa fa-comment"></i>
+								<em>{{s.commentNum}}</em>
+							</span>
+							<!-- 收获喜欢数 -->
+							<span class="time" title="收获喜欢数">
+								<i class="fa fa-heart"></i>
+								<em>{{s.favoriteNum}}</em>
+							</span>
+							<!-- 文章分类 -->
+							<span class="label label-default" style="background-color: #bbb">
+								{{s.articleCategory.name}}
+							</span>
+						</div>
+						<!-- 文章内容描述 -->
+						<div class="mob-author mob-sub">{{s.describle | characters:40 }}</div>
+					</div>
+					<hr>
+				</div>
+				<!-- 分页 -->
+				<div class="text-center">
+			        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()" items-per-page="pageSize"></uib-pagination>
+			    </div>
+			</div>
+			<!-- 回到页面顶部 -->
+			<div id="go-top-btn" class="go-top" title="回到顶部">
+				<i class="glyphicon glyphicon-menu-up go-icon"></i>
+			</div>
+			
 		</div>
 	</div>
 </div>

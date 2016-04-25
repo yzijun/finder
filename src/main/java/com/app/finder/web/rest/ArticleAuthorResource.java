@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ import com.app.finder.domain.Article;
 import com.app.finder.service.ArticleAuthorService;
 import com.app.finder.service.ArticleService;
 import com.app.finder.web.rest.dto.ArticleAuthorDTO;
+import com.app.finder.web.rest.dto.HomePageDataDTO;
 import com.app.finder.web.rest.util.PaginationUtil;
 import com.codahale.metrics.annotation.Timed;
 
@@ -46,40 +48,45 @@ public class ArticleAuthorResource {
 	/**
 	 * 取得作者详细页面默认初始化数据
 	 * 文章、评论、收藏
-	 * uid:用户ID
+	 * id:用户ID
 	 */
     @RequestMapping(value = "/author/detail/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<ArticleAuthorDTO> getArticleAuthorDetail(@PathVariable Long id) {
-        log.debug("REST request to get ArticleAuthorDetail");
         ArticleAuthorDTO articleAuthorDetail = articleAuthorService.getAuthorDetail(id);
         return Optional.ofNullable(articleAuthorDetail)
-            .map(result -> new ResponseEntity<>(
-                result,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(result -> new ResponseEntity<>(
+                    result,
+                    HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 	/**
 	 * 取得作者详细页面分页数据
 	 * 
 	 * uid:用户ID
-	 * type:文章、评论、收藏
+	 * detype:文章、评论、收获喜欢
 	 */
 	@RequestMapping(value = "/author/detailpage/{uid}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, 
-			params = {"type"})
+			params = {"detype"})
 	@Timed
-	public ResponseEntity<List<Article>> getPageArticleAuthors(Pageable pageable,
-			@PathVariable Long uid, @RequestParam(value = "type", required = true) String type)
-					throws URISyntaxException {
-        log.debug("REST request to get a page of ArticleAuthors");
-        Page<Article> page = articleService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/articles");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	public ResponseEntity<ArticleAuthorDTO> getPageArticleAuthors(
+			@RequestParam(required = true) Integer page, 
+			@RequestParam(required = true) Integer size,
+			@PathVariable Long uid, 
+			@RequestParam(value = "detype", required = true) String detype) {
+		
+		Pageable pageable = new PageRequest(page, size);
+		ArticleAuthorDTO aDTO = articleAuthorService.getAuthorDetailPage(pageable, uid, detype);
+        return Optional.ofNullable(aDTO)
+        	           .map(result -> new ResponseEntity<>(
+        	        		   result,
+        	        		   HttpStatus.OK))
+                       .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
 }
