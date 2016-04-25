@@ -96,7 +96,7 @@ public class ArticleAuthorService {
 		if (user == null) {
 			return null;
 		}
-		
+		// 字符串转换成枚举对象
 		AuthorDetailType aType = Enum.valueOf(AuthorDetailType.class, detype.toUpperCase());
 		List<HomePageDataDTO> pageDataDTO = null;
 		Page<Article> pageData = null;
