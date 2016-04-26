@@ -25,6 +25,8 @@ angular.module('finderApp')
                 $scope.author = data;
                 // 默认 文章分页数据
                 $scope.pageDataDTOs = data.pageDataDTO;
+                // 发表文章数
+                $scope.articleNum = data.pageData.totalElements;
                 
                 // 增加文章描述，去除html标签截取字符用
             	$.each(data.pageDataDTO,function(i,item){

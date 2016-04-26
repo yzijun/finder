@@ -20,7 +20,6 @@ import com.app.finder.domain.Article;
 import com.app.finder.domain.User;
 import com.app.finder.repository.ArticleFavoriteRepository;
 import com.app.finder.repository.ArticleReplyRepository;
-import com.app.finder.repository.ArticleRepository;
 import com.app.finder.repository.UserRepository;
 import com.app.finder.web.rest.dto.ArticleAuthorDTO;
 import com.app.finder.web.rest.dto.HomePageDataDTO;
@@ -34,9 +33,6 @@ import com.app.finder.web.rest.enu.AuthorDetailType;
 public class ArticleAuthorService {
 
 	private final Logger log = LoggerFactory.getLogger(ArticleAuthorService.class);
-
-	@Inject
-	private ArticleRepository articleRepository;
 
 	@Inject
 	private UserRepository userRepository;
@@ -68,8 +64,8 @@ public class ArticleAuthorService {
 		if (user == null) {
 			return null;
 		}
-		// 发表文章数
-		Integer articleNum = articleRepository.findByCountArticleIsUid(id);
+		// 发表文章数 不需要在查询pageData就可以取得
+//		Integer articleNum = articleRepository.findByCountArticleIsUid(id);
 		// 文章分页数据  默认第一页显示10条
 		Pageable pageable = new PageRequest(0, 10);
 		Page<Article> pageData = pageArticleData(pageable, id);
@@ -78,7 +74,7 @@ public class ArticleAuthorService {
 		Integer commentNum = articleReplyRepository.findByCountArticleReplyUid(id);
 		// 收获喜欢数
 		Integer favoriteNum = articleFavoriteRepository.getCountArticleFavoriteByUser(id);
-		return new ArticleAuthorDTO(user, articleNum, commentNum, favoriteNum,
+		return new ArticleAuthorDTO(user, commentNum, favoriteNum,
 									pageDataDTO, pageData);
 	}
 	

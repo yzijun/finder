@@ -13,8 +13,6 @@ import com.app.finder.domain.User;
 public class ArticleAuthorDTO {
 	// 作者
 	private User user;
-	// 发表文章数
-	private Integer articleNum;
 	// 评论数
 	private Integer commentNum;
 	// 收获喜欢数
@@ -24,10 +22,9 @@ public class ArticleAuthorDTO {
 	// 文章分页数据
 	private Page<Article> pageData;
 	
-	public ArticleAuthorDTO(User user, Integer articleNum, Integer commentNum, Integer favoriteNum,
+	public ArticleAuthorDTO(User user, Integer commentNum, Integer favoriteNum,
 							List<HomePageDataDTO> pageDataDTO, Page<Article> pageData) {
 		this.user = user;
-		this.articleNum = articleNum;
 		this.commentNum = commentNum;
 		this.favoriteNum = favoriteNum;
 		this.pageDataDTO = pageDataDTO;
@@ -39,19 +36,11 @@ public class ArticleAuthorDTO {
 		this.pageData = pageData;
 	}
 
-
-
 	public User getUser() {
 		return user;
 	}
 	public void setUser(User user) {
 		this.user = user;
-	}
-	public Integer getArticleNum() {
-		return articleNum;
-	}
-	public void setArticleNum(Integer articleNum) {
-		this.articleNum = articleNum;
 	}
 	public Integer getCommentNum() {
 		return commentNum;
@@ -82,10 +71,4 @@ public class ArticleAuthorDTO {
 		this.pageData = pageData;
 	}
 
-	@Override
-	public String toString() {
-		return "ArticleAuthorDetailDTO [user=" + user + ", articleNum=" + articleNum + ", commentNum=" + commentNum
-				+ ", favoriteNum=" + favoriteNum + "]";
-	}
-	
 }
