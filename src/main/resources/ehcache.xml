@@ -68,12 +68,17 @@
            timeToLiveSeconds="3600">
     </cache>
     
-    <!-- 文章详细页面的缓存对象 -->
+    <!-- 文章详细页面的缓存对象  3600等于一小时-->
     <cache name="articleDetail"
            timeToLiveSeconds="3600">
     </cache>
+
+    <!-- 作者的详细页面的缓存对象  3600等于一小时-->
+    <cache name="authorDetail"
+           timeToLiveSeconds="3600">
+    </cache>
     
-    <!-- 首页数据缓存对象 -->
+    <!-- 首页数据缓存对象  7200等于2小时-->
     <cache name="homeData"
            timeToLiveSeconds="7200">
     </cache>

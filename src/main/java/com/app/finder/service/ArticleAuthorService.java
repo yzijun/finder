@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -51,13 +52,14 @@ public class ArticleAuthorService {
 
 	/**
 	 * 取得作者的详细信息
-	 * 
+	 * 缓存详细数据
 	 * @param id
 	 * @return
 	 */
+	@Cacheable("authorDetail")
 	@Transactional(readOnly = true)
 	public ArticleAuthorDTO getAuthorDetail(Long id) {
-		log.debug("Service to get getAuthorDetail UserId: {}",id);
+		log.debug("缓存作者的详细信息 用户ID: {}",id);
 		// 作者
 		User user = userRepository.findOneById(id).get();
 
