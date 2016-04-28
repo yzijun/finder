@@ -87,4 +87,4 @@ jhipster:
 apacheset:
     articleContent: 
         picturePath: /srv/finderwar/wwwpicture/
-        contentPicURL: http://kepinzhe.com:8089/
+        contentPicURL: http://www.kepinzhe.com:8089/
