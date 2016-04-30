@@ -33,8 +33,7 @@
         "iCheck": "icheck#~1.0.2",
         "jquery.hotkeys": "https://github.com/jeresig/jquery.hotkeys.git#master",
         "google-code-prettify": "~1.0.4",
-        "lodash": "3.10.1",
-        "angular-nvd3": "~1.0.5"
+        "lodash": "3.10.1"
     },
     "devDependencies": {
         "angular-mocks": "1.4.8",
