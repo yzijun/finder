@@ -135,6 +135,12 @@ angular.module('finderApp')
             	 $scope.pageNumber = data.pageNumber;
                 // 文章总页数
             	 $scope.totalPages = data.totalPages;
+            	// 增加文章描述，去除html标签截取字符用
+             	$.each(data.pageDataDTO,function(i,item){
+             		item.describle = delHtmlTag(item.content);
+             		// 去除空格,可能有空格的情况
+             		item.describle = $.trim(item.describle);
+     			});
                 // 文章是否有下一页
                 $scope.nextPage = haveNextPage();
                 for (var i = 0; i < data.pageDataDTO.length; i++) {
