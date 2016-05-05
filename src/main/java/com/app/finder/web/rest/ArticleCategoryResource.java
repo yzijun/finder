@@ -2,7 +2,9 @@ package com.app.finder.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.finder.domain.ArticleCategory;
 import com.app.finder.repository.ArticleCategoryRepository;
 import com.app.finder.security.AuthoritiesConstants;
+import com.app.finder.web.rest.dto.ArticleCategoryDTO;
 import com.app.finder.web.rest.util.HeaderUtil;
 import com.codahale.metrics.annotation.Timed;
 
@@ -85,13 +88,26 @@ public class ArticleCategoryResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<ArticleCategory> getAllArticleCategorys() {
+    public List<ArticleCategoryDTO> getAllArticleCategorys() {
         log.debug("REST request to get all ArticleCategorys");
         List<ArticleCategory> list =  articleCategoryRepository.findAllCached();
         // 过滤子条目的文章类别
-        return list.stream()
+       /* return list.stream()
         		   .filter(s -> s.getParentId() != null)
-        	       .collect(Collectors.toList());
+        	       .collect(Collectors.toList());*/
+        // 过滤父类别
+        Map<Long, String> parentItem = list.stream()
+		   .filter(s -> s.getParentId() == null)
+	       .collect(Collectors.toMap(ArticleCategory::getId, ArticleCategory::getName));
+        
+        log.debug("文章父类别 {}",Arrays.toString(parentItem.values().toArray()));
+        // 过滤子类别，设置组名称
+        List<ArticleCategoryDTO> result = list.stream()
+		   .filter(s -> s.getParentId() != null)
+		   .map(item -> new ArticleCategoryDTO(item.getId(), item.getName(), parentItem.get(item.getParentId())))
+	       .collect(Collectors.toList());
+        
+        return result;
     }
 
     /**

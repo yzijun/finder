@@ -136,7 +136,7 @@
         <div class="form-group" ng-class="{'has-error':editForm.articleCategory.$dirty && editForm.articleCategory.$invalid}">
             <label class="control-label" translate="finderApp.article.articleCategory" for="field_articleCategory">articleCategory</label>
             <label class="control-label error-font-color" for="field_articleCategory">*</label>
-            <select class="form-control" id="field_articleCategory" name="articleCategory" ng-model="article.articleCategory" ng-options="articleCategory as articleCategory.name for articleCategory in articlecategorys track by articleCategory.id" required>
+            <select class="form-control" id="field_articleCategory" name="articleCategory" ng-model="article.articleCategory" ng-options="articleCategory as articleCategory.name group by articleCategory.groupName for articleCategory in articlecategorys track by articleCategory.id" required>
                 <option value=""></option>
             </select>
             <div ng-show="editForm.articleCategory.$invalid">
