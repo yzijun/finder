@@ -137,7 +137,7 @@
             <label class="control-label" translate="finderApp.article.articleCategory" for="field_articleCategory">articleCategory</label>
             <label class="control-label error-font-color" for="field_articleCategory">*</label>
             <select class="form-control" id="field_articleCategory" name="articleCategory" ng-model="article.articleCategory" ng-options="articleCategory as articleCategory.name group by articleCategory.groupName for articleCategory in articlecategorys track by articleCategory.id" required>
-                <option value=""></option>
+                <option value="">-- 请选择 --</option>
             </select>
             <div ng-show="editForm.articleCategory.$invalid">
                 <p class="help-block"
