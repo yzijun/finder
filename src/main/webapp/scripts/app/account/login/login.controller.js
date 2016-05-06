@@ -1,7 +1,13 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth) {
+    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth, CommonTools) {
+    	/*
+    	 * 默认回到页面的顶部
+    	 * 点击 喜欢和评论登录时，需要回到页面顶部
+    	 */
+    	CommonTools.scrollTo();
+    	
         $scope.user = {};
         $scope.errors = {};
 
