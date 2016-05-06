@@ -12,7 +12,9 @@ angular.module('finderApp')
 			    } else {
 			        if ($(name).length > 0) {
 			            $('html,body').animate({
-			                scrollTop: $(name).offset().top + (add || 0)
+//			                scrollTop: $(name).offset().top + (add || 0)
+			            	// 获取浏览器显示区域的高度  $(window).height();
+			                scrollTop: $(name).offset().top + $(window).height()
 			            }, speed)
 			        }
 			    }

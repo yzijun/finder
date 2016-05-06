@@ -51,6 +51,19 @@ angular.module('finderApp')
             }
             // 设定文章喜欢按钮为可用状态
     		$scope.isFavoriteSaving = false;
+    		
+    		// 点击 喜欢和评论登录后回到当前页面时，跳转到相应的页面位置
+    		if ($rootScope.toAticleDetailAnchor) {
+    			if ($rootScope.toAticleDetailAnchor == "favorite") {
+    				// 用id=fbtn确定锚点位置
+    				CommonTools.scrollTo("#fbtn");
+    			} else if ($rootScope.toAticleDetailAnchor == "comment") {
+    				// 用id=labCom确定锚点位置
+    				CommonTools.scrollTo("#labCom");
+    			}
+    			// 清空值
+    			$rootScope.toAticleDetailAnchor = "";
+    		}
         }, function(response) {
         	// 可能有文章id不存在或是该文章不允许发布
             if (response.status === 404) {
@@ -197,6 +210,8 @@ angular.module('finderApp')
             		// 登录后跳转到当前页面  设置前一个页面名和参数
             		$rootScope.previousStateName = 'article.detail';
             		$rootScope.previousStateParams = {id:$stateParams.id};
+            		// 设置页面锚点(喜欢)
+            		$rootScope.toAticleDetailAnchor = "favorite";
             		// 转到登录页面
                 	$state.go('login');
             	}
@@ -275,6 +290,8 @@ angular.module('finderApp')
         	// 登录后跳转到当前页面  设置前一个页面名和参数
     		$rootScope.previousStateName = 'article.detail';
     		$rootScope.previousStateParams = {id:$stateParams.id};
+    		// 设置页面锚点(评论)
+    		$rootScope.toAticleDetailAnchor = "comment";
     		// 转到登录页面
         	$state.go('login');
         }
