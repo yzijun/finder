@@ -769,3 +769,12 @@ a:hover .pic-layer {
 .common-footer-wrap p {
 	padding-top: 30px;
 }
+
+.btn-toolbar blockquote {
+    background: #f6f6f6 none repeat scroll 0 0;
+    border-left: 2px solid #009a61;
+    color: #555;
+    font-size: 1em;
+    margin: 10px 6px;
+    padding-left: 15px;
+}
