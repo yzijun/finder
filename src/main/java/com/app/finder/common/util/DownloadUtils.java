@@ -5,7 +5,6 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.util.FileCopyUtils;
@@ -14,13 +13,11 @@ import org.springframework.util.FileCopyUtils;
 public class DownloadUtils {
     /**
 	 * 下载文件,不需要把下载的文件写到服务器硬盘上。
-	 * @param request
 	 * @param response
 	 * @param displayName
 	 * @param bytes
 	 */
-	public static void download(HttpServletRequest request, 
-				HttpServletResponse response, String displayName, byte[] bytes) {
+	public static void download(HttpServletResponse response, String displayName, byte[] bytes) {
 		try {
 
 	        if (bytes == null) {
