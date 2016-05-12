@@ -70,6 +70,12 @@ angular.module('finderApp')
             	// 转到404错误页面
             	$state.go('404');
             }
+            // status是400时是无效的请求，原因是URL的请求参数不是数值，String不能转成Long
+            // 可能是用户乱输入的ID参数值
+            if (response.status === 400) {
+            	// 转到404错误页面
+            	$state.go('404');
+            }
         });
         $scope.load = function (id) {
             Article.get({id: id}, function(result) {
