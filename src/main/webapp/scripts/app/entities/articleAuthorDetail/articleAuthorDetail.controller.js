@@ -30,7 +30,7 @@ angular.module('finderApp')
                 
                 // 增加文章描述，去除html标签截取字符用
             	$.each(data.pageDataDTO,function(i,item){
-            		item.describle = delHtmlTag(item.content);
+            		item.describle = CommonTools.delHtmlTag(item.content);
             		// 去除空格,可能有空格的情况
             		item.describle = $.trim(item.describle);
     			});
@@ -54,7 +54,7 @@ angular.module('finderApp')
                 $scope.pageDataDTOs = data.pageDataDTO;
                 // 增加文章描述，去除html标签截取字符用
             	$.each(data.pageDataDTO,function(i,item){
-            		item.describle = delHtmlTag(item.content);
+            		item.describle = CommonTools.delHtmlTag(item.content);
             		// 去除空格,可能有空格的情况
             		item.describle = $.trim(item.describle);
     			});
@@ -68,14 +68,6 @@ angular.module('finderApp')
             $scope.page = page;
             $scope.loadAll();
         };
-        
-        
-        // js去掉所有html标记的函数
-        function delHtmlTag(str)
-        {
-        	// 去掉网页中的所有的html标记
-        	return str.replace(/<[^>]+>/g,"").replace(/&nbsp;/g,"");//去掉所有的html标记
-        }
         
         // 显示JHipster QQ群
         CommonTools.showQQGroup();

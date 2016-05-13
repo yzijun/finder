@@ -35,4 +35,9 @@ angular.module('finderApp')
 	    		$(this).find("div:first").fadeOut('slow');
 	    	});
 		};
+		// 去掉所有html标记的函数
+        this.delHtmlTag = function(str) {
+        	// 去掉网页中的所有的html标记
+        	return str.replace(/<[^>]+>/g,"").replace(/&nbsp;/g,"");
+        };
     });
