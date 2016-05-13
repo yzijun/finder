@@ -304,4 +304,8 @@ angular.module('finderApp')
         
         // 显示JHipster QQ群
         CommonTools.showQQGroup();
+        // 延迟调用等待数据加载完成
+    	$timeout(function(){
+    		$('[data-toggle="tooltip"]').tooltip();
+	    });
     });

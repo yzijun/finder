@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('ArticleAuthorDetailController', function ($scope, $state, $window, $http, $stateParams, WEBSITENAME, CommonTools) {
+    .controller('ArticleAuthorDetailController', function ($scope, $state, $window, $http, $stateParams, $timeout, WEBSITENAME, CommonTools) {
     	// 在controller中使用$stateParams中获取参数
 //    	alert($stateParams.uid);
     	
@@ -71,4 +71,8 @@ angular.module('finderApp')
         
         // 显示JHipster QQ群
         CommonTools.showQQGroup();
+        // 延迟调用等待数据加载完成
+    	$timeout(function(){
+    		$('[data-toggle="tooltip"]').tooltip();
+	    });
     });

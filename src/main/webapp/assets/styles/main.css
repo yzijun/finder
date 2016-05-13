@@ -361,16 +361,6 @@ a:hover, a:link {
     text-decoration: none;
 }
 /*回到顶部 */
-/* .go-top {
-    background: #f3f3f3 none repeat scroll 0 0;
-    bottom: 140px;
-    cursor: pointer;
-    display: none;
-    height: 60px;
-    left: 1295px;
-    position: fixed;
-    width: 60px;
-} */
 .go-top {
     background: #fff none repeat scroll 0 0;
     border: 1px solid #eee;
@@ -382,11 +372,9 @@ a:hover, a:link {
     position: fixed;
     width: 60px;
 }
-
 .go-top:hover {
     background-color: #e8e8e8;
 }
-
 .go-icon {
     background-repeat: no-repeat;
     display: inline-block;
@@ -405,6 +393,10 @@ a:hover, a:link {
     padding: 13px 9px;
     text-align: center;
     z-index: 10;
+}
+.article-new {
+	bottom: 265px;
+    font-size: 18px;
 }
 .transition {
     transition: all 0.2s ease-out 0s;
