@@ -162,10 +162,6 @@ angular.module('finderApp')
         		   || $scope.totalPages == 0;
         }
         
-        // 是否显示JHipster QQ群
-    	$(".js-jhipster-qq").hover(function(){
-    		$(this).find("div:first").fadeIn('slow');
-    	},function(){
-    		$(this).find("div:first").fadeOut('slow');
-    	});
+        // 显示JHipster QQ群
+        CommonTools.showQQGroup();
     });

@@ -77,4 +77,6 @@ angular.module('finderApp')
         	return str.replace(/<[^>]+>/g,"").replace(/&nbsp;/g,"");//去掉所有的html标记
         }
         
+        // 显示JHipster QQ群
+        CommonTools.showQQGroup();
     });

@@ -27,5 +27,12 @@ angular.module('finderApp')
 									"display", "block") : $("#go-top-btn").hide()
 			});
 		};
-     
+		// 显示JHipster QQ群
+		this.showQQGroup = function() {
+	    	$(".js-jhipster-qq").hover(function(){
+	    		$(this).find("div:first").fadeIn('slow');
+	    	},function(){
+	    		$(this).find("div:first").fadeOut('slow');
+	    	});
+		};
     });

@@ -301,4 +301,7 @@ angular.module('finderApp')
     		// 转到登录页面
         	$state.go('login');
         }
+        
+        // 显示JHipster QQ群
+        CommonTools.showQQGroup();
     });
