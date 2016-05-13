@@ -161,4 +161,11 @@ angular.module('finderApp')
         	return $scope.totalPages == ($scope.pageNumber + 1) 
         		   || $scope.totalPages == 0;
         }
+        
+        // 是否显示JHipster QQ群
+    	$(".js-jhipster-qq").hover(function(){
+    		$(this).find("div:first").fadeIn('slow');
+    	},function(){
+    		$(this).find("div:first").fadeOut('slow');
+    	});
     });

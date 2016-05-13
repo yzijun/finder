@@ -361,9 +361,20 @@ a:hover, a:link {
     text-decoration: none;
 }
 /*回到顶部 */
-.go-top {
+/* .go-top {
     background: #f3f3f3 none repeat scroll 0 0;
     bottom: 140px;
+    cursor: pointer;
+    display: none;
+    height: 60px;
+    left: 1295px;
+    position: fixed;
+    width: 60px;
+} */
+.go-top {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #eee;
+    bottom: 151px;
     cursor: pointer;
     display: none;
     height: 60px;
@@ -385,14 +396,45 @@ a:hover, a:link {
 }
 /*意见反馈 */
 .go-feedback {
-    background-color: #f63756;
     bottom: 210px;
-    color: #fff;
+    color: #7a818e;
     display: block;
-    font-size: 16px;
-    padding: 8px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    padding: 13px 9px;
     text-align: center;
     z-index: 10;
+}
+.transition {
+    transition: all 0.2s ease-out 0s;
+}
+.jhipster-qq-guide::before {
+    background: #fff none repeat scroll 0 0;
+    border-width: 0 1px 1px 0;
+    content: " ";
+    height: 10px;
+    margin-top: -10px;
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: rotate(-45deg);
+    width: 10px;
+}
+
+.jhipster-qq-guide {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.3);
+    display: none;
+    height: 210px;
+    left: -190px;
+    position: absolute;
+    top: -75px;
+}
+.qq-guide-img {
+    display: inline-block;
+    height: 210px;
+    width: 180px;
 }
 /*回到顶部 */
 .c2{
