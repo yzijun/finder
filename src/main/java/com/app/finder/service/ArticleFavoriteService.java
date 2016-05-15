@@ -53,7 +53,14 @@ public class ArticleFavoriteService {
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         articleFavorite.setUser(user);
         
-        ArticleFavorite result = articleFavoriteRepository.save(articleFavorite);
+        log.debug("查询当前登录用户是否喜欢过该文章  userId: {}, articleId: {}" , user.getId(), articleFavorite.getArticle().getId());
+        // 验证当前登录用户是否喜欢过该文章
+		ArticleFavorite result = articleFavoriteRepository.findByUserIdAndArticleId(user.getId(), articleFavorite.getArticle().getId());
+		log.debug("查询当前登录用户是否喜欢过该文章  查询结果：{}" , result);
+		if (result == null) {
+			 result = articleFavoriteRepository.save(articleFavorite);
+			 log.debug("保存喜欢文章结果：{}" , result);
+		}
         
         // 取得文章的收藏数
      	Integer countArticleSaveAid = articleFavoriteRepository.findByCountArticleFavoriteAid(articleFavorite.getArticle().getId());
