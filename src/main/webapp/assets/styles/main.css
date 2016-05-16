@@ -811,3 +811,9 @@ a:hover .pic-layer {
     margin: 10px 6px;
     padding-left: 15px;
 }
+.copyright {
+    color: #c6c6c6;
+    font-size: 14px;
+    line-height: 24px;
+    margin: 20px 0px;
+}

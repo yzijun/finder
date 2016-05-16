@@ -34,6 +34,9 @@ public class ArticleDTO {
 	// 文章默认被发布(可能有非法不允许发布)
 	private boolean published = true;
 
+	// 是原创文章(默认否)
+    private boolean original = false;
+    
 	// 文章浏览次数
 	private Integer pageView;
 
@@ -74,7 +77,7 @@ public class ArticleDTO {
 				article.getPageView(), article.getCreatedDate(), article.getUser(),
 				article.getArticleCategory(), article.getTags(), countArticleUid,
 				countFavorite, countArticleSaveAid, hotArticles,
-				articleReplies, articleFavoriteCurrentUser, favoriteId);
+				articleReplies, articleFavoriteCurrentUser, favoriteId, article.isOriginal());
 	}
 
 	public ArticleDTO(Long id, String title, byte[] firstImg, String firstImgContentType,
@@ -83,7 +86,7 @@ public class ArticleDTO {
 			Integer countFavorite, Integer countArticleSaveAid,
 			List<Article> hotArticles, 
 			Page<ArticleReplyDTO> articleReplies, boolean articleFavoriteCurrentUser,
-			Long favoriteId) {
+			Long favoriteId, boolean original) {
 		this.id = id;
 		this.title = title;
 		this.firstImg = firstImg;
@@ -102,6 +105,7 @@ public class ArticleDTO {
 		this.articleReplies = articleReplies;
 		this.articleFavoriteCurrentUser = articleFavoriteCurrentUser;
 		this.favoriteId = favoriteId;
+		this.original = original;
 	}
 
 	public Long getId() {
@@ -246,6 +250,14 @@ public class ArticleDTO {
 
 	public void setFavoriteId(Long favoriteId) {
 		this.favoriteId = favoriteId;
+	}
+	
+	public boolean isOriginal() {
+		return original;
+	}
+
+	public void setOriginal(boolean original) {
+		this.original = original;
 	}
 
 	@Override
