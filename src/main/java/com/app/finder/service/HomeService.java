@@ -3,6 +3,7 @@ package com.app.finder.service;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,18 +84,29 @@ public class HomeService {
 	
 	// 取得首页全部数据
 	private HomeDTO getAllData() {
-		// 浏览数最多一条数据 
+		/*
+		 *  顶部的图片数据
+		 *  方案一
+		 */
+		/*// 浏览数最多一条数据 
 		Article pageViewData = pageViewOne().get(0);
 		// 收获喜欢最多的一条文章数据
 		Article favoriteData = favoriteOne();
 		if (favoriteData == null) {
 			favoriteData = pageViewOne().get(1);
 		}
-		// 收获喜欢最多的一条文章数据
+		// 评论最多的一条文章数据
 		Article commentData = commentOne();
 		if (commentData == null) {
 			commentData = pageViewOne().get(2);
-		}
+		}*/
+		/*
+		 *  顶部的图片数据
+		 *  方案二
+		 */
+		Article pageViewData = topDataPic().get(0);
+		Article favoriteData = topDataPic().get(1);
+		Article commentData = topDataPic().get(2);
 		/*List<SlideDTO> slidesDTOData = new ArrayList<>();
 		try {
 			slidesDTOData = makePicForSlide(slidesData);
@@ -145,6 +157,26 @@ public class HomeService {
 	 	return article;
 	}
     
+    /*
+     * 首页顶部图片数据
+     * 方案二：取得30条数据的打乱顺序后显示前三条数据
+     */
+    @SuppressWarnings("unchecked")
+	private List<Article> topDataPic() {
+        // 使用entityManager查询分页数据
+		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
+		Query query = entityManager.createQuery("select a from Article a left join fetch a.user left join fetch a.articleCategory where a.published = ?1");
+		// 设置查询参数(参数索引值从1开始)
+		query.setParameter(1, true);
+		// 默认显示的数量
+        int pageSize = 30;
+		// 取得分页数据
+        List<Article> article = query.setFirstResult(0)
+        					   .setMaxResults(pageSize)
+        					   .getResultList();
+        Collections.shuffle(article);
+	 	return article;
+	}
 
     // 收获喜欢最多的一条文章数据
     @SuppressWarnings("unchecked")
