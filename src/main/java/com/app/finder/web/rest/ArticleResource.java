@@ -31,6 +31,7 @@ import com.app.finder.domain.Article;
 import com.app.finder.domain.ArticleReply;
 import com.app.finder.security.AuthoritiesConstants;
 import com.app.finder.service.ArticleService;
+import com.app.finder.service.HomeService;
 import com.app.finder.web.rest.dto.ArticleDTO;
 import com.app.finder.web.rest.dto.ArticleReplyDTO;
 import com.app.finder.web.rest.util.HeaderUtil;
@@ -49,6 +50,8 @@ public class ArticleResource {
     @Inject
     private ArticleService articleService;
     
+    @Inject
+    private HomeService homeService;
     /**
      * POST  /articles -> Create a new article.
      * @throws IOException 
@@ -64,6 +67,11 @@ public class ArticleResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("article", "idexists", "A new article cannot already have an ID")).body(null);
         }
         Article result = articleService.save(article);
+        
+        // 移除首页的全部缓存数据,重新取得数据
+        homeService.removeCacheHome();
+        // TODO 作者详细页面 需要移除缓存
+        
         return ResponseEntity.created(new URI("/api/articles/" + result.getId()))
         		// 不设置headers的alert的内容文章详细页面会显示
 //            .headers(HeaderUtil.createEntityCreationAlert("article", result.getId().toString()))
