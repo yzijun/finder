@@ -147,6 +147,12 @@
                 </p>
             </div>
         </div>
+        <div class="form-group">
+            <label for="original">
+                <input i-check type="checkbox" id="original" ng-model="article.original">
+                <span>是原创文章</span>
+            </label>
+        </div>
         <!-- <div class="form-group">
             <label translate="finderApp.article.user" for="field_user">user</label>
             <select class="form-control" id="field_user" name="user" ng-model="article.user" ng-options="user as user.nickName for user in users track by user.id">

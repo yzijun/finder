@@ -48,6 +48,10 @@ public class Article implements Serializable {
     //文章默认被发布(可能有非法不允许发布)
     @Column(nullable = false)
     private boolean published = true;
+
+    // 是原创文章(默认否)
+    @Column()
+    private boolean original = false;
     
     //文章浏览次数
     @Column(name = "page_view")
@@ -173,6 +177,14 @@ public class Article implements Serializable {
 		this.minImgURL = minImgURL;
 	}
 
+	public boolean isOriginal() {
+		return original;
+	}
+
+	public void setOriginal(boolean original) {
+		this.original = original;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -202,6 +214,7 @@ public class Article implements Serializable {
             ", pageView='" + pageView + "'" +
             ", createdDate='" + createdDate + "'" +
             ", minImgURL='" + minImgURL + "'" +
+            ", original='" + original + "'" +
             '}';
     }
 }
