@@ -396,7 +396,6 @@ a:hover, a:link {
 }
 .article-new {
 	bottom: 265px;
-    font-size: 18px;
 }
 .transition {
     transition: all 0.2s ease-out 0s;
