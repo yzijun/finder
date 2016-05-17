@@ -159,21 +159,22 @@ public class HomeService {
     
     /*
      * 首页顶部图片数据
-     * 方案二：取得30条数据的打乱顺序后显示前三条数据
+     * 方案二：取得20条数据的打乱顺序后显示前三条数据
      */
     @SuppressWarnings("unchecked")
 	private List<Article> topDataPic() {
         // 使用entityManager查询分页数据
 		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
-		Query query = entityManager.createQuery("select a from Article a left join fetch a.user left join fetch a.articleCategory where a.published = ?1");
+		Query query = entityManager.createQuery("select a from Article a left join fetch a.user left join fetch a.articleCategory where a.published = ?1 order by a.createdDate desc");
 		// 设置查询参数(参数索引值从1开始)
 		query.setParameter(1, true);
 		// 默认显示的数量
-        int pageSize = 30;
+        int pageSize = 20;
 		// 取得分页数据
-        List<Article> article = query.setFirstResult(0)
+        List<Article> article = query.setFirstResult(10)
         					   .setMaxResults(pageSize)
         					   .getResultList();
+        // 打乱顺序
         Collections.shuffle(article);
 	 	return article;
 	}
