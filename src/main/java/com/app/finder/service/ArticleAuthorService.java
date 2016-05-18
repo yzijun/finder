@@ -21,6 +21,7 @@ import com.app.finder.domain.Article;
 import com.app.finder.domain.User;
 import com.app.finder.repository.ArticleFavoriteRepository;
 import com.app.finder.repository.ArticleReplyRepository;
+import com.app.finder.repository.ArticleRepository;
 import com.app.finder.repository.UserRepository;
 import com.app.finder.web.rest.dto.ArticleAuthorDTO;
 import com.app.finder.web.rest.dto.HomePageDataDTO;
@@ -38,6 +39,9 @@ public class ArticleAuthorService {
 	@Inject
 	private UserRepository userRepository;
 
+	@Inject
+	private ArticleRepository articleRepository;
+	
 	@Inject
 	private ArticleFavoriteRepository articleFavoriteRepository;
 
@@ -58,7 +62,7 @@ public class ArticleAuthorService {
 	 */
 	@Cacheable("authorDetail")
 	@Transactional(readOnly = true)
-	public ArticleAuthorDTO getAuthorDetail(Long id) {
+	public ArticleAuthorDTO getAuthorDetail(Long id, String detype) {
 		log.debug("缓存作者的详细信息 用户ID: {}",id);
 		// 作者
 		User user = userRepository.findOneById(id).get();
@@ -66,22 +70,39 @@ public class ArticleAuthorService {
 		if (user == null) {
 			return null;
 		}
-		// 发表文章数 不需要在查询pageData就可以取得
-//		Integer articleNum = articleRepository.findByCountArticleIsUid(id);
-		// 文章分页数据  默认第一页显示10条
-		Pageable pageable = new PageRequest(0, 10);
-		Page<Article> pageData = pageArticleData(pageable, id);
-		List<HomePageDataDTO> pageDataDTO = homeService.transPageData(pageData);
+		// 发表文章数
+		Integer articleNum = articleRepository.findByCountArticleIsUid(id);
 		// 评论数
 		Integer commentNum = articleReplyRepository.findByCountArticleReplyUid(id);
 		// 收获喜欢数
 		Integer favoriteNum = articleFavoriteRepository.getCountArticleFavoriteByUser(id);
-		return new ArticleAuthorDTO(user, commentNum, favoriteNum,
-									pageDataDTO, pageData);
+		// 文章分页数据  默认第一页显示10条
+		Pageable pageable = new PageRequest(0, 10);
+		
+		Page<Article> pageData = null;
+		List<HomePageDataDTO> pageDataDTO = null;
+		// 字符串转换成枚举对象
+		AuthorDetailType aType = Enum.valueOf(AuthorDetailType.class, detype.toUpperCase());
+		// 作者文章类型
+		switch (aType) {
+			case ARTICLE:
+				pageData = pageArticleData(pageable, id);
+				pageDataDTO = homeService.transPageData(pageData);
+				break;
+			case COMMENT:
+				
+				break;
+			case FAVORITE:
+				pageData = pageFavoriteData(pageable, id);
+				pageDataDTO = homeService.transPageData(pageData);
+				break;
+		}
+		return new ArticleAuthorDTO(user, articleNum, commentNum, favoriteNum,
+				pageDataDTO, pageData);
 	}
 	
 	/**
-	 * 取得作者的详细信息
+	 * 取得作者的分页数据
 	 * 
 	 * @param id
 	 * @return
@@ -101,7 +122,6 @@ public class ArticleAuthorService {
 		// 作者文章类型
 		switch (aType) {
 			case ARTICLE:
-				// 文章分页数据  默认第一页显示10条
 				pageData = pageArticleData(pageable, id);
 				pageDataDTO = homeService.transPageData(pageData);
 				break;
@@ -109,7 +129,8 @@ public class ArticleAuthorService {
 				
 				break;
 			case FAVORITE:
-				
+				pageData = pageFavoriteData(pageable, id);
+				pageDataDTO = homeService.transPageData(pageData);
 				break;
 		}
 		
@@ -117,7 +138,7 @@ public class ArticleAuthorService {
 	}
 	
 	 /*
-     * 文章分页数据
+     * 用户文章分页数据
      */
     @SuppressWarnings("unchecked")
 	public Page<Article> pageArticleData(Pageable pageable, Long id) {
@@ -140,4 +161,29 @@ public class ArticleAuthorService {
 		return page;
 	}
 
+    /*
+     * 用户收获喜欢的文章分页数据
+     */
+    @SuppressWarnings("unchecked")
+ 	private Page<Article> pageFavoriteData(Pageable pageable, Long id) {
+		// 原因是entityManager可以用.createQuery(sql)方法,可以用迫切左外连接的方式取得数据
+    	// 以ArticleFavorite为主表 查询出article只有一条数据
+//		Query query = entityManager.createQuery("select a.article from ArticleFavorite a left join fetch a.user left join fetch a.article where a.article.published = ?1 and a.article.user.id = ?2 order by a.article.createdDate desc");
+    	// 以Article为主表  ,a.favorites IS NOT EMPTY 查询出收获喜欢的文章
+		Query query = entityManager.createQuery("select a from Article a left join fetch a.favorites where a.published = ?1 and a.user.id = ?2 and a.favorites IS NOT EMPTY order by a.createdDate desc");
+		// 设置查询参数(参数索引值从1开始)
+		query.setParameter(1, true);
+		// 用户ID
+		query.setParameter(2, id);
+		// 总记录数
+		int totalElements = query.getResultList().size();
+		// 取得分页数据
+        List<Article> articles = query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize())
+   	    	 						  .setMaxResults(pageable.getPageSize())
+   	    	 						  .getResultList();
+		log.debug("get pageUserFavorite pageData size:" + articles.size());
+		// 从新构造page对象
+		Page<Article> page = new PageImpl<Article>(articles, pageable, totalElements); 
+		return page;
+ 	}
 }

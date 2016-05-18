@@ -5,6 +5,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import java.time.ZonedDateTime;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -80,6 +82,10 @@ public class Article implements Serializable {
     inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="ID"))
     private Set<Tag> tags = new HashSet<>();
 
+    @OneToMany(mappedBy = "article")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ArticleFavorite> favorites = new HashSet<>();
     
     public Long getId() {
         return id;
@@ -183,6 +189,14 @@ public class Article implements Serializable {
 
 	public void setOriginal(boolean original) {
 		this.original = original;
+	}
+
+	public Set<ArticleFavorite> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(Set<ArticleFavorite> favorites) {
+		this.favorites = favorites;
 	}
 
 	@Override

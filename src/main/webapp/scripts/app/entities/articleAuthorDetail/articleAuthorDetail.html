@@ -23,11 +23,11 @@
 			</div>
 			<div class="user-nav">
 				<div class="parts">
-					<a class="part current" ng-click="loadArticleAuthor()">发表文章（{{articleNum}}）</a>
+					<a class="part current" ng-click="loadArticleAuthor()">发表文章（{{author.articleNum}}）</a>
 					<span class="line"></span>
 					<a class="part" href="#">评论（{{author.commentNum}}）</a>
 					<span class="line"></span>
-					<a class="part" href="#">收获喜欢（{{author.favoriteNum}}）</a>
+					<a class="part" ng-click="loadFavoriteAuthor()">收获喜欢（{{author.favoriteNum}}）</a>
 				</div>
 			</div>
 			
@@ -79,6 +79,10 @@
 					</div>
 					<hr>
 				</div>
+				<!-- ng-if 判断和字符串相等 -->
+				<!-- <span ng-if="detype == 'favorite'">
+					取得收获喜欢 分页数据
+				</span> -->
 				<!-- 分页 -->
 				<div class="text-center">
 			        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()" items-per-page="pageSize"></uib-pagination>

@@ -38,13 +38,16 @@ public class ArticleAuthorResource {
 	 * 取得作者详细页面默认初始化数据
 	 * 文章、评论、收藏
 	 * id:用户ID
+	 * detype:文章、评论、收获喜欢
 	 */
     @RequestMapping(value = "/author/detail/{id}",
         method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        params = {"detype"})
     @Timed
-    public ResponseEntity<ArticleAuthorDTO> getArticleAuthorDetail(@PathVariable Long id) {
-        ArticleAuthorDTO articleAuthorDetail = articleAuthorService.getAuthorDetail(id);
+    public ResponseEntity<ArticleAuthorDTO> getArticleAuthorDetail(@PathVariable Long id,
+    		@RequestParam(value = "detype", required = true) String detype) {
+        ArticleAuthorDTO articleAuthorDetail = articleAuthorService.getAuthorDetail(id, detype);
         return Optional.ofNullable(articleAuthorDetail)
                 .map(result -> new ResponseEntity<>(
                     result,
