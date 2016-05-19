@@ -161,6 +161,53 @@ Custom alerts for notification
         width: 50%;
     }
 }
+/* 
+	@media 可以针对不同的屏幕尺寸设置不同的样式，
+	特别是如果你需要设置设计响应式的页面，
+*/
+@media screen and (max-width: 600px) {
+	/* 手机屏幕适配 文章首页图片右侧的内容  小于最大宽度 600px media-body 隐藏 */
+    .media-body {
+    	display: none;
+    }
+    .col-md-8 .pic-layer {
+    	display: none;
+    }
+    
+}
+
+@media screen and (min-width: 600px) {
+	/* 电脑屏幕适配  大于最小宽度 600px min-device 隐藏 */
+    .min-device {
+    	display: none;
+    }
+    .pic-layer-min {
+    	display: none;
+    }
+}
+
+/* 文章首页顶部的第一个大图的说明文字   */
+.pic-layer-min {
+    background-clip: content-box;
+    background-image: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.3));
+    height: 100%;
+    padding: 0.5px;
+    position: absolute;
+    top: 260px;
+    width: 100%;
+}
+.pic-layer-min .pic-intro-min {
+    bottom: 8%;
+    color: #fff;
+    left: 6%;
+    width: 250px;
+}
+.pic-intro-min .title-min {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    max-height: 80px;
+}
 
 /* end of Custom alerts for notification */
 

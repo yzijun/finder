@@ -35,9 +35,16 @@
 									data-ng-src="{{'data:' + favoriteData.firstImgContentType + ';base64,' + favoriteData.firstImg}}"
 									alt="{{favoriteData.title}}" ng-if="favoriteData.firstImg" class="carousel-inner img-responsive page-view-box-img"/>
 								<!-- 图片上显示的文章标题 -->
+								<!-- 电脑屏幕适配显示 -->
 								<div class="pic-layer">
 									<div class="pic-intro">
 										<h3 class="title">{{favoriteData.title}}</h3>
+									</div>
+								</div>
+								<!-- 手机屏幕适配显示 -->
+								<div class="pic-layer-min">
+									<div class="pic-intro-min">
+										<h3 class="title-min">{{favoriteData.title}}</h3>
 									</div>
 								</div>
 							</a>
@@ -126,7 +133,57 @@
 								<!-- 图片延迟加载lazy-src指令 -->
 								<img lazy-src="{{s.minImgURL}}" animate-visible="true" alt="{{s.title}}" ng-if="s.minImgURL" class="media-object mob-img"/>
 							</a>
+							<!-- 手机屏幕适配显示 -->
+							<div class="min-device">
+								<!-- 文章标题 -->
+								<h4 class="title">
+									<a ui-sref="article.detail({id:s.id})">{{s.title}}</a>
+								</h4>
+								<div class="mob-author">
+									<!-- 用户头像 -->
+									<div class="author-face">
+										<a ui-sref="articleAuthorDetail({uid:s.user.id})" title="{{s.user.nickName}}">
+										<img
+						                    data-ng-src="{{'data:' + s.user.pictureContentType + ';base64,' + s.user.picture}}"
+						                    class="img-circle profile-img-smaller" alt="{{s.user.nickName}}" ng-if="s.user.picture"/>
+										</a>
+									</div>
+									<!-- 用户昵称 -->
+									<a ui-sref="articleAuthorDetail({uid:s.user.id})">
+										<span class="mob-author-name">
+											{{s.user.nickName}}
+										</span>
+									</a>
+									
+									<!-- 发表时间 -->
+									<span class="time" title="{{s.createdDate | date:'yyyy-MM-dd HH:mm'}}">
+										{{s.prettyTime}}
+									</span>
+									<!-- 文章浏览次数 -->
+									<span class="time" title="浏览数">
+										<i class="fa fa-eye"></i>
+										<em>{{s.pageView}}</em>
+									</span>
+									<!-- 评论数 -->
+									<span class="time" title="评论数">
+										<i class="fa fa-comment"></i>
+										<em>{{s.commentNum}}</em>
+									</span>
+									<!-- 收获喜欢数 -->
+									<span class="time" title="收获喜欢数">
+										<i class="fa fa-heart"></i>
+										<em>{{s.favoriteNum}}</em>
+									</span>
+									<!-- 文章分类 -->
+									<span class="label label-default" style="background-color: #bbb">
+										{{s.articleCategory.name}}
+									</span>
+								</div>
+								<!-- 文章内容描述 -->
+								<div class="mob-author mob-sub">{{s.describle | characters:40 }}</div>
+							</div>
 						</div>
+						<!-- 电脑屏幕适配显示 -->
 						<div class="media-body" style="padding-left: 15px;">
 							<!-- 文章标题 -->
 							<h4 class="title">
