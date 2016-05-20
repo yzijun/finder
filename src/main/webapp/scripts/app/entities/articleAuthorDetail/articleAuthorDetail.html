@@ -25,7 +25,7 @@
 				<div class="parts">
 					<a class="part current" ng-click="loadArticleAuthor()">发表文章（{{author.articleNum}}）</a>
 					<span class="line"></span>
-					<a class="part" href="#">评论（{{author.commentNum}}）</a>
+					<a class="part" ng-click="loadCommentAuthor()">评论（{{author.commentNum}}）</a>
 					<span class="line"></span>
 					<a class="part" ng-click="loadFavoriteAuthor()">收获喜欢（{{author.favoriteNum}}）</a>
 				</div>

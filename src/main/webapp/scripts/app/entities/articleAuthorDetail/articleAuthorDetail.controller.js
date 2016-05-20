@@ -57,6 +57,17 @@ angular.module('finderApp')
         
         $scope.loadArticleAuthor();
         
+        // 取得评论 初始数据
+        $scope.loadCommentAuthor = function() {
+        	removeTabCalss();
+        	// 设定当前tab
+        	$(".user-nav a:eq(1)").addClass("current");
+        	
+        	$scope.detype = "comment";
+        	
+        	getData();
+    	}
+        
         // 取得收获喜欢 初始数据
         $scope.loadFavoriteAuthor = function() {
         	removeTabCalss();

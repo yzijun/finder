@@ -1,18 +1,32 @@
 package com.app.finder.domain;
 
+import java.io.Serializable;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import java.time.ZonedDateTime;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
 
 /**
  * 文章类.
@@ -86,6 +100,11 @@ public class Article implements Serializable {
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ArticleFavorite> favorites = new HashSet<>();
+    
+    @OneToMany(mappedBy = "article")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ArticleReply> replies = new HashSet<>();
     
     public Long getId() {
         return id;
@@ -197,6 +216,14 @@ public class Article implements Serializable {
 
 	public void setFavorites(Set<ArticleFavorite> favorites) {
 		this.favorites = favorites;
+	}
+
+	public Set<ArticleReply> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(Set<ArticleReply> replies) {
+		this.replies = replies;
 	}
 
 	@Override
