@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -203,4 +204,14 @@ public class ArticleAuthorService {
 		Page<Article> page = new PageImpl<Article>(articles, pageable, totalElements); 
 		return page;
  	}
+    
+    /*
+     * 根据作者文章类型移除作者详细信息
+     * 缓存的 key，可以为空，如果指定要按照 SpEL 表达式编写，
+     * ==如果不指定，则缺省按照方法的所有参数进行组合==
+     */
+    @CacheEvict(value = "authorDetail", allEntries=true)
+    public void evictAuthorDetailAll() {
+    	
+    }
 }

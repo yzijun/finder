@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.finder.domain.ArticleFavorite;
+import com.app.finder.service.ArticleAuthorService;
 import com.app.finder.service.ArticleFavoriteService;
 import com.app.finder.web.rest.dto.ArticleFavoriteDTO;
 import com.app.finder.web.rest.util.HeaderUtil;
@@ -37,6 +38,8 @@ public class ArticleFavoriteResource {
     @Inject
     private ArticleFavoriteService articleFavoriteService;
     
+    @Inject
+    private ArticleAuthorService authorService;
     /**
      * POST  /articleFavorites -> Create a new articleFavorite.
      */
@@ -50,6 +53,8 @@ public class ArticleFavoriteResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("articleFavorite", "idexists", "A new articleFavorite cannot already have an ID")).body(null);
         }
         ArticleFavoriteDTO result = articleFavoriteService.save(articleFavorite);
+        // 作者详细页面 需要移除文章类型全部缓存
+        authorService.evictAuthorDetailAll();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

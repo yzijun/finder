@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.finder.domain.Article;
 import com.app.finder.domain.ArticleReply;
 import com.app.finder.security.AuthoritiesConstants;
+import com.app.finder.service.ArticleAuthorService;
 import com.app.finder.service.ArticleService;
 import com.app.finder.service.HomeService;
 import com.app.finder.web.rest.dto.ArticleDTO;
@@ -51,6 +52,9 @@ public class ArticleResource {
     private ArticleService articleService;
     
     @Inject
+    private ArticleAuthorService authorService;
+    
+    @Inject
     private HomeService homeService;
     /**
      * POST  /articles -> Create a new article.
@@ -70,7 +74,8 @@ public class ArticleResource {
         
         // 移除首页的全部缓存数据,重新取得数据
         homeService.removeCacheHome();
-        // TODO 作者详细页面 需要移除缓存
+        // 作者详细页面 需要移除文章类型全部缓存
+        authorService.evictAuthorDetailAll();
         
         return ResponseEntity.created(new URI("/api/articles/" + result.getId()))
         		// 不设置headers的alert的内容文章详细页面会显示
@@ -174,6 +179,8 @@ public class ArticleResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("articleReply", "idexists", "A new articleReply cannot already have an ID")).body(null);
         }
         Page<ArticleReplyDTO> articleRepliesDTO = articleService.createArticleReply(articleReply);
+        // 作者详细页面 需要移除文章类型全部缓存
+        authorService.evictAuthorDetailAll();
 //        HttpHeaders headers = HeaderUtil.createAlert("评论保存成功！", "");
         return new ResponseEntity<>(articleRepliesDTO, HttpStatus.OK);
     }
