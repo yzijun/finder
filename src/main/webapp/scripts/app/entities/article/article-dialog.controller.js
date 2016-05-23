@@ -1,13 +1,18 @@
 'use strict';
 
 angular.module('finderApp').controller('ArticleDialogController',
-    ['$scope', '$state','DataUtils', 'entity', 'Article', 'User', 'ArticleCategory', 'Principal',
-        function($scope, $state, DataUtils, entity, Article, User, ArticleCategory, Principal) {
+    ['$scope', '$state', '$timeout','DataUtils', 'entity', 'Article', 'User', 'ArticleCategory', 'Principal', 'CommonTools',
+        function($scope, $state, $timeout, DataUtils, entity, Article, User, ArticleCategory, Principal, CommonTools) {
 
     	Principal.identity().then(function(account) {
     		// 取得当前登录用户
             $scope.account = account;
         });
+    	
+    	// 默认回到页面的顶部
+    	CommonTools.scrollTo();
+    	
+    	$timeout(function (){angular.element('[ng-model="article.title"]').focus();});
     	
         $scope.article = entity;
         //注释不用,会查询全部的用户
