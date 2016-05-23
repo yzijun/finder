@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('finderApp')
-    .controller('RegisterController', function ($scope, $translate, $timeout, Auth) {
+    .controller('RegisterController', function ($scope, $translate, $timeout, Auth, CommonTools) {
+    	// 默认回到页面的顶部
+    	CommonTools.scrollTo();
+    	
         $scope.success = null;
         $scope.error = null;
         $scope.doNotMatch = null;
