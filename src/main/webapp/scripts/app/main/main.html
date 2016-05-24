@@ -319,7 +319,7 @@
 				<ul class="list-group">
 					<!-- pull-right css 向左或向右浮动 -->
 					<li class="list-group-item" ng-repeat="au in favorites track by au.author.id">
-						<a ui-sref="articleAuthorDetail({uid:au.author.id})" title="{{au.author.nickName}}">
+						<a ui-sref="articleAuthorDetail({uid:au.author.id,tab:'fav'})" title="{{au.author.nickName}}">
 							<span class="pull-left">
 								<img
 				                    data-ng-src="{{'data:' + au.author.pictureContentType + ';base64,' + au.author.picture}}"

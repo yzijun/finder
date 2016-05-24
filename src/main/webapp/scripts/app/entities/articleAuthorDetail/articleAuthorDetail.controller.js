@@ -55,7 +55,6 @@ angular.module('finderApp')
         	});
         }
         
-        $scope.loadArticleAuthor();
         
         // 取得评论 初始数据
         $scope.loadCommentAuthor = function() {
@@ -121,4 +120,12 @@ angular.module('finderApp')
     			}
     		});
     	}
+    	
+    	// 根据参数显示对应tab的文章数据
+		if ($stateParams.tab != undefined
+				&& $stateParams.tab == 'fav') {
+			$scope.loadFavoriteAuthor();
+		} else {
+			$scope.loadArticleAuthor();
+		}
     });

@@ -5,7 +5,8 @@ angular.module('finderApp')
         $stateProvider
             .state('articleAuthorDetail', {
                 parent: 'entity',
-                url: '/articleAuthorDetails/:uid',
+                // :uid?:tab 传参数的定义
+                url: '/articleAuthorDetails/:uid?:tab',
                 data: {
 //                    authorities: ['ROLE_USER'],
                 	//不需要登录不设定角色就可以显示文章作者详细页面
